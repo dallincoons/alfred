@@ -34,6 +34,11 @@ class User extends Authenticatable
         return $this->hasMany(Room::class);
     }
 
+    public function guestUser()
+    {
+        return $this->hasOne(GuestUser::class, 'parent_user_id');
+    }
+
     public function createRoom(string $name)
     {
         $playlistId = app(SpotifyGatewayInterface::class)->createPlaylist($name, $this->spotify_id);

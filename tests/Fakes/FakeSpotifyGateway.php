@@ -3,6 +3,7 @@
 namespace Tests\Fakes;
 
 use App\Gateways\SpotifyGatewayInterface;
+use App\GuestUser;
 use App\SpotifyUser;
 use App\User;
 
@@ -21,6 +22,10 @@ class FakeSpotifyGateway implements SpotifyGatewayInterface
                 'access_token' => $spotifyUser->access_token,
                 'refresh_token' => $spotifyUser->refresh_token,
             ])->save();
+
+            GuestUser::create([
+                'parent_user_id' => $user->getKey()
+            ]);
         };
 
         auth()->login($user);

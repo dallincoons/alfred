@@ -2,6 +2,7 @@
 
 namespace App\Gateways;
 
+use App\GuestUser;
 use App\SpotifyUser;
 use App\User;
 
@@ -11,19 +12,18 @@ class SpotifyGateway implements SpotifyGatewayInterface
     {
         $user = User::firstOrNew(['spotify_id' => $spotifyUser->id]);
 
-        $user->fill([
-            'access_token' => $spotifyUser->access_token,
-            'refresh_token' => $spotifyUser->refresh_token,
-        ]);
-
         if (!$user->exists) {
             $user->fill([
+                'access_token' => $spotifyUser->access_token,
+                'refresh_token' => $spotifyUser->refresh_token,
                 'name' => $spotifyUser->name,
                 'spotify_id' => $spotifyUser->id,
+            ])->save();
+
+            GuestUser::create([
+                'parent_user_id' => $user->getKey()
             ]);
         };
-
-        $user->save();
 
         auth()->login($user);
 

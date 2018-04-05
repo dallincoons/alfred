@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Gateways\SpotifyGateway;
 use App\Gateways\SpotifyGatewayInterface;
+use App\GuestUser;
 use App\Room;
 use Tests\TestCase;
 
@@ -51,5 +52,19 @@ class RoomTest extends TestCase
 
         $this->assertTrue($room->join($roomId));
         $this->assertFalse($room->join('INVALID'));
+    }
+
+    /** @test */
+    public function user_can_login_using_room_code()
+    {
+        /** @var Room $room */
+        $room = $this->user->createRoom('test1337');
+        $roomId = $room->share();
+
+        $guestUser = GuestUser::where('parent_user_id', $this->user->getKey())->first();
+
+        $room->join($roomId);
+
+        $this->assertEquals($guestUser, \Auth::user());
     }
 }

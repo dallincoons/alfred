@@ -4,6 +4,7 @@ namespace Tests\Unit\Gateways;
 
 use App\Gateways\SpotifyGateway;
 use App\Gateways\SpotifyGatewayInterface;
+use App\GuestUser;
 use App\SpotifyUser;
 use App\User;
 use Tests\TestCase;
@@ -30,6 +31,7 @@ class SpotifyGatewayTest extends TestCase
     public function test_user_can_login_from_spotify_auth()
     {
         User::truncate();
+        GuestUser::truncate();
 
         $spotifyUser = new SpotifyUser(123456789, 'Paul M', '11111', '22222');
 
@@ -38,6 +40,7 @@ class SpotifyGatewayTest extends TestCase
         $this->getGateway()->login($spotifyUser);
 
         $this->assertEquals(1, User::count());
+        $this->assertEquals(1, GuestUser::count());
         $this->assertEquals(User::first()->id, \Auth::user()->id);
 
         $this->spotify->login($spotifyUser);

@@ -23,6 +23,11 @@ class Room extends Model
         $this->codeGenerator = app(CodeGenerator::class);
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function share()
     {
         return $this->codeGenerator->encode($this->getKey());
@@ -30,6 +35,11 @@ class Room extends Model
 
     public function join(string $roomId)
     {
-        return array_get($this->codeGenerator->decode($roomId), 0) == $this->getKey();
+        if (array_get($this->codeGenerator->decode($roomId), 0) == $this->getKey()) {
+            \Auth::login($this->user->guestUser);
+            return true;
+        }
+
+        return false;
     }
 }
