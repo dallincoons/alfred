@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Gateways\SpotifyGatewayInterface;
+use Hashids\Hashids;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
