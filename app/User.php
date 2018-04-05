@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Gateways\SpotifyGatewayInterface;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -15,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'spotify_id'
+        'name', 'spotify_id', 'access_token', 'refresh_token'
     ];
 
     /**
@@ -26,4 +27,19 @@ class User extends Authenticatable
     protected $hidden = [
         'remember_token',
     ];
+
+    public function rooms()
+    {
+        return $this->hasMany(Room::class);
+    }
+
+    public function createRoom(string $name)
+    {
+        $playlistId = app(SpotifyGatewayInterface::class)->createPlaylist($name, $this->spotify_id);
+
+        return $this->rooms()->create([
+            'name' => $name,
+            'playlistId' => $playlistId
+        ]);
+    }
 }

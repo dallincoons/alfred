@@ -73,32 +73,9 @@
                 <span>Welcome, {{\Auth::user()->name}}</span> | <span><a href="/logout">Logout</a></span>
             @endif
         </div>
-        <script src="https://sdk.scdn.co/spotify-player.js"></script>
-        <script>
-            window.onSpotifyWebPlaybackSDKReady = () => {
-                const token = 'BQCtFjZITlqSh1IZ_vgyv7VsrSg8S5Fmdn6431CA3QyX-IFMHrTsOyLM5SJ3obm5F4avwlCOTHAvqFUhpqn05v_sHnPotl3F16dSpyRrmCg0ZkWF2gJ6JX-KHH13VMvOV7OVQ0TBZ1e9fqyCmZOqIQcZ4KFsnl5bviREIw';
-                const player = new Spotify.Player({
-                    name: 'Web Playback SDK Quick Start Player',
-                    getOAuthToken: cb => { cb(token); }
-                });
 
-                // Error handling
-                player.addListener('initialization_error', ({ message }) => { console.error(message); });
-                player.addListener('authentication_error', ({ message }) => { console.error(message); });
-                player.addListener('account_error', ({ message }) => { console.error(message); });
-                player.addListener('playback_error', ({ message }) => { console.error(message); });
+        <div id="container">
 
-                // Playback status updates
-                player.addListener('player_state_changed', state => { console.log(state); });
-
-                // Ready
-                player.addListener('ready', ({ device_id }) => {
-                    console.log('Ready with Device ID', device_id);
-                });
-
-                // Connect to the player!
-                player.connect();
-            };
-        </script>
+        </div>
     </body>
 </html>

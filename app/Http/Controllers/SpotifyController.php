@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Gateways\CrawlerInterface;
 use App\Gateways\GoutteCrawler;
-use App\Gateways\Spotify;
+use App\Gateways\SpotifyGateway;
+use App\Gateways\SpotifyGatewayInterface;
 use App\SpotifyUser;
 use App\User;
 use Illuminate\Http\Request;
@@ -12,6 +13,16 @@ use Laravel\Socialite\Facades\Socialite;
 
 class SpotifyController
 {
+    /**
+     * @var SpotifyGatewayInterface
+     */
+    private $spotify;
+
+    public function __construct()
+    {
+        $this->spotify = app(SpotifyGatewayInterface::class);
+    }
+
     public function connect()
     {
         $scopes = explode(',', 'playlist-read-private,playlist-read-collaborative,playlist-modify-public,playlist-modify-private,streaming,user-library-read,user-library-modify,user-read-currently-playing,user-read-recently-played');
@@ -26,9 +37,11 @@ class SpotifyController
     {
         $user = Socialite::driver('spotify')->stateless()->user();
 
-        Spotify::login(new SpotifyUser(
+        $this->spotify->login(new SpotifyUser(
             $user->id,
-            $user->name
+            $user->name,
+            $user->token,
+            $user->refreshToken
         ));
 
         return redirect('/');
