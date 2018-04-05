@@ -11,17 +11,25 @@ class Room extends Model
         'name', 'playlistId'
     ];
 
+    /**
+     * @var CodeGenerator
+     */
+    private $codeGenerator;
+
+    public function __construct(array $attributes = array())
+    {
+        parent::__construct($attributes);
+
+        $this->codeGenerator = app(CodeGenerator::class);
+    }
+
     public function share()
     {
-        $hashids = new Hashids('', 5, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ');
-
-        return $hashids->encode($this->getKey());
+        return $this->codeGenerator->encode($this->getKey());
     }
 
     public function join(string $roomId)
     {
-        $hashids = new Hashids('', 5, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ');
-
-        return array_get($hashids->decode($roomId), 0) == $this->getKey();
+        return array_get($this->codeGenerator->decode($roomId), 0) == $this->getKey();
     }
 }
