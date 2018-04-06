@@ -54,6 +54,14 @@ class SpotifyGatewayTest extends TestCase
 //        $this->spotify->createPlaylist('test123', \Auth::user()->spotify_id);
 //    }
 
+//    /** @test */
+//    public function add_song_to_playlist()
+//    {
+//        $playlistId = $this->getGateway()->createPlaylist('test123', \Auth::user()->spotify_id);
+//
+//        $this->getGateway()->addSong($playlistId, '60SJRvzXJnVeVfS4RiH14u');
+//    }
+
     public function getGateway()
     {
         return new SpotifyGateway();

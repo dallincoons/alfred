@@ -35,8 +35,13 @@ class FakeSpotifyGateway implements SpotifyGatewayInterface
 
     public function createPlaylist(string $name, string $userId = null)
     {
-        $this->playlists[$id = random_int(1000, 9999)] = $name;
+        $this->playlists[$id = random_int(1000, 9999)] = (object) ['name' => $name, 'songs' => []];
 
         return $id;
+    }
+
+    public function addSong(string $playListId, string $songId, string $userId = null)
+    {
+        array_push($this->playlists[$playListId]->songs, $songId);
     }
 }

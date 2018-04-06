@@ -2,7 +2,7 @@
 
 namespace App;
 
-use Hashids\Hashids;
+use App\Gateways\SpotifyGatewayInterface;
 use Illuminate\Database\Eloquent\Model;
 
 class Room extends Model
@@ -16,11 +16,17 @@ class Room extends Model
      */
     private $codeGenerator;
 
+    /**
+     * @var SpotifyGatewayInterface
+     */
+    private $gateway;
+
     public function __construct(array $attributes = array())
     {
         parent::__construct($attributes);
 
         $this->codeGenerator = app(CodeGenerator::class);
+        $this->gateway = app(SpotifyGatewayInterface::class);
     }
 
     public function user()
@@ -41,5 +47,10 @@ class Room extends Model
         }
 
         return false;
+    }
+
+    public function addSong(string $songId)
+    {
+        $this->gateway->addSong($this->playlistId, $songId);
     }
 }

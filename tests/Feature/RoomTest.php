@@ -17,8 +17,7 @@ class RoomTest extends TestCase
 
         $gateway = app(SpotifyGatewayInterface::class);
 
-        $this->assertContains('test1337', $gateway->playlists);
-        $this->assertEquals(array_search('test1337', $gateway->playlists), $room->playlistId);
+        $this->assertArrayHasKey($room->playlistId, $gateway->playlists);
     }
 
     /** @test */
@@ -66,5 +65,21 @@ class RoomTest extends TestCase
         $room->join($roomId);
 
         $this->assertEquals($guestUser, \Auth::user());
+    }
+
+    /** @test */
+    public function user_can_add_songs_to_playlist()
+    {
+        /** @var Room $room */
+        $room = $this->user->createRoom('test1337');
+        $roomId = $room->share();
+
+        $room->join($roomId);
+
+        $room->addSong('60SJRvzXJnVeVfS4RiH14u?si=r7lJ_QeWQIu0c8gvsVvTYg');
+
+        $songs = app(SpotifyGatewayInterface::class)->playlists[$room->playlistId]->songs;
+
+        $this->assertContains('60SJRvzXJnVeVfS4RiH14u?si=r7lJ_QeWQIu0c8gvsVvTYg', $songs);
     }
 }

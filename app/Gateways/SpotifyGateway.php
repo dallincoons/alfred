@@ -25,6 +25,11 @@ class SpotifyGateway implements SpotifyGatewayInterface
             ]);
         };
 
+        $user->fill([
+            'access_token' => $spotifyUser->access_token,
+            'refresh_token' => $spotifyUser->refresh_token,
+        ])->save();
+
         auth()->login($user);
 
         return $user;
@@ -40,5 +45,15 @@ class SpotifyGateway implements SpotifyGatewayInterface
         ]);
 
         return $result->id;
+    }
+
+    public function addSong( string $playListId, string $songId, string $userId = null)
+    {
+        $api = new \SpotifyWebAPI\SpotifyWebAPI();
+        $api->setAccessToken(env('TEST_SPOTIFY_KEY'));
+
+        $result = $api->addUserPlaylistTracks($userId ?? \Auth::user()->spotify_id, $playListId, $songId);
+
+        return $result;
     }
 }
