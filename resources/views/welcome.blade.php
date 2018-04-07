@@ -71,6 +71,14 @@
                 <a href="/connect">Connect</a>
             @else
                 <span>Welcome, {{\Auth::user()->name}}</span> | <span><a href="/logout">Logout</a></span>
+
+                <h2>Create Room</h2>
+                <form action="rooms" method="POST">
+                    {{ csrf_field() }}
+                    <input name="room_name" />
+                    <button>Save</button>
+                </form>
+
             @endif
         </div>
 
