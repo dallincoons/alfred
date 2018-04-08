@@ -46,4 +46,11 @@ class SpotifyController
 
         return redirect('/');
     }
+
+    public function songs(Request $request)
+    {
+        $result = $this->spotify->search($request->q);
+
+        return response()->json($result);
+    }
 }

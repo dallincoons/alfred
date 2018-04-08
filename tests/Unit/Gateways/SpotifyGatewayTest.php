@@ -37,7 +37,7 @@ class SpotifyGatewayTest extends TestCase
 
         $this->assertEquals(0, User::count());
 
-        $this->getGateway()->login($spotifyUser);
+        $this->spotify->login($spotifyUser);
 
         $this->assertEquals(1, User::count());
         $this->assertEquals(1, GuestUser::count());
@@ -49,17 +49,27 @@ class SpotifyGatewayTest extends TestCase
     }
 
 //    /** @test */
-//    public function it_can_create_playlist()
+//    public function it_searches_for_songs()
 //    {
-//        $this->spotify->createPlaylist('test123', \Auth::user()->spotify_id);
+//        $spotifyUser = new SpotifyUser(123456789, 'Paul M', env('TEST_SPOTIFY_KEY'), '22222');
+//        $this->spotify->login($spotifyUser);
+//
+//        $result = $this->spotify->search('summertime teenage bottlerocket');
+//
+//        $image = data_get($result, 'tracks.items.0.album.images.0');
+//
+//        $this->assertTrue(is_string(data_get($result, 'tracks.items.0.id')));
+//        $this->assertTrue(is_string($image->url));
 //    }
-
+//
 //    /** @test */
 //    public function add_song_to_playlist()
 //    {
-//        $playlistId = $this->getGateway()->createPlaylist('test123', \Auth::user()->spotify_id);
+//        $playlistId = $this->spotify->createPlaylist('test123', \Auth::user()->spotify_id);
 //
-//        $this->getGateway()->addSong($playlistId, '60SJRvzXJnVeVfS4RiH14u');
+//        $this->spotify->addSong($playlistId, '60SJRvzXJnVeVfS4RiH14u');
+//
+//        $this->assertEquals('60SJRvzXJnVeVfS4RiH14u', data_get($this->spotify->getPlaylistTracks($playlistId), 'items.0.track.id'));
 //    }
 
     public function getGateway()

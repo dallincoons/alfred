@@ -53,4 +53,9 @@ class Room extends Model
     {
         $this->gateway->addSong($this->playlistId, $songId);
     }
+
+    public function getSongs()
+    {
+        return $this->gateway->getPlaylistTracks($this->playlistId);
+    }
 }

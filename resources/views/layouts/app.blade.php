@@ -21,5 +21,38 @@
     @yield('content')
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+    window.axios.defaults.headers.common = {
+        'X-Requested-With': 'XMLHttpRequest',
+        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+    };
+
+    new Vue({
+        el : '#app',
+
+        data() {
+            return {
+                songName: '',
+                songs: []
+            }
+        },
+
+        methods : {
+           searchSongs(song) {
+               axios.get('/spotify/songs?q=' + song).then((response) => {
+                   this.songs = response.data;
+               });
+           },
+
+           addSong(room, song) {
+               axios.post('/room/' + room + '/song/' + song).then((response) => {
+                   alert('success');
+               });
+           }
+        }
+    });
+</script>
 </body>
 </html>

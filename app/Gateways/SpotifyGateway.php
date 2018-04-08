@@ -8,6 +8,17 @@ use App\User;
 
 class SpotifyGateway implements SpotifyGatewayInterface
 {
+    /**
+     * @var \SpotifyWebAPI\SpotifyWebAPI
+     */
+    private $api;
+
+    public function __construct()
+    {
+        $this->api = new \SpotifyWebAPI\SpotifyWebAPI();
+        $this->api->setAccessToken(\Auth::user()->access_token);
+    }
+
     public function login(SpotifyUser $spotifyUser)
     {
         $user = User::firstOrNew(['spotify_id' => $spotifyUser->id]);
@@ -23,12 +34,12 @@ class SpotifyGateway implements SpotifyGatewayInterface
             GuestUser::create([
                 'parent_user_id' => $user->getKey()
             ]);
-        };
-
-        $user->fill([
-            'access_token' => $spotifyUser->access_token,
-            'refresh_token' => $spotifyUser->refresh_token,
-        ])->save();
+        } else {
+            $user->fill([
+                'access_token' => $spotifyUser->access_token,
+                'refresh_token' => $spotifyUser->refresh_token,
+            ])->save();
+        }
 
         auth()->login($user);
 
@@ -37,10 +48,7 @@ class SpotifyGateway implements SpotifyGatewayInterface
 
     public function createPlaylist(string $name, string $userId = null)
     {
-        $api = new \SpotifyWebAPI\SpotifyWebAPI();
-        $api->setAccessToken(\Auth::user()->access_token);
-
-        $result = $api->createUserPlaylist($userId ?? \Auth::user()->spotify_id, [
+        $result = $this->api->createUserPlaylist($userId ?? \Auth::user()->spotify_id, [
             'name' => $name
         ]);
 
@@ -49,11 +57,18 @@ class SpotifyGateway implements SpotifyGatewayInterface
 
     public function addSong( string $playListId, string $songId, string $userId = null)
     {
-        $api = new \SpotifyWebAPI\SpotifyWebAPI();
-        $api->setAccessToken(env('TEST_SPOTIFY_KEY'));
-
-        $result = $api->addUserPlaylistTracks($userId ?? \Auth::user()->spotify_id, $playListId, $songId);
+        $result = $this->api->addUserPlaylistTracks($userId ?? \Auth::user()->spotify_id, $playListId, $songId);
 
         return $result;
+    }
+
+    public function search(string $searchText)
+    {
+        return $this->api->search($searchText, 'track');
+    }
+
+    public function getPlaylistTracks(string $playlistId)
+    {
+        return $this->api->getUserPlaylistTracks(\Auth::user()->spotify_id, $playlistId);
     }
 }

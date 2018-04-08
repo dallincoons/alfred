@@ -32,7 +32,7 @@ abstract class TestCase extends BaseTestCase
 
         $this->spotify = app(SpotifyGatewayInterface::class);
 
-        $spotifyUser = new SpotifyUser(1213003440, 'Paul M', '11111', '22222');
+        $spotifyUser = new SpotifyUser(1213003440, 'Paul M', env('TEST_SPOTIFY_KEY'), '22222');
 
         $this->spotify->login($spotifyUser);
 
