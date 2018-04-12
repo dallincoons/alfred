@@ -6,6 +6,7 @@ use App\Gateways\CrawlerInterface;
 use App\Gateways\GoutteCrawler;
 use App\Gateways\SpotifyGateway;
 use App\Gateways\SpotifyGatewayInterface;
+use App\Spotify;
 use App\SpotifyUser;
 use App\User;
 use Illuminate\Http\Request;
@@ -37,7 +38,7 @@ class SpotifyController
     {
         $user = Socialite::driver('spotify')->stateless()->user();
 
-        $this->spotify->login(new SpotifyUser(
+        Spotify::login(new SpotifyUser(
             $user->id,
             $user->name,
             $user->token,
