@@ -69,6 +69,13 @@
         <div class="container">
             @if(!\Auth::check())
                 <a href="/connect">Connect</a>
+
+                <form action="room/join" method="POST">
+                    {{ csrf_field() }}
+                    <h2>Join Room</h2>
+                    <input name="room" />
+                    <input type="submit" />
+                </form>
             @else
                 <span>Welcome, {{\Auth::user()->name}}</span> | <span><a href="/logout">Logout</a></span>
 

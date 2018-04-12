@@ -41,7 +41,8 @@ class SpotifyController
             $user->id,
             $user->name,
             $user->token,
-            $user->refreshToken
+            $user->refreshToken,
+            (string) array_get($user->user, 'uri')
         ));
 
         return redirect('/');

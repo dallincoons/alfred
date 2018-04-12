@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1>{{$room->name}}</h1>
+    <h1>{{$room->name}} - <span>{{$roomCode}}</span></h1>
 
     <span>Add Song</span>
     <input type="text" v-model="songName"/>

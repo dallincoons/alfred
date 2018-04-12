@@ -16,7 +16,6 @@ class SpotifyGateway implements SpotifyGatewayInterface
     public function __construct()
     {
         $this->api = new \SpotifyWebAPI\SpotifyWebAPI();
-        $this->api->setAccessToken(\Auth::user()->access_token);
     }
 
     public function login(SpotifyUser $spotifyUser)
@@ -29,6 +28,7 @@ class SpotifyGateway implements SpotifyGatewayInterface
                 'refresh_token' => $spotifyUser->refresh_token,
                 'name' => $spotifyUser->name,
                 'spotify_id' => $spotifyUser->id,
+                'uri' => $spotifyUser->uri,
             ])->save();
 
             GuestUser::create([
@@ -48,6 +48,8 @@ class SpotifyGateway implements SpotifyGatewayInterface
 
     public function createPlaylist(string $name, string $userId = null)
     {
+        $this->api->setAccessToken(\Auth::user()->access_token);
+
         $result = $this->api->createUserPlaylist($userId ?? \Auth::user()->spotify_id, [
             'name' => $name
         ]);
@@ -57,6 +59,8 @@ class SpotifyGateway implements SpotifyGatewayInterface
 
     public function addSong( string $playListId, string $songId, string $userId = null)
     {
+        $this->api->setAccessToken(\Auth::user()->access_token);
+
         $result = $this->api->addUserPlaylistTracks($userId ?? \Auth::user()->spotify_id, $playListId, $songId);
 
         return $result;
@@ -64,11 +68,15 @@ class SpotifyGateway implements SpotifyGatewayInterface
 
     public function search(string $searchText)
     {
+        $this->api->setAccessToken(\Auth::user()->access_token);
+
         return $this->api->search($searchText, 'track');
     }
 
     public function getPlaylistTracks(string $playlistId)
     {
+        $this->api->setAccessToken(\Auth::user()->access_token);
+
         return $this->api->getUserPlaylistTracks(\Auth::user()->spotify_id, $playlistId);
     }
 }

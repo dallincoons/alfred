@@ -17,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'spotify_id', 'access_token', 'refresh_token'
+        'name', 'spotify_id', 'access_token', 'refresh_token', 'uri'
     ];
 
     /**
@@ -39,6 +39,10 @@ class User extends Authenticatable
         return $this->hasOne(GuestUser::class, 'parent_user_id');
     }
 
+    /**
+     * @param string $name
+     * @return Room
+     */
     public function createRoom(string $name)
     {
         $playlistId = app(SpotifyGatewayInterface::class)->createPlaylist($name, $this->spotify_id);

@@ -21,6 +21,7 @@ class FakeSpotifyGateway implements SpotifyGatewayInterface
                 'spotify_id' => $spotifyUser->id,
                 'access_token' => $spotifyUser->access_token,
                 'refresh_token' => $spotifyUser->refresh_token,
+                'uri' => $spotifyUser->uri,
             ])->save();
 
             GuestUser::create([

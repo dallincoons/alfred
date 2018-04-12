@@ -5,6 +5,13 @@ use Tests\TestCase;
 
 class RoomTest extends TestCase
 {
+    protected function setUp()
+    {
+        parent::setUp();
+
+        $this->withoutExceptionHandling();
+    }
+
     /** @test */
     public function it_can_create_room()
     {
@@ -12,5 +19,44 @@ class RoomTest extends TestCase
 
         $this->assertEquals(1, Room::count());
         $this->assertEquals('test123', Room::first()->name);
+    }
+
+    /** @test */
+    public function guest_can_join_room_using_code()
+    {
+        $room = factory(Room::class)->create();
+
+        $response = $this->post('/room/join', ['room' => $room->share()]);
+
+        $response->assertRedirect('/rooms/' . $room->getKey());
+        $this->assertTrue(\Auth::user()->is(\App\GuestUser::first()));
+    }
+
+    /** @test */
+    public function room_cannot_be_accessed_unless_authenticated()
+    {
+        $this->withExceptionHandling();
+
+        $room = factory(Room::class)->create();
+
+        auth()->logout();
+
+        $response = $this->get('/rooms/' . $room->getKey());
+
+        $response->assertRedirect('/');
+        $this->assertNull(\Auth::user());
+    }
+
+    /** @test */
+    public function room_can_be_joined_with_correct_code()
+    {
+        $room = factory(Room::class)->create();
+
+        auth()->logout();
+
+        $response = $this->post('/room/join', ['room' => $room->share()]);
+
+        $response->assertRedirect('/rooms/' . $room->getKey());
+        $this->assertEquals(\Auth::user(), ($room->user->guestUser));
     }
 }

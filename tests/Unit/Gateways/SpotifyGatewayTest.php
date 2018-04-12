@@ -33,7 +33,7 @@ class SpotifyGatewayTest extends TestCase
         User::truncate();
         GuestUser::truncate();
 
-        $spotifyUser = new SpotifyUser(123456789, 'Paul M', '11111', '22222');
+        $spotifyUser = new SpotifyUser(123456789, 'Paul M', '11111', '22222', 'spotify:1234');
 
         $this->assertEquals(0, User::count());
 
@@ -42,6 +42,12 @@ class SpotifyGatewayTest extends TestCase
         $this->assertEquals(1, User::count());
         $this->assertEquals(1, GuestUser::count());
         $this->assertEquals(User::first()->id, \Auth::user()->id);
+
+        $user = \Auth::user();
+
+        $this->assertEquals('Paul M', $user->name);
+        $this->assertEquals('11111', $user->access_token);
+        $this->assertEquals('spotify:1234', $user->uri);
 
         $this->spotify->login($spotifyUser);
 
