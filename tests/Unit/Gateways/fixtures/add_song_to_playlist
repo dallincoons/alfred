@@ -1,0 +1,94 @@
+
+-
+    request:
+        method: POST
+        url: 'https://api.spotify.com/v1/users/1213003440/playlists'
+        headers:
+            Host: api.spotify.com
+            Authorization: 'Bearer BQDCSnWRuPHqGZjHwzPDMDciXjMgzwA7xZc91Drs8HKfKQ2MTI9dUExPwaKLVkg55KLiqPs7BBvf4015TppUDE0QANah88mwX7n2r9_Zqao4uUPeK6KtFmkLUFBEFRNzgtMjnK1wsS4dqwbNwY31gg_zvg7E535mg_EWm8GkfRU1CGaSw1tp8nIbm_p_IDgWysWoo0k7b5UpuL9E9OCfaXge_w6EOfS9QIi-X8fPYgcmzYfA'
+            Content-Type: application/json
+        body: '{"name":"test123"}'
+    response:
+        status:
+            http_version: '1.1'
+            code: '201'
+            message: Created
+        headers:
+            Server: nginx
+            Date: 'Fri, 13 Apr 2018 01:27:55 GMT'
+            Content-Type: 'application/json; charset=utf-8'
+            Content-Length: '469'
+            Connection: keep-alive
+            Keep-Alive: timeout=600
+            Cache-Control: 'private, max-age=0'
+            Location: 'https://api.spotify.com/v1/users/1213003440/playlists/7rBRByfzw4RVWDoZjhKSbR'
+            Access-Control-Allow-Origin: '*'
+            Access-Control-Allow-Headers: 'Accept, Authorization, Origin, Content-Type, Retry-After'
+            Access-Control-Allow-Methods: 'GET, POST, OPTIONS, PUT, DELETE, PATCH'
+            Access-Control-Allow-Credentials: 'true'
+            Access-Control-Max-Age: '604800'
+            Content-Encoding: gzip
+            X-Content-Type-Options: nosniff
+            Strict-Transport-Security: max-age=31536000
+        body: "{\n  \"collaborative\" : false,\n  \"description\" : null,\n  \"external_urls\" : {\n    \"spotify\" : \"https://open.spotify.com/user/1213003440/playlist/7rBRByfzw4RVWDoZjhKSbR\"\n  },\n  \"followers\" : {\n    \"href\" : null,\n    \"total\" : 0\n  },\n  \"href\" : \"https://api.spotify.com/v1/users/1213003440/playlists/7rBRByfzw4RVWDoZjhKSbR\",\n  \"id\" : \"7rBRByfzw4RVWDoZjhKSbR\",\n  \"images\" : [ ],\n  \"name\" : \"test123\",\n  \"owner\" : {\n    \"display_name\" : \"Dallin Coons\",\n    \"external_urls\" : {\n      \"spotify\" : \"https://open.spotify.com/user/1213003440\"\n    },\n    \"href\" : \"https://api.spotify.com/v1/users/1213003440\",\n    \"id\" : \"1213003440\",\n    \"type\" : \"user\",\n    \"uri\" : \"spotify:user:1213003440\"\n  },\n  \"primary_color\" : null,\n  \"public\" : true,\n  \"snapshot_id\" : \"OsnzITmXSI50pxsuoWzt8o44Gc7BjQm6H3XTwAhvnDU+N0j8jAKH82VvDzz+lqoU\",\n  \"tracks\" : {\n    \"href\" : \"https://api.spotify.com/v1/users/1213003440/playlists/7rBRByfzw4RVWDoZjhKSbR/tracks\",\n    \"items\" : [ ],\n    \"limit\" : 100,\n    \"next\" : null,\n    \"offset\" : 0,\n    \"previous\" : null,\n    \"total\" : 0\n  },\n  \"type\" : \"playlist\",\n  \"uri\" : \"spotify:user:1213003440:playlist:7rBRByfzw4RVWDoZjhKSbR\"\n}"
+-
+    request:
+        method: POST
+        url: 'https://api.spotify.com/v1/users/1213003440/playlists/7rBRByfzw4RVWDoZjhKSbR/tracks?'
+        headers:
+            Host: api.spotify.com
+            Authorization: 'Bearer BQDCSnWRuPHqGZjHwzPDMDciXjMgzwA7xZc91Drs8HKfKQ2MTI9dUExPwaKLVkg55KLiqPs7BBvf4015TppUDE0QANah88mwX7n2r9_Zqao4uUPeK6KtFmkLUFBEFRNzgtMjnK1wsS4dqwbNwY31gg_zvg7E535mg_EWm8GkfRU1CGaSw1tp8nIbm_p_IDgWysWoo0k7b5UpuL9E9OCfaXge_w6EOfS9QIi-X8fPYgcmzYfA'
+            Content-Type: application/json
+        body: '["spotify:track:60SJRvzXJnVeVfS4RiH14u"]'
+    response:
+        status:
+            http_version: '1.1'
+            code: '201'
+            message: Created
+        headers:
+            Server: nginx
+            Date: 'Fri, 13 Apr 2018 01:27:56 GMT'
+            Content-Type: 'application/json; charset=utf-8'
+            Content-Length: '114'
+            Connection: keep-alive
+            Keep-Alive: timeout=600
+            Cache-Control: 'private, max-age=0'
+            Access-Control-Allow-Origin: '*'
+            Access-Control-Allow-Headers: 'Accept, Authorization, Origin, Content-Type, Retry-After'
+            Access-Control-Allow-Methods: 'GET, POST, OPTIONS, PUT, DELETE, PATCH'
+            Access-Control-Allow-Credentials: 'true'
+            Access-Control-Max-Age: '604800'
+            Content-Encoding: gzip
+            X-Content-Type-Options: nosniff
+            Strict-Transport-Security: max-age=31536000
+        body: "{\n  \"snapshot_id\" : \"8BRssObdP6K7PBQ9T1MGC8Ra1wsJzV4auPfVpHi91chJAx5598YdGiZi+Zy32FH+\"\n}"
+-
+    request:
+        method: GET
+        url: 'https://api.spotify.com/v1/users/1213003440/playlists/7rBRByfzw4RVWDoZjhKSbR/tracks'
+        headers:
+            Host: api.spotify.com
+            Authorization: 'Bearer BQDCSnWRuPHqGZjHwzPDMDciXjMgzwA7xZc91Drs8HKfKQ2MTI9dUExPwaKLVkg55KLiqPs7BBvf4015TppUDE0QANah88mwX7n2r9_Zqao4uUPeK6KtFmkLUFBEFRNzgtMjnK1wsS4dqwbNwY31gg_zvg7E535mg_EWm8GkfRU1CGaSw1tp8nIbm_p_IDgWysWoo0k7b5UpuL9E9OCfaXge_w6EOfS9QIi-X8fPYgcmzYfA'
+    response:
+        status:
+            http_version: '1.1'
+            code: '200'
+            message: OK
+        headers:
+            Server: nginx
+            Date: 'Fri, 13 Apr 2018 01:27:56 GMT'
+            Content-Type: 'application/json; charset=utf-8'
+            Content-Length: '1212'
+            Connection: keep-alive
+            Keep-Alive: timeout=600
+            Cache-Control: 'public, max-age=0'
+            ETag: '"95da86ccad303aee85e233eb8fcd416c"'
+            Access-Control-Allow-Origin: '*'
+            Access-Control-Allow-Headers: 'Accept, Authorization, Origin, Content-Type, Retry-After'
+            Access-Control-Allow-Methods: 'GET, POST, OPTIONS, PUT, DELETE, PATCH'
+            Access-Control-Allow-Credentials: 'true'
+            Access-Control-Max-Age: '604800'
+            Content-Encoding: gzip
+            X-Content-Type-Options: nosniff
+            Strict-Transport-Security: max-age=31536000
+        body: "{\n  \"href\" : \"https://api.spotify.com/v1/users/1213003440/playlists/7rBRByfzw4RVWDoZjhKSbR/tracks?offset=0&limit=100\",\n  \"items\" : [ {\n    \"added_at\" : \"2018-04-13T01:27:56Z\",\n    \"added_by\" : {\n      \"external_urls\" : {\n        \"spotify\" : \"https://open.spotify.com/user/1213003440\"\n      },\n      \"href\" : \"https://api.spotify.com/v1/users/1213003440\",\n      \"id\" : \"1213003440\",\n      \"type\" : \"user\",\n      \"uri\" : \"spotify:user:1213003440\"\n    },\n    \"is_local\" : false,\n    \"primary_color\" : null,\n    \"track\" : {\n      \"album\" : {\n        \"album_type\" : \"single\",\n        \"artists\" : [ {\n          \"external_urls\" : {\n            \"spotify\" : \"https://open.spotify.com/artist/0W498bDDNlJIrYMKXdpLHA\"\n          },\n          \"href\" : \"https://api.spotify.com/v1/artists/0W498bDDNlJIrYMKXdpLHA\",\n          \"id\" : \"0W498bDDNlJIrYMKXdpLHA\",\n          \"name\" : \"Roberta Flack\",\n          \"type\" : \"artist\",\n          \"uri\" : \"spotify:artist:0W498bDDNlJIrYMKXdpLHA\"\n        } ],\n        \"available_markets\" : [ \"AD\", \"AR\", \"AT\", \"AU\", \"BE\", \"BG\", \"BO\", \"BR\", \"CA\", \"CH\", \"CL\", \"CO\", \"CR\", \"CY\", \"CZ\", \"DE\", \"DK\", \"DO\", \"EC\", \"EE\", \"ES\", \"FI\", \"FR\", \"GB\", \"GR\", \"GT\", \"HK\", \"HN\", \"HU\", \"ID\", \"IE\", \"IL\", \"IS\", \"IT\", \"JP\", \"LI\", \"LT\", \"LU\", \"LV\", \"MC\", \"MT\", \"MX\", \"MY\", \"NI\", \"NL\", \"NO\", \"NZ\", \"PA\", \"PE\", \"PH\", \"PL\", \"PT\", \"PY\", \"RO\", \"SE\", \"SG\", \"SK\", \"SV\", \"TH\", \"TR\", \"TW\", \"US\", \"UY\", \"VN\", \"ZA\" ],\n        \"external_urls\" : {\n          \"spotify\" : \"https://open.spotify.com/album/1tKfhkO2GoLjpysjQqxLnM\"\n        },\n        \"href\" : \"https://api.spotify.com/v1/albums/1tKfhkO2GoLjpysjQqxLnM\",\n        \"id\" : \"1tKfhkO2GoLjpysjQqxLnM\",\n        \"images\" : [ {\n          \"height\" : 640,\n          \"url\" : \"https://i.scdn.co/image/e50fe97ccf84247206ea5424c6085686055e0d3f\",\n          \"width\" : 640\n        }, {\n          \"height\" : 300,\n          \"url\" : \"https://i.scdn.co/image/5e03ef0e4a5f5ca4190e1eccab32f8944c452bcf\",\n          \"width\" : 300\n        }, {\n          \"height\" : 64,\n          \"url\" : \"https://i.scdn.co/image/d94961881b69e2826ddfba6d8728ff15a04949c5\",\n          \"width\" : 64\n        } ],\n        \"name\" : \"Rhino Hi-Five: Roberta Flack\",\n        \"release_date\" : \"2005-04-19\",\n        \"release_date_precision\" : \"day\",\n        \"type\" : \"album\",\n        \"uri\" : \"spotify:album:1tKfhkO2GoLjpysjQqxLnM\"\n      },\n      \"artists\" : [ {\n        \"external_urls\" : {\n          \"spotify\" : \"https://open.spotify.com/artist/0W498bDDNlJIrYMKXdpLHA\"\n        },\n        \"href\" : \"https://api.spotify.com/v1/artists/0W498bDDNlJIrYMKXdpLHA\",\n        \"id\" : \"0W498bDDNlJIrYMKXdpLHA\",\n        \"name\" : \"Roberta Flack\",\n        \"type\" : \"artist\",\n        \"uri\" : \"spotify:artist:0W498bDDNlJIrYMKXdpLHA\"\n      } ],\n      \"available_markets\" : [ \"AD\", \"AR\", \"AT\", \"AU\", \"BE\", \"BG\", \"BO\", \"BR\", \"CA\", \"CH\", \"CL\", \"CO\", \"CR\", \"CY\", \"CZ\", \"DE\", \"DK\", \"DO\", \"EC\", \"EE\", \"ES\", \"FI\", \"FR\", \"GB\", \"GR\", \"GT\", \"HK\", \"HN\", \"HU\", \"ID\", \"IE\", \"IL\", \"IS\", \"IT\", \"JP\", \"LI\", \"LT\", \"LU\", \"LV\", \"MC\", \"MT\", \"MX\", \"MY\", \"NI\", \"NL\", \"NO\", \"NZ\", \"PA\", \"PE\", \"PH\", \"PL\", \"PT\", \"PY\", \"RO\", \"SE\", \"SG\", \"SK\", \"SV\", \"TH\", \"TR\", \"TW\", \"US\", \"UY\", \"VN\", \"ZA\" ],\n      \"disc_number\" : 1,\n      \"duration_ms\" : 286920,\n      \"episode\" : false,\n      \"explicit\" : false,\n      \"external_ids\" : {\n        \"isrc\" : \"USAT29901394\"\n      },\n      \"external_urls\" : {\n        \"spotify\" : \"https://open.spotify.com/track/60SJRvzXJnVeVfS4RiH14u\"\n      },\n      \"href\" : \"https://api.spotify.com/v1/tracks/60SJRvzXJnVeVfS4RiH14u\",\n      \"id\" : \"60SJRvzXJnVeVfS4RiH14u\",\n      \"is_local\" : false,\n      \"name\" : \"Killing Me Softly With His Song\",\n      \"popularity\" : 40,\n      \"preview_url\" : \"https://p.scdn.co/mp3-preview/66554e4e1c750d8808c6dc1e350631ba41cd68d8?cid=31693a986c9b481f83b311e90ddde3f6\",\n      \"track\" : true,\n      \"track_number\" : 3,\n      \"type\" : \"track\",\n      \"uri\" : \"spotify:track:60SJRvzXJnVeVfS4RiH14u\"\n    },\n    \"video_thumbnail\" : {\n      \"url\" : null\n    }\n  } ],\n  \"limit\" : 100,\n  \"next\" : null,\n  \"offset\" : 0,\n  \"previous\" : null,\n  \"total\" : 1\n}"
