@@ -12,4 +12,5 @@
             <span @click="addSong({{$room->getKey()}}, item.id)">@{{item.name}} - @{{ item.album.artists[0].name }}</span>
         </div>
     </div>
+
 @endsection

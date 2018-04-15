@@ -6,8 +6,10 @@ use App\Room;
 
 class RoomSongController extends Controller
 {
-    public function store(Room $room, string $song)
+    public function store(Room $room, string $songId)
     {
-        $room->addSong($song);
+        $room->addSong($songId);
+
+        return response();
     }
 }

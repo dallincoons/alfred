@@ -34,6 +34,11 @@ class Room extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function songs()
+    {
+        return $this->belongsToMany(Song::class);
+    }
+
     public function share()
     {
         return $this->codeGenerator->encode($this->getKey());
@@ -51,11 +56,8 @@ class Room extends Model
 
     public function addSong(string $songId)
     {
-        $this->gateway->addSong($this->playlistId, $songId);
-    }
-
-    public function getSongs()
-    {
-        return $this->gateway->getPlaylistTracks($this->playlistId);
+        $this->songs()->create([
+            'external_id' => $songId
+        ]);
     }
 }

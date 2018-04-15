@@ -19,15 +19,4 @@ class SongTest extends TestCase
         $response->assertSuccessful();
         $this->assertArrayHasKey('tracks', $response->decodeResponseJson());
     }
-
-    /** @test */
-    public function add_song_to_rooms_playlist()
-    {
-        $room = $this->user->createRoom('Ramones');
-
-        $response = $this->post('room/' . $room->getKey() . '/song/0n2AFRt8NnS3ATlXhnoO49');
-
-        $response->assertSuccessful();
-        $this->assertContains('0n2AFRt8NnS3ATlXhnoO49', $room->getSongs());
-    }
 }
