@@ -3,7 +3,7 @@
 @section('content')
     <room
         name="{{$room->name}}"
-        rkey="{{$room->key}}"
+        rkey="{{$room->getKey()}}"
         code="{{$roomCode}}"
         access_token="{{\Auth::user()->access_token}}"
     ></room>

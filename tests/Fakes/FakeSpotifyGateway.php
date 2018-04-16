@@ -66,20 +66,6 @@ class FakeSpotifyGateway implements SpotifyGatewayInterface
         ];
     }
 
-    /** @test */
-    public function it_searches_for_songs()
-    {
-        $spotifyUser = new SpotifyUser(123456789, 'Paul M', '1111', '22222');
-        $this->getGateway()->login($spotifyUser);
-
-        $result = $this->getGateway()->search('summertime teenage bottlerocket');
-
-        $image = data_get($result, 'tracks.items.0.album.images.0');
-
-        $this->assertTrue(is_string(data_get($result, 'tracks.items.0.id')));
-        $this->assertTrue(is_string($image->url));
-    }
-
     public function getPlaylistTracks(string $playlistId)
     {
         return $this->playlists[$playlistId]->songs;

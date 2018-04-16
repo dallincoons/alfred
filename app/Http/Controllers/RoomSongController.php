@@ -10,6 +10,6 @@ class RoomSongController extends Controller
     {
         $room->addSong($songId);
 
-        return response();
+        return response()->json();
     }
 }

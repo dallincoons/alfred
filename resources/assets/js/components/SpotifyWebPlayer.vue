@@ -4,13 +4,21 @@
 
 <script>
     export default {
+        data() {
+            return {
+                playerId: ''
+            }
+        },
+
         created() {
             window.onSpotifyWebPlaybackSDKReady = () => {
-                const token = this.access_token;
+                const token = this.accessToken;
                 const player = new Spotify.Player({
-                    name: 'caca8000',
+                    name: this.roomName,
                     getOAuthToken: cb => { cb(token); }
                 });
+
+                this.playerId = player._options.id;
 
                 // Error handling
                 player.addListener('initialization_error', ({ message }) => { console.error(message); });
@@ -31,13 +39,11 @@
             };
         },
 
-        props : ['access_token'],
+        props : ['accessToken', 'roomName'],
 
         methods : {
             play() {
-                // axios.put().then(response => {
-                //
-                // })
+                
             }
         }
     }
