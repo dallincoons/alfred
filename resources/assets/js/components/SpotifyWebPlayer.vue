@@ -43,7 +43,7 @@
 
         methods : {
             play() {
-                
+                axios.put('/device/' + this.playerId + '/play')
             }
         }
     }

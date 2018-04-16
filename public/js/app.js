@@ -47480,7 +47480,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     props: ['accessToken', 'roomName'],
 
     methods: {
-        play: function play() {}
+        play: function play() {
+            axios.put('/device/' + this.playerId + '/play');
+        }
     }
 });
 

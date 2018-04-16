@@ -60,6 +60,14 @@ class SpotifyGatewayTest extends TestCase
         $this->assertEquals('60SJRvzXJnVeVfS4RiH14u', data_get($this->spotify->getPlaylistTracks($playlistId), 'items.0.track.id'));
     }
 
+    /** @test */
+    public function transfer_control_to_device()
+    {
+        $this->insertCassette('transfer_control_to_device');
+
+        $this->assertTrue($this->spotify->changeDevice('f5384d627798e22e5e592a0ab566048b59c57511'));
+    }
+
     public function getGateway()
     {
         return new SpotifyGateway();

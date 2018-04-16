@@ -70,4 +70,9 @@ class FakeSpotifyGateway implements SpotifyGatewayInterface
     {
         return $this->playlists[$playlistId]->songs;
     }
+
+    public function changeDevice(string $deviceId): bool
+    {
+        return true;
+    }
 }

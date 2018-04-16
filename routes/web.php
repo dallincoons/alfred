@@ -11,6 +11,8 @@ Route::get('spotify/songs', 'SpotifyController@songs');
 Route::resource('rooms', 'RoomController');
 Route::post('room/{room}/song/{song}', 'RoomSongController@store');
 
+Route::put('device/{device}/play', 'DeviceController@update');
+
 Route::post('room/join', 'GuestLoginController@show');
 
 Route::get('/logout', function() {
