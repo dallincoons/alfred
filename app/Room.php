@@ -59,5 +59,6 @@ class Room extends Model
         $this->songs()->create([
             'external_id' => $songId
         ]);
+        $this->gateway->addSong($this->playlistId, $songId);
     }
 }

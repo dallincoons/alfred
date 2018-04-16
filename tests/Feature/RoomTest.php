@@ -1,5 +1,6 @@
 <?php
 
+use App\Gateways\SpotifyGatewayInterface;
 use App\Room;
 use Tests\TestCase;
 
@@ -58,5 +59,21 @@ class RoomTest extends TestCase
 
         $response->assertRedirect('/rooms/' . $room->getKey());
         $this->assertEquals(\Auth::user(), ($room->user->guestUser));
+    }
+
+    /** @test */
+    public function user_can_add_songs_to_playlist()
+    {
+        /** @var Room $room */
+        $room = $this->user->createRoom('test1337');
+        $roomId = $room->share();
+
+        $room->join($roomId);
+
+        $room->addSong('60SJRvzXJnVeVfS4RiH14u?si=r7lJ_QeWQIu0c8gvsVvTYg');
+
+        $songs = app(SpotifyGatewayInterface::class)->playlists[$room->playlistId]->songs;
+
+        $this->assertContains('60SJRvzXJnVeVfS4RiH14u?si=r7lJ_QeWQIu0c8gvsVvTYg', $songs);
     }
 }

@@ -17,7 +17,7 @@ class CreateUsersTable extends Migration
             $table->increments('id');
             $table->string('spotify_id');
             $table->string('name');
-            $table->string('access_token');
+            $table->string('access_token', 500);
             $table->string('refresh_token');
             $table->string('uri');
             $table->rememberToken();

@@ -1,16 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1>{{$room->name}} - <span>{{$roomCode}}</span></h1>
-
-    <span>Add Song</span>
-    <input type="text" v-model="songName"/>
-    <button @click="searchSongs(songName)">Search</button>
-
-    <div v-for="song in songs">
-        <div v-for="item in song.items">
-            <span @click="addSong({{$room->getKey()}}, item.id)">@{{item.name}} - @{{ item.album.artists[0].name }}</span>
-        </div>
-    </div>
-
+    <room
+        name="{{$room->name}}"
+        rkey="{{$room->key}}"
+        code="{{$roomCode}}"
+        access_token="{{\Auth::user()->access_token}}"
+    ></room>
 @endsection

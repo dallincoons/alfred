@@ -26,7 +26,7 @@ class SpotifyController
 
     public function connect()
     {
-        $scopes = explode(',', 'playlist-read-private,playlist-read-collaborative,playlist-modify-public,playlist-modify-private,streaming,user-library-read,user-library-modify,user-read-currently-playing,user-read-recently-played');
+        $scopes = explode(',', 'user-read-private,user-read-birthdate,streaming,user-read-playback-state,user-modify-playback-state,playlist-read-private,playlist-read-collaborative,playlist-modify-public,playlist-modify-private,streaming,user-library-read,user-library-modify,user-read-currently-playing,user-read-recently-played');
 
         return Socialite::with('spotify')
             ->setScopes($scopes)

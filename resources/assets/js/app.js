@@ -15,8 +15,14 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example-component', require('./components/ExampleComponent.vue'));
+import Room from './components/Room.vue';
+import SpotifyWebPlayer from './components/SpotifyWebPlayer';
 
 const app = new Vue({
-    el: '#app'
+    el: '#app',
+
+    components : {
+        Room,
+        SpotifyWebPlayer
+    }
 });
