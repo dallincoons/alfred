@@ -20,7 +20,11 @@ class GuestLoginController extends Controller
 
     public function show(Request $request)
     {
-        $room = Room::find(array_first($this->codeGenerator->decode($request->room)));
+        $room = Room::find(array_first($this->codeGenerator->decode(strtoupper($request->room))));
+
+        if(!$room) {
+            throw new \Exception('Invalid room code');
+        }
 
         \Auth::login($room->user->guestUser);
 

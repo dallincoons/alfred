@@ -62,6 +62,30 @@ class RoomTest extends TestCase
     }
 
     /** @test */
+    public function room_can_be_joined_with_lower_case_correct_code()
+    {
+        $room = factory(Room::class)->create();
+
+        auth()->logout();
+
+        $response = $this->post('/room/join', ['room' => strtolower($room->share())]);
+
+        $response->assertRedirect('/rooms/' . $room->getKey());
+        $this->assertEquals(\Auth::user(), ($room->user->guestUser));
+    }
+
+    /** @test */
+    public function room_cannot_be_joined_with_incorrect_code()
+    {
+        factory(Room::class)->create();
+
+        auth()->logout();
+
+        $this->expectExceptionMessage('Invalid room code');
+        $this->post('/room/join', ['room' => 'incorrect']);
+    }
+
+    /** @test */
     public function user_can_add_songs_to_playlist()
     {
         /** @var Room $room */

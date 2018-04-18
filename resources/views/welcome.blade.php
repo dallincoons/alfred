@@ -73,7 +73,7 @@
                 <form action="room/join" method="POST">
                     {{ csrf_field() }}
                     <h2>Join Room</h2>
-                    <input name="room" />
+                    <input name="room" style="text-transform:uppercase"/>
                     <input type="submit" />
                 </form>
             @else
