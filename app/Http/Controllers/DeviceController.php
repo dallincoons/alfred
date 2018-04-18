@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Gateways\SpotifyGatewayInterface;
+use App\Room;
 use Illuminate\Http\Request;
 
 class DeviceController extends Controller
@@ -17,9 +18,9 @@ class DeviceController extends Controller
         $this->spotify = $spotifyGateway;
     }
 
-    public function update(string $deviceId)
+    public function update(Room $room, string $deviceId)
     {
-        $success = $this->spotify->changeDevice($deviceId);
+        $success = $room->play($deviceId);
 
         return response()->json($success);
     }

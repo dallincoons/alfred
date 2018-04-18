@@ -68,6 +68,14 @@ class SpotifyGatewayTest extends TestCase
         $this->assertTrue($this->spotify->changeDevice('f5384d627798e22e5e592a0ab566048b59c57511'));
     }
 
+    /** @test */
+    public function start_playlist()
+    {
+        $this->insertCassette('start_playlist');
+
+        $this->assertTrue($this->spotify->startPlaylist('f5384d627798e22e5e592a0ab566048b59c57511', '1sxZ063FPv9ym5OS5nQIbV'));
+    }
+
     public function getGateway()
     {
         return new SpotifyGateway();

@@ -47477,11 +47477,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
 
-    props: ['accessToken', 'roomName'],
+    props: ['accessToken', 'roomName', 'roomKey'],
 
     methods: {
         play: function play() {
-            axios.put('/device/' + this.playerId + '/play');
+            axios.put('/room/' + this.roomKey + '/device/' + this.playerId + '/play');
         }
     }
 });
@@ -47585,7 +47585,11 @@ var render = function() {
       }),
       _vm._v(" "),
       _c("spotify-web-player", {
-        attrs: { accessToken: _vm.access_token, roomName: _vm.name }
+        attrs: {
+          accessToken: _vm.access_token,
+          roomName: _vm.name,
+          roomKey: _vm.rkey
+        }
       })
     ],
     2

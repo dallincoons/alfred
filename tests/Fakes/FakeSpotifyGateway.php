@@ -75,4 +75,9 @@ class FakeSpotifyGateway implements SpotifyGatewayInterface
     {
         return true;
     }
+
+    public function startPlaylist(string $deviceId, string $playlistId)
+    {
+        return true;
+    }
 }

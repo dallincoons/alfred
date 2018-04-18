@@ -39,11 +39,11 @@
             };
         },
 
-        props : ['accessToken', 'roomName'],
+        props : ['accessToken', 'roomName', 'roomKey'],
 
         methods : {
             play() {
-                axios.put('/device/' + this.playerId + '/play')
+                axios.put(`/room/${this.roomKey}/device/${this.playerId}/play`)
             }
         }
     }

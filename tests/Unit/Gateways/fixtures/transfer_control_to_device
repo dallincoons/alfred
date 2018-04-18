@@ -5,7 +5,36 @@
         url: 'https://api.spotify.com/v1/me/player'
         headers:
             Host: api.spotify.com
-            Authorization: 'Bearer BQBe4xuHUeRhQjh3WtA6zTQN7r3e_rIJm9kV-O8EoClnRsijzYun3PORJsaldrG3UDr4e59PPoi58ZK33oquk7nHYeX0pHJrVc56uWqbc-ThQXSrJkg6eiUoUdiAIkvwd61tzhC3gslGjxXFKNWVGGDCrIdx7dhyPD8sh0iJIS_9FrQsIXMpR5F-K1ZG5_zwmKyP0Ms7BvWmN39mS6VDcvYkiPSAbQDUWKHEnK2BcVGoR12GGAKAKMNXp2_QbKMY'
+            Authorization: 'Bearer BQBO-ycv5cwJor-qH2mZKewdQVQSJ-w3lmWsKSgWgBhf7NL5J6Wojf4QJkVWRqfXZt-NzXq_6pPyLoMmKF2SOMNw6lai5HXZaVmpiUg-ErlxyL8RAohcc93nctO9-zrbqspFVYvpmsHfjGBBsq5BRxe4v9q3qCIMtLEkk6NOeohFqCMsCpYHep94ciugARg1G_0WqaIcc9DBTlGjZVor_LF-0F0oYgc1qSKT4Kiv384hBqJy0RMKOSGZVRmZCuJ9'
+            Content-Type: application/json
+        body: '{"device_ids":["f5384d627798e22e5e592a0ab566048b59c57511"]}'
+    response:
+        status:
+            http_version: '1.1'
+            code: '401'
+            message: Unauthorized
+        headers:
+            Server: nginx
+            Date: 'Wed, 18 Apr 2018 00:27:26 GMT'
+            Content-Type: application/json
+            Content-Length: '96'
+            Connection: keep-alive
+            Keep-Alive: timeout=600
+            WWW-Authenticate: 'Bearer realm="spotify", error="invalid_token", error_description="The access token expired"'
+            Access-Control-Allow-Origin: '*'
+            Access-Control-Allow-Headers: 'Accept, Authorization, Origin, Content-Type, Retry-After'
+            Access-Control-Allow-Methods: 'GET, POST, OPTIONS, PUT, DELETE, PATCH'
+            Access-Control-Allow-Credentials: 'true'
+            Access-Control-Max-Age: '604800'
+            Content-Encoding: gzip
+        body: "{\n  \"error\": {\n    \"status\": 401,\n    \"message\": \"The access token expired\"\n  }\n}"
+-
+    request:
+        method: PUT
+        url: 'https://api.spotify.com/v1/me/player'
+        headers:
+            Host: api.spotify.com
+            Authorization: 'Bearer BQBZMrv8EDsTFTUZEIs4WKan3xdWHyYeDNArwxw5bLMCJs2oLHxpOHS5K9VXKr6F5u_7IdcnN7mJjnwPCY3wI23Fgo7Ajya_4nYG7IqqG_PI6TH6KidV-cOCzIVcfvFEUnNYcmKIYZwqqo74PZAi-O7yC_Ed2NgsOnUkjAEXmBFNrn4vjKlFJe0qEZUh6RjNODk8O62sq2Oj64zMs4QzT08LdMF6WS-qfyMcenZu6yC9_BMLrGxTV05B4eyPUUQa'
             Content-Type: application/json
         body: '{"device_ids":["f5384d627798e22e5e592a0ab566048b59c57511"]}'
     response:
@@ -15,7 +44,7 @@
             message: 'No Content'
         headers:
             Server: nginx
-            Date: 'Mon, 16 Apr 2018 17:59:34 GMT'
+            Date: 'Wed, 18 Apr 2018 00:27:54 GMT'
             Content-Length: '0'
             Connection: keep-alive
             Keep-Alive: timeout=600

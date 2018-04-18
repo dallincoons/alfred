@@ -61,4 +61,9 @@ class Room extends Model
         ]);
         $this->gateway->addSong($this->playlistId, $songId);
     }
+
+    public function play(string $deviceId)
+    {
+        return $this->gateway->startPlaylist($deviceId, $this->playlistId);
+    }
 }
