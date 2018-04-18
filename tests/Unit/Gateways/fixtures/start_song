@@ -1,0 +1,29 @@
+
+-
+    request:
+        method: PUT
+        url: 'https://api.spotify.com/v1/me/player/play?device_id=5029f85f67c982c1949a1bf1a9f5be70013c7b8b'
+        headers:
+            Host: api.spotify.com
+            Authorization: 'Bearer BQBZMrv8EDsTFTUZEIs4WKan3xdWHyYeDNArwxw5bLMCJs2oLHxpOHS5K9VXKr6F5u_7IdcnN7mJjnwPCY3wI23Fgo7Ajya_4nYG7IqqG_PI6TH6KidV-cOCzIVcfvFEUnNYcmKIYZwqqo74PZAi-O7yC_Ed2NgsOnUkjAEXmBFNrn4vjKlFJe0qEZUh6RjNODk8O62sq2Oj64zMs4QzT08LdMF6WS-qfyMcenZu6yC9_BMLrGxTV05B4eyPUUQa'
+            Content-Type: application/json
+        body: '{"uris":["spotify:track:2Tr5z4vI1RT1EJT6myECjU"]}'
+    response:
+        status:
+            http_version: '1.1'
+            code: '204'
+            message: 'No Content'
+        headers:
+            Server: nginx
+            Date: 'Wed, 18 Apr 2018 00:59:41 GMT'
+            Content-Length: '0'
+            Connection: keep-alive
+            Keep-Alive: timeout=600
+            Cache-Control: 'private, max-age=0'
+            Access-Control-Allow-Origin: '*'
+            Access-Control-Allow-Headers: 'Accept, Authorization, Origin, Content-Type, Retry-After'
+            Access-Control-Allow-Methods: 'GET, POST, OPTIONS, PUT, DELETE, PATCH'
+            Access-Control-Allow-Credentials: 'true'
+            Access-Control-Max-Age: '604800'
+            X-Content-Type-Options: nosniff
+            Strict-Transport-Security: max-age=31536000

@@ -76,6 +76,14 @@ class SpotifyGatewayTest extends TestCase
         $this->assertTrue($this->spotify->startPlaylist('f5384d627798e22e5e592a0ab566048b59c57511', '1sxZ063FPv9ym5OS5nQIbV'));
     }
 
+    /** @test */
+    public function start_song()
+    {
+        $this->insertCassette('start_song');
+
+        $this->assertTrue($this->spotify->startSong('5029f85f67c982c1949a1bf1a9f5be70013c7b8b', ['spotify:track:2Tr5z4vI1RT1EJT6myECjU']));
+    }
+
     public function getGateway()
     {
         return new SpotifyGateway();

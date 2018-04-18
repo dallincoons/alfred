@@ -72,4 +72,11 @@ class SpotifyGateway implements SpotifyGatewayInterface
 
         return $this->api->play($devideId, ["context_uri" => 'spotify:user:' . \Auth::user()->spotify_id .':playlist:' . $playlistId]);
     }
+
+    public function startSong(string $devideId, array $songIds)
+    {
+        $this->api->setAccessToken(\Auth::user()->access_token);
+
+        return $this->api->play($devideId, ["uris" => $songIds]);
+    }
 }

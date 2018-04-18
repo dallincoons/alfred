@@ -80,4 +80,9 @@ class FakeSpotifyGateway implements SpotifyGatewayInterface
     {
         return true;
     }
+
+    public function startSong(string $deviceId, array $songIds)
+    {
+        return true;
+    }
 }
