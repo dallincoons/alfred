@@ -4,6 +4,7 @@ namespace App;
 
 use App\Gateways\SpotifyGatewayInterface;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Session;
 
 class Room extends Model
 {
@@ -64,7 +65,12 @@ class Room extends Model
 
     public function play(string $deviceId)
     {
-        $song = $this->songs()->inRandomOrder();
-        return $this->gateway->startSong($deviceId, $song->first()->external_id);
+        if(empty(Session::get('playlist'))) {
+            Session::put('playlist', ($this->songs()->inRandomOrder()->pluck('external_id')->all()));
+        }
+        $playlist = Session::get('playlist');
+        $song = array_pop($playlist);
+        Session::put('playlist', $playlist);
+        return $this->gateway->startSong($deviceId, 'spotify:track:' . $song);
     }
 }

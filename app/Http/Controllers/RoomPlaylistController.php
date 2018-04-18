@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Gateways\SpotifyGatewayInterface;
 use App\Room;
-use Illuminate\Http\Request;
 
 class RoomPlaylistController extends Controller
 {

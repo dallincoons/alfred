@@ -47462,6 +47462,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             // Playback status updates
             player.addListener('player_state_changed', function (state) {
                 console.log(state);
+                if (state.paused === true && state.duration === 0) {
+                    _this.play();
+                }
             });
 
             // Ready

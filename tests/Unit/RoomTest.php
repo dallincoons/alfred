@@ -6,6 +6,8 @@ use App\Gateways\SpotifyGateway;
 use App\Gateways\SpotifyGatewayInterface;
 use App\GuestUser;
 use App\Room;
+use App\Spotify;
+use Illuminate\Support\Facades\Session;
 use Tests\TestCase;
 
 class RoomTest extends TestCase
@@ -94,5 +96,38 @@ class RoomTest extends TestCase
         $room->addSong('456');
 
         $this->assertEquals(2, count($room->songs));
+    }
+
+    /** @test */
+    public function plays_songs_in_order_as_stored_in_session()
+    {
+        /** @var Room $room */
+        $room = factory(Room::class)->create();
+        $room->addSong('46ty9wS8la1HWGndeqep7k');
+        $room->addSong('0fgCZv9soFDMFNOOmZ8kck');
+
+        $songs = ['spotify:track:46ty9wS8la1HWGndeqep7k', 'spotify:track:0fgCZv9soFDMFNOOmZ8kck'];
+
+        $room->play('82c86b09fbd6826211f9223a3480f455c65ea17b');
+
+        $currentSong = array_get(app(SpotifyGatewayInterface::class)->currentlyPlayingSong(), 'item.id');
+
+        $this->assertContains($currentSong, $songs);
+
+        $lastSong = array_first(array_except($songs, array_search($currentSong, $songs)));
+
+        $room->play('82c86b09fbd6826211f9223a3480f455c65ea17b');
+
+        $currentSong = app(SpotifyGatewayInterface::class)->currentlyPlayingSong();
+
+        $this->assertEquals($lastSong, array_get($currentSong, 'item.id'));
+
+        $songs = ['spotify:track:46ty9wS8la1HWGndeqep7k', 'spotify:track:0fgCZv9soFDMFNOOmZ8kck'];
+
+        $room->play('82c86b09fbd6826211f9223a3480f455c65ea17b');
+
+        $currentSong = array_get(app(SpotifyGatewayInterface::class)->currentlyPlayingSong(), 'item.id');
+
+        $this->assertContains($currentSong, $songs);
     }
 }

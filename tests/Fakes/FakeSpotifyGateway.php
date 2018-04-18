@@ -11,6 +11,11 @@ class FakeSpotifyGateway implements SpotifyGatewayInterface
 {
     public $playlists = [];
 
+    /**
+     * @var string
+     */
+    private $currentlyPlaying;
+
     public function login(SpotifyUser $spotifyUser)
     {
         $user = User::firstOrNew(['spotify_id' => $spotifyUser->id]);
@@ -43,6 +48,10 @@ class FakeSpotifyGateway implements SpotifyGatewayInterface
 
     public function addSong(string $playListId, string $songId, string $userId = null)
     {
+        if(!isset($this->playlists[$playListId])) {
+            $this->playlists[$playListId] = (object) ['songs' => []];
+        }
+
         array_push($this->playlists[$playListId]->songs, $songId);
     }
 
@@ -83,6 +92,7 @@ class FakeSpotifyGateway implements SpotifyGatewayInterface
 
     public function startSong(string $deviceId, $songIds)
     {
+        $this->currentlyPlaying = array_wrap($songIds)[0];
         return true;
     }
 
@@ -96,8 +106,9 @@ class FakeSpotifyGateway implements SpotifyGatewayInterface
                             'name' => 'Desmond Dekker'
                         ]
                     ]
-                ]
-            ]
+                ],
+                'id' => $this->currentlyPlaying
+            ],
         ];
     }
 }
