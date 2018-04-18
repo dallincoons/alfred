@@ -10,5 +10,6 @@ interface SpotifyGatewayInterface
     public function getPlaylistTracks(string $playlistId);
     public function changeDevice(string $deviceId): bool;
     public function startPlaylist(string $deviceId, string $playlistId);
-    public function startSong(string $deviceId, array $songIds);
+    public function startSong(string $deviceId, $songIds);
+    public function currentlyPlayingSong();
 }

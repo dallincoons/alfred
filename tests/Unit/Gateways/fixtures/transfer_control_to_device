@@ -56,3 +56,31 @@
             Access-Control-Max-Age: '604800'
             X-Content-Type-Options: nosniff
             Strict-Transport-Security: max-age=31536000
+-
+    request:
+        method: PUT
+        url: 'https://api.spotify.com/v1/me/player'
+        headers:
+            Host: api.spotify.com
+            Authorization: 'Bearer BQDXOLHuIL75TXWRIrA-CjtZ1NPbe2J0GCUjHgz5-WwZ4nlPFqlbang0Ri7GOLmlLb4FSiy_A5KunQmIfRtigSpUbvQfhyRKaMQyzLx0r1ex9_rq7xvPGupWQdVny6_MVC2CLCwywgY_QL6Bled0PnNVW_wPxrDGIeK_-NiQjQMtQatHqXMRl-N1POuXD0_2kx3gcxLHXJAo2-ca9cfQSxs6dBqcEzHutqVOvU_4PCh_aezoUbitdMa2G4Mj2RlC'
+            Content-Type: application/json
+        body: '{"device_ids":["f5384d627798e22e5e592a0ab566048b59c57511"]}'
+    response:
+        status:
+            http_version: '1.1'
+            code: '204'
+            message: 'No Content'
+        headers:
+            Server: nginx
+            Date: 'Wed, 18 Apr 2018 01:42:31 GMT'
+            Content-Length: '0'
+            Connection: keep-alive
+            Keep-Alive: timeout=600
+            Cache-Control: 'private, max-age=0'
+            Access-Control-Allow-Origin: '*'
+            Access-Control-Allow-Headers: 'Accept, Authorization, Origin, Content-Type, Retry-After'
+            Access-Control-Allow-Methods: 'GET, POST, OPTIONS, PUT, DELETE, PATCH'
+            Access-Control-Allow-Credentials: 'true'
+            Access-Control-Max-Age: '604800'
+            X-Content-Type-Options: nosniff
+            Strict-Transport-Security: max-age=31536000

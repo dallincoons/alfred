@@ -81,8 +81,23 @@ class FakeSpotifyGateway implements SpotifyGatewayInterface
         return true;
     }
 
-    public function startSong(string $deviceId, array $songIds)
+    public function startSong(string $deviceId, $songIds)
     {
         return true;
+    }
+
+    public function currentlyPlayingSong()
+    {
+        return [
+            'item' => [
+                'album' => [
+                    'artists' => [
+                        0 => [
+                            'name' => 'Desmond Dekker'
+                        ]
+                    ]
+                ]
+            ]
+        ];
     }
 }

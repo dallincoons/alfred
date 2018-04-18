@@ -81,7 +81,9 @@ class SpotifyGatewayTest extends TestCase
     {
         $this->insertCassette('start_song');
 
-        $this->assertTrue($this->spotify->startSong('5029f85f67c982c1949a1bf1a9f5be70013c7b8b', ['spotify:track:2Tr5z4vI1RT1EJT6myECjU']));
+        $this->spotify->startSong('82c86b09fbd6826211f9223a3480f455c65ea17b', ['spotify:track:2Tr5z4vI1RT1EJT6myECjU']);
+
+        $this->assertEquals('Desmond Dekker', data_get($this->spotify->currentlyPlayingSong(), 'item.album.artists.0.name'));
     }
 
     public function getGateway()

@@ -6,7 +6,7 @@ use App\Gateways\SpotifyGatewayInterface;
 use App\Room;
 use Illuminate\Http\Request;
 
-class DeviceController extends Controller
+class RoomPlaylistController extends Controller
 {
     /**
      * @var SpotifyGatewayInterface

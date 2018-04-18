@@ -64,6 +64,7 @@ class Room extends Model
 
     public function play(string $deviceId)
     {
-        return $this->gateway->startPlaylist($deviceId, $this->playlistId);
+        $song = $this->songs()->inRandomOrder();
+        return $this->gateway->startSong($deviceId, $song->first()->external_id);
     }
 }

@@ -70,10 +70,10 @@ class RoomTest extends TestCase
 
         $room->join($roomId);
 
-        $room->addSong('60SJRvzXJnVeVfS4RiH14u?si=r7lJ_QeWQIu0c8gvsVvTYg');
+        $room->addSong('60SJRvzXJnVeVfS4RiH14u');
 
         $songs = app(SpotifyGatewayInterface::class)->playlists[$room->playlistId]->songs;
 
-        $this->assertContains('60SJRvzXJnVeVfS4RiH14u?si=r7lJ_QeWQIu0c8gvsVvTYg', $songs);
+        $this->assertContains('60SJRvzXJnVeVfS4RiH14u', $songs);
     }
 }
