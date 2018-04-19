@@ -15,6 +15,7 @@ class FakeSpotifyGateway implements SpotifyGatewayInterface
      * @var string
      */
     private $currentlyPlaying;
+    private $isPlaying = true;
 
     public function login(SpotifyUser $spotifyUser)
     {
@@ -96,6 +97,12 @@ class FakeSpotifyGateway implements SpotifyGatewayInterface
         return true;
     }
 
+    public function pause(string $deviceId)
+    {
+        $this->isPlaying = false;
+        return true;
+    }
+
     public function currentlyPlayingSong()
     {
         return [
@@ -109,6 +116,13 @@ class FakeSpotifyGateway implements SpotifyGatewayInterface
                 ],
                 'id' => $this->currentlyPlaying
             ],
+        ];
+    }
+
+    public function getMyCurrentPlaybackInfo()
+    {
+        return (object)[
+            'is_playing' => $this->isPlaying
         ];
     }
 }

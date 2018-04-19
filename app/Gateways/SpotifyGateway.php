@@ -2,10 +2,6 @@
 
 namespace App\Gateways;
 
-use App\GuestUser;
-use App\SpotifyUser;
-use App\User;
-
 class SpotifyGateway implements SpotifyGatewayInterface
 {
     /**
@@ -43,6 +39,13 @@ class SpotifyGateway implements SpotifyGatewayInterface
         $this->api->setAccessToken(\Auth::user()->access_token);
 
         return $this->api->search($searchText, 'track');
+    }
+
+    public function pause(string $deviceId)
+    {
+        $this->api->setAccessToken(\Auth::user()->access_token);
+
+        return $this->api->pause($deviceId);
     }
 
     public function getPlaylistTracks(string $playlistId)
@@ -87,5 +90,12 @@ class SpotifyGateway implements SpotifyGatewayInterface
         $this->api->setAccessToken(\Auth::user()->access_token);
 
         return $this->api->getMyCurrentTrack();
+    }
+
+    public function getMyCurrentPlaybackInfo()
+    {
+        $this->api->setAccessToken(\Auth::user()->access_token);
+
+        return $this->api->getMyCurrentPlaybackInfo();
     }
 }

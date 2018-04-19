@@ -12,4 +12,6 @@ interface SpotifyGatewayInterface
     public function startPlaylist(string $deviceId, string $playlistId);
     public function startSong(string $deviceId, $songIds);
     public function currentlyPlayingSong();
+    public function pause(string $deviceId);
+    public function getMyCurrentPlaybackInfo();
 }

@@ -55,3 +55,60 @@
             Access-Control-Max-Age: '604800'
             X-Content-Type-Options: nosniff
             Strict-Transport-Security: max-age=31536000
+-
+    request:
+        method: PUT
+        url: 'https://api.spotify.com/v1/me/player/play?device_id=f5384d627798e22e5e592a0ab566048b59c57511'
+        headers:
+            Host: api.spotify.com
+            Authorization: 'Bearer BQCGOlk2Y3DhSDuzEuK8JV8pVziZpVExPhjdFSHmZUtmGIUCAQWzQRuGuZu2BLxTP21h0zFEkjw9dV5KeDiyTYdnwcUJ5dKBiwFZ7Ni_UrF9lVHuP0Lgt5563wzojjW73UOBsgcLB8MOQrO1yQ1ZV3pagJAcBvJ7XTj3JJdo_kmoPE6ThSTZIgwh--CPCtmSon1elF05yQRuD09Lh1Tgcq1PqOasRYoBjJSv7Kkn7UcIfNWSv6dXyzE4UQFRQ1cm'
+            Content-Type: application/json
+        body: '{"context_uri":"spotify:user:1213003440:playlist:1sxZ063FPv9ym5OS5nQIbV"}'
+    response:
+        status:
+            http_version: '1.1'
+            code: '401'
+            message: Unauthorized
+        headers:
+            Server: nginx
+            Date: 'Thu, 19 Apr 2018 00:55:22 GMT'
+            Content-Type: application/json
+            Content-Length: '96'
+            Connection: keep-alive
+            Keep-Alive: timeout=600
+            WWW-Authenticate: 'Bearer realm="spotify", error="invalid_token", error_description="The access token expired"'
+            Access-Control-Allow-Origin: '*'
+            Access-Control-Allow-Headers: 'Accept, Authorization, Origin, Content-Type, Retry-After'
+            Access-Control-Allow-Methods: 'GET, POST, OPTIONS, PUT, DELETE, PATCH'
+            Access-Control-Allow-Credentials: 'true'
+            Access-Control-Max-Age: '604800'
+            Content-Encoding: gzip
+        body: "{\n  \"error\": {\n    \"status\": 401,\n    \"message\": \"The access token expired\"\n  }\n}"
+-
+    request:
+        method: PUT
+        url: 'https://api.spotify.com/v1/me/player/play?device_id=f5384d627798e22e5e592a0ab566048b59c57511'
+        headers:
+            Host: api.spotify.com
+            Authorization: 'Bearer BQDDq9sSRxV8FfeNaUiBjefua1clkiKqNhrOFDCI9YW_2Qm59S6cWfy3AldczdgLTqlpA5k9y2oFpYabxst3g2q9u9AxcFJ8XkgI91ZErlKOlysGbsMAlwf-TqiUT-fbbA3znB1GsFOrfBigyJ6FEMPXjibIbbGj8x3xKxpFmxKBDaOY2TWtjlqhQcnKz4BRXstYtW93Xrx50e5nDJNyjpqikdzvlYUTlGkmTlkobZtMI_yFs0mpEpV7YxcGVwIM'
+            Content-Type: application/json
+        body: '{"context_uri":"spotify:user:1213003440:playlist:1sxZ063FPv9ym5OS5nQIbV"}'
+    response:
+        status:
+            http_version: '1.1'
+            code: '204'
+            message: 'No Content'
+        headers:
+            Server: nginx
+            Date: 'Thu, 19 Apr 2018 00:56:57 GMT'
+            Content-Length: '0'
+            Connection: keep-alive
+            Keep-Alive: timeout=600
+            Cache-Control: 'private, max-age=0'
+            Access-Control-Allow-Origin: '*'
+            Access-Control-Allow-Headers: 'Accept, Authorization, Origin, Content-Type, Retry-After'
+            Access-Control-Allow-Methods: 'GET, POST, OPTIONS, PUT, DELETE, PATCH'
+            Access-Control-Allow-Credentials: 'true'
+            Access-Control-Max-Age: '604800'
+            X-Content-Type-Options: nosniff
+            Strict-Transport-Security: max-age=31536000
