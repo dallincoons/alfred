@@ -12,12 +12,12 @@ class SpotifyGateway implements SpotifyGatewayInterface
     public function __construct()
     {
         $this->api = new \SpotifyWebAPI\SpotifyWebAPI();
+
+        $this->api->setAccessToken(\Auth::user()->access_token);
     }
 
     public function createPlaylist(string $name, string $userId = null)
     {
-        $this->api->setAccessToken(\Auth::user()->access_token);
-
         $result = $this->api->createUserPlaylist($userId ?? \Auth::user()->spotify_id, [
             'name' => $name
         ]);
@@ -27,8 +27,6 @@ class SpotifyGateway implements SpotifyGatewayInterface
 
     public function addSong( string $playListId, string $songId, string $userId = null)
     {
-        $this->api->setAccessToken(\Auth::user()->access_token);
-
         $result = $this->api->addUserPlaylistTracks($userId ?? \Auth::user()->spotify_id, $playListId, $songId);
 
         return $result;
@@ -36,43 +34,31 @@ class SpotifyGateway implements SpotifyGatewayInterface
 
     public function search(string $searchText)
     {
-        $this->api->setAccessToken(\Auth::user()->access_token);
-
         return $this->api->search($searchText, 'track');
     }
 
     public function pause(string $deviceId)
     {
-        $this->api->setAccessToken(\Auth::user()->access_token);
-
         return $this->api->pause($deviceId);
     }
 
     public function getPlaylistTracks(string $playlistId)
     {
-        $this->api->setAccessToken(\Auth::user()->access_token);
-
         return $this->api->getUserPlaylistTracks(\Auth::user()->spotify_id, $playlistId);
     }
 
     public function getDevices()
     {
-        $this->api->setAccessToken(\Auth::user()->access_token);
-
         return $this->api->getMyDevices();
     }
 
     public function changeDevice(string $deviceId): bool
     {
-        $this->api->setAccessToken(\Auth::user()->access_token);
-
         return $this->api->changeMyDevice(['device_ids' => $deviceId]);
     }
 
     public function startPlaylist(string $devideId, string $playlistId)
     {
-        $this->api->setAccessToken(\Auth::user()->access_token);
-
         return $this->api->play($devideId, ["context_uri" => 'spotify:user:' . \Auth::user()->spotify_id .':playlist:' . $playlistId]);
     }
 
@@ -80,22 +66,16 @@ class SpotifyGateway implements SpotifyGatewayInterface
     {
         $songIds = array_wrap($songIds);
 
-        $this->api->setAccessToken(\Auth::user()->access_token);
-
         return $this->api->play($devideId, ["uris" => $songIds]);
     }
 
     public function currentlyPlayingSong()
     {
-        $this->api->setAccessToken(\Auth::user()->access_token);
-
         return $this->api->getMyCurrentTrack();
     }
 
     public function getMyCurrentPlaybackInfo()
     {
-        $this->api->setAccessToken(\Auth::user()->access_token);
-
         return $this->api->getMyCurrentPlaybackInfo();
     }
 }
