@@ -73,4 +73,14 @@ class Room extends Model
         Session::put('playlist', $playlist);
         return $this->gateway->startSong($deviceId, 'spotify:track:' . $song);
     }
+
+    public function pause(string $deviceId)
+    {
+        return $this->gateway->pause($deviceId);
+    }
+
+    public function resume(string $deviceId)
+    {
+        return $this->gateway->resumeSong($deviceId);
+    }
 }

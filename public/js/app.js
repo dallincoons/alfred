@@ -47420,6 +47420,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -47485,6 +47489,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     methods: {
         play: function play() {
             axios.put('/room/' + this.roomKey + '/device/' + this.playerId + '/play');
+        },
+        pause: function pause() {
+            axios.put('/room/' + this.roomKey + '/pause', { 'device_id': this.playerId });
+        },
+        resume: function resume() {
+            axios.put('/room/' + this.roomKey + '/resume', { 'device_id': this.playerId });
         }
     }
 });
@@ -47497,7 +47507,13 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("button", { on: { click: _vm.play } }, [_vm._v("Play")])
+  return _c("div", [
+    _c("button", { on: { click: _vm.play } }, [_vm._v("Play")]),
+    _vm._v(" "),
+    _c("button", { on: { click: _vm.pause } }, [_vm._v("Pause")]),
+    _vm._v(" "),
+    _c("button", { on: { click: _vm.resume } }, [_vm._v("Resume")])
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true

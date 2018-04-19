@@ -1,5 +1,9 @@
 <template>
-    <button @click="play">Play</button>
+    <div>
+        <button @click="play">Play</button>
+        <button @click="pause">Pause</button>
+        <button @click="resume">Resume</button>
+    </div>
 </template>
 
 <script>
@@ -48,7 +52,15 @@
 
         methods : {
             play() {
-                axios.put(`/room/${this.roomKey}/device/${this.playerId}/play`)
+                axios.put(`/room/${this.roomKey}/device/${this.playerId}/play`);
+            },
+
+            pause() {
+                axios.put(`/room/${this.roomKey}/pause`, {'device_id' : this.playerId});
+            },
+
+            resume() {
+                axios.put(`/room/${this.roomKey}/resume`, {'device_id' : this.playerId});
             }
         }
     }

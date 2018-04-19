@@ -103,6 +103,12 @@ class FakeSpotifyGateway implements SpotifyGatewayInterface
         return true;
     }
 
+    public function resumeSong(string $deviceId)
+    {
+        $this->isPlaying = true;
+        return true;
+    }
+
     public function currentlyPlayingSong()
     {
         return [

@@ -69,6 +69,11 @@ class SpotifyGateway implements SpotifyGatewayInterface
         return $this->api->play($devideId, ["uris" => $songIds]);
     }
 
+    public function resumeSong(string $devideId)
+    {
+        return $this->api->play($devideId);
+    }
+
     public function currentlyPlayingSong()
     {
         return $this->api->getMyCurrentTrack();

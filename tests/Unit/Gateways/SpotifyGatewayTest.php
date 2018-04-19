@@ -92,6 +92,17 @@ class SpotifyGatewayTest extends TestCase
         $this->assertFalse(data_get($this->spotify->getMyCurrentPlaybackInfo(), 'is_playing'));
     }
 
+    /** @test */
+    public function resume_player()
+    {
+        $this->insertCassette('resume_player');
+
+        $success = $this->spotify->resumeSong('82c86b09fbd6826211f9223a3480f455c65ea17b');
+
+        $this->assertTrue($success);
+        $this->assertTrue(data_get($this->spotify->getMyCurrentPlaybackInfo(), 'is_playing'));
+    }
+
     public function getGateway()
     {
         return new SpotifyGateway();
