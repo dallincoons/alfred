@@ -107,27 +107,43 @@ class RoomTest extends TestCase
         $room->addSong('0fgCZv9soFDMFNOOmZ8kck');
 
         $songs = ['spotify:track:46ty9wS8la1HWGndeqep7k', 'spotify:track:0fgCZv9soFDMFNOOmZ8kck'];
-
         $room->play('82c86b09fbd6826211f9223a3480f455c65ea17b');
-
         $currentSong = array_get(app(SpotifyGatewayInterface::class)->currentlyPlayingSong(), 'item.id');
 
         $this->assertContains($currentSong, $songs);
 
         $lastSong = array_first(array_except($songs, array_search($currentSong, $songs)));
-
         $room->play('82c86b09fbd6826211f9223a3480f455c65ea17b');
-
         $currentSong = app(SpotifyGatewayInterface::class)->currentlyPlayingSong();
 
         $this->assertEquals($lastSong, array_get($currentSong, 'item.id'));
 
         $songs = ['spotify:track:46ty9wS8la1HWGndeqep7k', 'spotify:track:0fgCZv9soFDMFNOOmZ8kck'];
-
         $room->play('82c86b09fbd6826211f9223a3480f455c65ea17b');
-
         $currentSong = array_get(app(SpotifyGatewayInterface::class)->currentlyPlayingSong(), 'item.id');
 
         $this->assertContains($currentSong, $songs);
+    }
+
+    /** @test */
+    public function it_plays_only_songs_for_the_current_room()
+    {
+        $room = factory(Room::class)->create();
+        $room->addSong('46ty9wS8la1HWGndeqep7k');
+        $room->addSong('0fgCZv9soFDMFNOOmZ8kck');
+
+        $room2 = factory(Room::class)->create();
+        $room2->addSong('6aiEz7VcFWKbmpL0Q8nxYC');
+        $room2->addSong('1YAXrOLk7EGfv1tlSnGOqi');
+
+        $room->play('82c86b09fbd6826211f9223a3480f455c65ea17b');
+        $currentSong = array_get(app(SpotifyGatewayInterface::class)->currentlyPlayingSong(), 'item.id');
+
+        $this->assertContains($currentSong, ['spotify:track:46ty9wS8la1HWGndeqep7k', 'spotify:track:0fgCZv9soFDMFNOOmZ8kck']);
+
+        $room2->play('82c86b09fbd6826211f9223a3480f455c65ea17b');
+        $currentSong = array_get(app(SpotifyGatewayInterface::class)->currentlyPlayingSong(), 'item.id');
+
+        $this->assertContains($currentSong, ['spotify:track:6aiEz7VcFWKbmpL0Q8nxYC', 'spotify:track:1YAXrOLk7EGfv1tlSnGOqi']);
     }
 }

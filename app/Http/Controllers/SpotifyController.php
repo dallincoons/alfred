@@ -12,7 +12,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Laravel\Socialite\Facades\Socialite;
 
-class SpotifyController
+class SpotifyController extends Controller
 {
     /**
      * @var SpotifyGatewayInterface
@@ -21,7 +21,11 @@ class SpotifyController
 
     public function __construct()
     {
-        $this->spotify = app(SpotifyGatewayInterface::class);
+        $this->middleware(function ($request, $next) {
+            $this->spotify = app(SpotifyGatewayInterface::class);
+
+            return $next($request);
+        });
     }
 
     public function connect()

@@ -65,12 +65,12 @@ class Room extends Model
 
     public function play(string $deviceId)
     {
-        if(empty(Session::get('playlist'))) {
-            Session::put('playlist', ($this->songs()->inRandomOrder()->pluck('external_id')->all()));
+        if(empty(Session::get('playlist:' . $this->playlistId))) {
+            Session::put('playlist:' . $this->playlistId, ($this->songs()->inRandomOrder()->pluck('external_id')->all()));
         }
-        $playlist = Session::get('playlist');
+        $playlist = Session::get('playlist:' . $this->playlistId);
         $song = array_pop($playlist);
-        Session::put('playlist', $playlist);
+        Session::put('playlist:' . $this->playlistId, $playlist);
         return $this->gateway->startSong($deviceId, 'spotify:track:' . $song);
     }
 
