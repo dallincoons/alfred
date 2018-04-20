@@ -30,7 +30,7 @@ class RoomTest extends TestCase
         $response = $this->post('/room/join', ['room' => $room->share()]);
 
         $response->assertRedirect('/rooms/' . $room->getKey());
-        $this->assertTrue(\Auth::user()->is(\App\GuestUser::first()));
+        $this->assertTrue(\Auth::user()->hasParent());
     }
 
     /** @test */

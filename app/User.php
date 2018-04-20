@@ -17,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'spotify_id', 'access_token', 'refresh_token', 'uri'
+        'name', 'spotify_id', 'access_token', 'refresh_token', 'uri', 'parent_id'
     ];
 
     /**
@@ -36,7 +36,7 @@ class User extends Authenticatable
 
     public function guestUser()
     {
-        return $this->hasOne(GuestUser::class, 'parent_user_id');
+        return $this->hasOne(User::class, 'parent_id');
     }
 
     /**
@@ -51,5 +51,10 @@ class User extends Authenticatable
             'name' => $name,
             'playlistId' => $playlistId
         ]);
+    }
+
+    public function hasParent()
+    {
+        return !is_null($this->parent_id);
     }
 }

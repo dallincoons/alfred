@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\CodeGenerator;
 use App\Room;
+use App\User;
 use Illuminate\Http\Request;
 
 class GuestLoginController extends Controller

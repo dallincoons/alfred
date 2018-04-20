@@ -7,6 +7,7 @@ use App\Gateways\SpotifyGatewayInterface;
 use App\GuestUser;
 use App\Room;
 use App\Spotify;
+use App\User;
 use Illuminate\Support\Facades\Session;
 use Tests\TestCase;
 
@@ -62,7 +63,7 @@ class RoomTest extends TestCase
         $room = $this->user->createRoom('test1337');
         $roomId = $room->share();
 
-        $guestUser = GuestUser::where('parent_user_id', $this->user->getKey())->first();
+        $guestUser = User::where('parent_id', $this->user->getKey())->first();
 
         $room->join($roomId);
 

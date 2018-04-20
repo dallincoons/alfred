@@ -17,9 +17,9 @@ class Spotify
                 'uri' => $spotifyUser->uri,
             ])->save();
 
-            GuestUser::create([
-                'parent_user_id' => $user->getKey()
-            ]);
+            $guest = $user->replicate();
+            $guest->parent_id = $user->getKey();
+            $guest->save();
         } else {
             $user->fill([
                 'access_token' => $spotifyUser->access_token,

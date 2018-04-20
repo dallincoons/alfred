@@ -5,6 +5,7 @@ namespace Tests\Fakes;
 use App\Gateways\Song;
 use App\Gateways\SpotifyGatewayInterface;
 use App\GuestUser;
+use App\Spotify;
 use App\SpotifyUser;
 use App\User;
 
@@ -21,25 +22,7 @@ class FakeSpotifyGateway implements SpotifyGatewayInterface
 
     public function login(SpotifyUser $spotifyUser)
     {
-        $user = User::firstOrNew(['spotify_id' => $spotifyUser->id]);
-
-        if (!$user->exists) {
-            $user->fill([
-                'name' => $spotifyUser->name,
-                'spotify_id' => $spotifyUser->id,
-                'access_token' => $spotifyUser->access_token,
-                'refresh_token' => $spotifyUser->refresh_token,
-                'uri' => $spotifyUser->uri,
-            ])->save();
-
-            GuestUser::create([
-                'parent_user_id' => $user->getKey()
-            ]);
-        };
-
-        auth()->login($user);
-
-        return $user;
+        return Spotify::login($spotifyUser);
     }
 
     public function createPlaylist(string $name, string $userId = null)

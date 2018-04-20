@@ -17,11 +17,16 @@ class CreateUsersTable extends Migration
             $table->increments('id');
             $table->string('spotify_id');
             $table->string('name');
+            $table->unsignedInteger('parent_id')->nullable();
             $table->string('access_token', 500);
             $table->string('refresh_token');
             $table->string('uri');
             $table->rememberToken();
             $table->timestamps();
+
+            $table->foreign('parent_id')
+                ->references('id')
+                ->on('users');
         });
     }
 

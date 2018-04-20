@@ -18,7 +18,6 @@ class SpotifyTest extends TestCase
     public function test_user_can_login_from_spotify_auth()
     {
         User::truncate();
-        GuestUser::truncate();
 
         $spotifyUser = new SpotifyUser(123456789, 'Paul M', '11111', '22222', 'spotify:1234');
 
@@ -26,9 +25,9 @@ class SpotifyTest extends TestCase
 
         Spotify::login($spotifyUser);
 
-        $this->assertEquals(1, User::count());
-        $this->assertEquals(1, GuestUser::count());
+        $this->assertEquals(2, User::count());
         $this->assertEquals(User::first()->id, \Auth::user()->id);
+        $this->assertTrue(User::find(2)->hasParent());
 
         $user = \Auth::user();
 
@@ -38,6 +37,6 @@ class SpotifyTest extends TestCase
 
         $this->spotify->login($spotifyUser);
 
-        $this->assertEquals(1, User::count());
+        $this->assertEquals(2, User::count());
     }
 }
