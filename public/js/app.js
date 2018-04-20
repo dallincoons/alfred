@@ -47424,6 +47424,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -47495,6 +47496,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         resume: function resume() {
             axios.put('/room/' + this.roomKey + '/resume', { 'device_id': this.playerId });
+        },
+        next: function next() {
+            axios.put('/room/' + this.roomKey + '/next', { 'device_id': this.playerId });
         }
     }
 });
@@ -47512,7 +47516,9 @@ var render = function() {
     _vm._v(" "),
     _c("button", { on: { click: _vm.pause } }, [_vm._v("Pause")]),
     _vm._v(" "),
-    _c("button", { on: { click: _vm.resume } }, [_vm._v("Resume")])
+    _c("button", { on: { click: _vm.resume } }, [_vm._v("Resume")]),
+    _vm._v(" "),
+    _c("button", { on: { click: _vm.next } }, [_vm._v("Next")])
   ])
 }
 var staticRenderFns = []

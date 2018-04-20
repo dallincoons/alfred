@@ -85,4 +85,9 @@ class SpotifyGateway implements SpotifyGatewayInterface
     {
         return $this->api->getMyCurrentPlaybackInfo();
     }
+
+    public function next(string $deviceId)
+    {
+        return $this->api->next($deviceId);
+    }
 }

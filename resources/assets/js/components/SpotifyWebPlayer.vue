@@ -3,6 +3,7 @@
         <button @click="play">Play</button>
         <button @click="pause">Pause</button>
         <button @click="resume">Resume</button>
+        <button @click="next">Next</button>
     </div>
 </template>
 
@@ -61,6 +62,10 @@
 
             resume() {
                 axios.put(`/room/${this.roomKey}/resume`, {'device_id' : this.playerId});
+            },
+
+            next() {
+                axios.put(`/room/${this.roomKey}/next`, {'device_id' : this.playerId});
             }
         }
     }

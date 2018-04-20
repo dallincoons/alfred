@@ -83,4 +83,9 @@ class Room extends Model
     {
         return $this->gateway->resumeSong($deviceId);
     }
+
+    public function next(string $deviceId)
+    {
+        return $this->gateway->next($deviceId);
+    }
 }

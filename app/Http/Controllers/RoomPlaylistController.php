@@ -42,4 +42,11 @@ class RoomPlaylistController extends Controller
 
         return response()->json($success);
     }
+
+    public function next(Request $request, Room $room)
+    {
+        $success = $room->next($request->input('device_id'));
+
+        return response()->json($success);
+    }
 }

@@ -150,4 +150,9 @@ class FakeSpotifyGateway implements SpotifyGatewayInterface
             'is_playing' => $this->isPlaying
         ];
     }
+
+    public function next(string $deviceId)
+    {
+        $this->currentlyPlaying = (array_last(array_first($this->playlists)->songs));
+    }
 }
