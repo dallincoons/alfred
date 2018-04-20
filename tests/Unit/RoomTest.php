@@ -106,9 +106,9 @@ class RoomTest extends TestCase
         $room->addSong('46ty9wS8la1HWGndeqep7k');
         $room->addSong('0fgCZv9soFDMFNOOmZ8kck');
 
-        $songs = ['46ty9wS8la1HWGndeqep7k', '0fgCZv9soFDMFNOOmZ8kck'];
+        $songs = ['spotify:track:46ty9wS8la1HWGndeqep7k', 'spotify:track:0fgCZv9soFDMFNOOmZ8kck'];
         $room->play('82c86b09fbd6826211f9223a3480f455c65ea17b');
-        $currentSong = array_get(app(SpotifyGatewayInterface::class)->currentlyPlayingSong(), 'item.id');
+        $currentSong = app(SpotifyGatewayInterface::class)->currentlyPlayingSong()->id();
 
         $this->assertContains($currentSong, $songs);
 
@@ -116,11 +116,11 @@ class RoomTest extends TestCase
         $room->play('82c86b09fbd6826211f9223a3480f455c65ea17b');
         $currentSong = app(SpotifyGatewayInterface::class)->currentlyPlayingSong();
 
-        $this->assertEquals($lastSong, array_get($currentSong, 'item.id'));
+        $this->assertEquals($lastSong, $currentSong->id());
 
-        $songs = ['46ty9wS8la1HWGndeqep7k', '0fgCZv9soFDMFNOOmZ8kck'];
+        $songs = ['spotify:track:46ty9wS8la1HWGndeqep7k', 'spotify:track:0fgCZv9soFDMFNOOmZ8kck'];
         $room->play('82c86b09fbd6826211f9223a3480f455c65ea17b');
-        $currentSong = array_get(app(SpotifyGatewayInterface::class)->currentlyPlayingSong(), 'item.id');
+        $currentSong = app(SpotifyGatewayInterface::class)->currentlyPlayingSong()->id();
 
         $this->assertContains($currentSong, $songs);
     }
@@ -137,13 +137,13 @@ class RoomTest extends TestCase
         $room2->addSong('1YAXrOLk7EGfv1tlSnGOqi');
 
         $room->play('82c86b09fbd6826211f9223a3480f455c65ea17b');
-        $currentSong = array_get(app(SpotifyGatewayInterface::class)->currentlyPlayingSong(), 'item.id');
+        $currentSong =app(SpotifyGatewayInterface::class)->currentlyPlayingSong()->id();
 
-        $this->assertContains($currentSong, ['46ty9wS8la1HWGndeqep7k', '0fgCZv9soFDMFNOOmZ8kck']);
+        $this->assertContains($currentSong, ['spotify:track:46ty9wS8la1HWGndeqep7k', 'spotify:track:0fgCZv9soFDMFNOOmZ8kck']);
 
         $room2->play('82c86b09fbd6826211f9223a3480f455c65ea17b');
-        $currentSong = array_get(app(SpotifyGatewayInterface::class)->currentlyPlayingSong(), 'item.id');
+        $currentSong = app(SpotifyGatewayInterface::class)->currentlyPlayingSong()->id();
 
-        $this->assertContains($currentSong, ['6aiEz7VcFWKbmpL0Q8nxYC', '1YAXrOLk7EGfv1tlSnGOqi']);
+        $this->assertContains($currentSong, ['spotify:track:6aiEz7VcFWKbmpL0Q8nxYC', 'spotify:track:1YAXrOLk7EGfv1tlSnGOqi']);
     }
 }

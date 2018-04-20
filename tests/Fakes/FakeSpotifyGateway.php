@@ -2,6 +2,7 @@
 
 namespace Tests\Fakes;
 
+use App\Gateways\Song;
 use App\Gateways\SpotifyGatewayInterface;
 use App\GuestUser;
 use App\SpotifyUser;
@@ -54,7 +55,7 @@ class FakeSpotifyGateway implements SpotifyGatewayInterface
             $this->playlists[$playListId] = (object) ['songs' => []];
         }
 
-        array_push($this->playlists[$playListId]->songs, [
+        array_push($this->playlists[$playListId]->songs, new Song([
             'item' => [
                 'album' => [
                     'artists' => [
@@ -66,7 +67,7 @@ class FakeSpotifyGateway implements SpotifyGatewayInterface
                 'id' => $songId,
                 'uri' => 'spotify:track:' . $songId
             ],
-        ]);
+        ]));
     }
 
     public function search(string $searchText)
@@ -107,11 +108,12 @@ class FakeSpotifyGateway implements SpotifyGatewayInterface
 
     public function startSong(string $deviceId, $songIds)
     {
-        $this->currentlyPlaying = [
+        $this->currentlyPlaying = new Song([
             'item' => [
-                'id' => array_wrap($songIds)[0]
+                'id' => array_wrap($songIds)[0],
+                'uri' => 'spotify:track:' . array_wrap($songIds)[0]
             ]
-        ];
+        ]);
         return true;
     }
 
@@ -127,9 +129,9 @@ class FakeSpotifyGateway implements SpotifyGatewayInterface
         return true;
     }
 
-    public function currentlyPlayingSong()
+    public function currentlyPlayingSong(): Song
     {
-        return [
+        return new Song([
             'item' => [
                 'album' => [
                     'artists' => [
@@ -138,10 +140,10 @@ class FakeSpotifyGateway implements SpotifyGatewayInterface
                         ]
                     ]
                 ],
-                'id' => str_after($this->currentlyPlaying['item']['id'], 'spotify:track:'),
-                'uri' => $this->currentlyPlaying['item']['id']
+                'id' => str_after($this->currentlyPlaying->uri(), 'spotify:track:'),
+                'uri' => $this->currentlyPlaying->id()
             ],
-        ];
+        ]);
     }
 
     public function getMyCurrentPlaybackInfo()
