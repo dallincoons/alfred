@@ -16,7 +16,7 @@ class FakeSpotifyGatewayTest extends SpotifyGatewayTest
 
         $gateway->addSong($playlistId, '60SJRvzXJnVeVfS4RiH14u');
 
-        $this->assertContains('60SJRvzXJnVeVfS4RiH14u', $gateway->playlists[$playlistId]->songs);
+        $this->assertContains('60SJRvzXJnVeVfS4RiH14u', array_first($gateway->playlists[$playlistId]->songs)['item']['id']);
     }
 
     /** @test */

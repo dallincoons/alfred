@@ -106,7 +106,7 @@ class RoomTest extends TestCase
         $room->addSong('46ty9wS8la1HWGndeqep7k');
         $room->addSong('0fgCZv9soFDMFNOOmZ8kck');
 
-        $songs = ['spotify:track:46ty9wS8la1HWGndeqep7k', 'spotify:track:0fgCZv9soFDMFNOOmZ8kck'];
+        $songs = ['46ty9wS8la1HWGndeqep7k', '0fgCZv9soFDMFNOOmZ8kck'];
         $room->play('82c86b09fbd6826211f9223a3480f455c65ea17b');
         $currentSong = array_get(app(SpotifyGatewayInterface::class)->currentlyPlayingSong(), 'item.id');
 
@@ -118,7 +118,7 @@ class RoomTest extends TestCase
 
         $this->assertEquals($lastSong, array_get($currentSong, 'item.id'));
 
-        $songs = ['spotify:track:46ty9wS8la1HWGndeqep7k', 'spotify:track:0fgCZv9soFDMFNOOmZ8kck'];
+        $songs = ['46ty9wS8la1HWGndeqep7k', '0fgCZv9soFDMFNOOmZ8kck'];
         $room->play('82c86b09fbd6826211f9223a3480f455c65ea17b');
         $currentSong = array_get(app(SpotifyGatewayInterface::class)->currentlyPlayingSong(), 'item.id');
 
@@ -139,11 +139,11 @@ class RoomTest extends TestCase
         $room->play('82c86b09fbd6826211f9223a3480f455c65ea17b');
         $currentSong = array_get(app(SpotifyGatewayInterface::class)->currentlyPlayingSong(), 'item.id');
 
-        $this->assertContains($currentSong, ['spotify:track:46ty9wS8la1HWGndeqep7k', 'spotify:track:0fgCZv9soFDMFNOOmZ8kck']);
+        $this->assertContains($currentSong, ['46ty9wS8la1HWGndeqep7k', '0fgCZv9soFDMFNOOmZ8kck']);
 
         $room2->play('82c86b09fbd6826211f9223a3480f455c65ea17b');
         $currentSong = array_get(app(SpotifyGatewayInterface::class)->currentlyPlayingSong(), 'item.id');
 
-        $this->assertContains($currentSong, ['spotify:track:6aiEz7VcFWKbmpL0Q8nxYC', 'spotify:track:1YAXrOLk7EGfv1tlSnGOqi']);
+        $this->assertContains($currentSong, ['6aiEz7VcFWKbmpL0Q8nxYC', '1YAXrOLk7EGfv1tlSnGOqi']);
     }
 }

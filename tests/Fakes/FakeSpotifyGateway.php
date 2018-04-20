@@ -7,12 +7,13 @@ use App\GuestUser;
 use App\SpotifyUser;
 use App\User;
 
+//@todo create song class fixture
 class FakeSpotifyGateway implements SpotifyGatewayInterface
 {
     public $playlists = [];
 
     /**
-     * @var string
+     * @var array
      */
     private $currentlyPlaying;
     private $isPlaying = true;
@@ -53,7 +54,19 @@ class FakeSpotifyGateway implements SpotifyGatewayInterface
             $this->playlists[$playListId] = (object) ['songs' => []];
         }
 
-        array_push($this->playlists[$playListId]->songs, $songId);
+        array_push($this->playlists[$playListId]->songs, [
+            'item' => [
+                'album' => [
+                    'artists' => [
+                        0 => [
+                            'name' => 'Desmond Dekker'
+                        ]
+                    ]
+                ],
+                'id' => $songId,
+                'uri' => 'spotify:track:' . $songId
+            ],
+        ]);
     }
 
     public function search(string $searchText)
@@ -88,12 +101,17 @@ class FakeSpotifyGateway implements SpotifyGatewayInterface
 
     public function startPlaylist(string $deviceId, string $playlistId)
     {
+        $this->currentlyPlaying = array_first($this->playlists[$playlistId]->songs);
         return true;
     }
 
     public function startSong(string $deviceId, $songIds)
     {
-        $this->currentlyPlaying = array_wrap($songIds)[0];
+        $this->currentlyPlaying = [
+            'item' => [
+                'id' => array_wrap($songIds)[0]
+            ]
+        ];
         return true;
     }
 
@@ -120,7 +138,8 @@ class FakeSpotifyGateway implements SpotifyGatewayInterface
                         ]
                     ]
                 ],
-                'id' => $this->currentlyPlaying
+                'id' => str_after($this->currentlyPlaying['item']['id'], 'spotify:track:'),
+                'uri' => $this->currentlyPlaying['item']['id']
             ],
         ];
     }

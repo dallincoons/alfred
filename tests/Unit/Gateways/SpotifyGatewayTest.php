@@ -68,7 +68,9 @@ class SpotifyGatewayTest extends TestCase
     {
         $this->insertCassette('start_playlist');
 
-        $this->assertTrue($this->spotify->startPlaylist('f5384d627798e22e5e592a0ab566048b59c57511', '1sxZ063FPv9ym5OS5nQIbV'));
+        $playlistId = $this->spotify->createPlaylist('test123', \Auth::user()->spotify_id);
+
+        $this->assertTrue($this->spotify->startPlaylist('f5384d627798e22e5e592a0ab566048b59c57511', $playlistId));
     }
 
     /** @test */
@@ -78,7 +80,7 @@ class SpotifyGatewayTest extends TestCase
 
         $this->spotify->startSong('82c86b09fbd6826211f9223a3480f455c65ea17b', ['spotify:track:2Tr5z4vI1RT1EJT6myECjU']);
 
-        $this->assertEquals('Desmond Dekker', data_get($this->spotify->currentlyPlayingSong(), 'item.album.artists.0.name'));
+        $this->assertEquals('spotify:track:2Tr5z4vI1RT1EJT6myECjU', data_get($this->spotify->currentlyPlayingSong(), 'item.uri'));
     }
 
     /** @test */
@@ -101,6 +103,21 @@ class SpotifyGatewayTest extends TestCase
 
         $this->assertTrue($success);
         $this->assertTrue(data_get($this->spotify->getMyCurrentPlaybackInfo(), 'is_playing'));
+    }
+
+    /** @test */
+    public function skip_track()
+    {
+        $this->insertCassette('skip_track');
+
+        $playlistId = $this->spotify->createPlaylist('test123', \Auth::user()->spotify_id);
+
+        $this->spotify->addSong($playlistId, '60SJRvzXJnVeVfS4RiH14u');
+        $this->spotify->addSong($playlistId, '2Tr5z4vI1RT1EJT6myECjU');
+
+        $success = $this->spotify->startPlaylist('82c86b09fbd6826211f9223a3480f455c65ea17b', $playlistId);
+
+        $this->assertEquals('60SJRvzXJnVeVfS4RiH14u', data_get($this->spotify->currentlyPlayingSong(), 'item.id'));
     }
 
     public function getGateway()

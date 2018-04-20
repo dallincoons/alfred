@@ -13,7 +13,9 @@ class SpotifyGateway implements SpotifyGatewayInterface
     {
         $this->api = new \SpotifyWebAPI\SpotifyWebAPI();
 
-        $this->api->setAccessToken(\Auth::user()->access_token);
+        if(\Auth::check()) {
+            $this->api->setAccessToken(\Auth::user()->access_token);
+        }
     }
 
     public function createPlaylist(string $name, string $userId = null)

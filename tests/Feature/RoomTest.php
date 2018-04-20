@@ -98,6 +98,6 @@ class RoomTest extends TestCase
 
         $songs = app(SpotifyGatewayInterface::class)->playlists[$room->playlistId]->songs;
 
-        $this->assertContains('60SJRvzXJnVeVfS4RiH14u', $songs);
+        $this->assertContains('60SJRvzXJnVeVfS4RiH14u', array_first($songs)['item']['id']);
     }
 }
