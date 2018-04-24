@@ -39,4 +39,26 @@ class SpotifyTest extends TestCase
 
         $this->assertEquals(2, User::count());
     }
+
+    /** @test */
+    public function guest_user_tokens_are_updated_when_user_re_authenticates()
+    {
+        $spotifyUser = new SpotifyUser(123456789, 'Paul M', '11111', '22222', 'spotify:1234');
+
+        Spotify::login($spotifyUser);
+
+        $user = \Auth::user();
+
+        $this->assertEquals('11111', $user->access_token);
+        $this->assertEquals('11111', $user->guestUser->access_token);
+
+        $spotifyUser = new SpotifyUser(123456789, 'Paul M', '33333', '22222', 'spotify:1234');
+
+        Spotify::login($spotifyUser);
+
+        $user = \Auth::user();
+
+        $this->assertEquals('33333', $user->access_token);
+        $this->assertEquals('33333', $user->guestUser->access_token);
+    }
 }

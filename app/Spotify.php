@@ -25,6 +25,11 @@ class Spotify
                 'access_token' => $spotifyUser->access_token,
                 'refresh_token' => $spotifyUser->refresh_token,
             ])->save();
+
+            $user->guestUser->fill([
+                'access_token' => $spotifyUser->access_token,
+                'refresh_token' => $spotifyUser->refresh_token,
+            ])->save();
         }
 
         auth()->login($user);
