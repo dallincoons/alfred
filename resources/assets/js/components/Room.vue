@@ -11,7 +11,7 @@
                 <span @click="addSong(rkey, item.id)">{{item.name}} - {{ item.album.artists[0].name }}</span>
             </div>
         </div>
-        <spotify-web-player :accessToken="access_token" :roomName="name" :roomKey="rkey"></spotify-web-player>
+        <spotify-web-player :accessToken="access_token" :roomName="name" :roomKey="rkey" :existingPlayerId="existing_player_id"></spotify-web-player>
     </div>
 </template>
 
@@ -34,7 +34,8 @@
             'name',
             'rkey',
             'code',
-            'access_token'
+            'access_token',
+            'existing_player_id'
         ],
 
         methods : {

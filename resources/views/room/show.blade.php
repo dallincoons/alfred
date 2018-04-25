@@ -6,5 +6,6 @@
         rkey="{{$room->getKey()}}"
         code="{{$roomCode}}"
         access_token="{{\Auth::user()->access_token}}"
+        existing_player_id="{{$room->deviceId}}"
     ></room>
 @endsection

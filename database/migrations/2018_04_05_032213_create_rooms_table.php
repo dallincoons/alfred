@@ -20,6 +20,7 @@ class CreateRoomsTable extends Migration
             $table->integer('user_id');
             $table->string('name');
             $table->string('playlistId');
+            $table->string('deviceId')->nullable();
             $table->timestamps();
         });
     }

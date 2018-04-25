@@ -63,11 +63,9 @@ class RoomTest extends TestCase
         $room = $this->user->createRoom('test1337');
         $roomId = $room->share();
 
-        $guestUser = User::where('parent_id', $this->user->getKey())->first();
-
         $room->join($roomId);
 
-        $this->assertEquals($guestUser, \Auth::user());
+        $this->assertTrue($this->user->is(\Auth::user()));
     }
 
     /** @test */

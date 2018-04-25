@@ -23,8 +23,11 @@
                     getOAuthToken: cb => { cb(token); }
                 });
 
-                this.playerId = player._options.id;
-
+                if(this.existingPlayerId) {
+                    this.playerId = this.existingPlayerId;
+                } else {
+                    this.playerId = player._options.id;
+                }
                 // Error handling
                 player.addListener('initialization_error', ({ message }) => { console.error(message); });
                 player.addListener('authentication_error', ({ message }) => { console.error(message); });
@@ -33,7 +36,6 @@
 
                 // Playback status updates
                 player.addListener('player_state_changed', state => {
-                    console.log(state);
                      if (state.paused === true && state.duration === 0) {
                         this.play();
                      }
@@ -41,7 +43,9 @@
 
                 // Ready
                 player.addListener('ready', ({ device_id }) => {
-                    console.log('Ready with Device ID', device_id);
+                    this.storeDeviceId(device_id).then((response) => {
+                        console.log('Ready with Device ID', device_id);
+                    });
                 });
 
                 // Connect to the player!
@@ -49,7 +53,7 @@
             };
         },
 
-        props : ['accessToken', 'roomName', 'roomKey'],
+        props : {'accessToken' : {default: ''}, 'roomName': {default: ''}, 'roomKey' : {default: ''}, 'existingPlayerId' : {default: ''}},
 
         methods : {
             play() {
@@ -66,6 +70,10 @@
 
             next() {
                 axios.put(`/room/${this.roomKey}/next`, {'device_id' : this.playerId});
+            },
+
+            storeDeviceId(deviceId) {
+                return axios.post(`/room/${this.roomKey}/device`, {'device_id' : deviceId})
             }
         }
     }

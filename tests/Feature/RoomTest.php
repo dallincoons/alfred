@@ -1,7 +1,9 @@
 <?php
 
+use App\CodeGenerator;
 use App\Gateways\SpotifyGatewayInterface;
 use App\Room;
+use Illuminate\Support\Facades\Session;
 use Tests\TestCase;
 
 class RoomTest extends TestCase
@@ -99,5 +101,19 @@ class RoomTest extends TestCase
         $songs = app(SpotifyGatewayInterface::class)->playlists[$room->playlistId]->songs;
 
         $this->assertContains('60SJRvzXJnVeVfS4RiH14u', array_first($songs)->id());
+    }
+
+    /** @test */
+    public function store_device_id_for_room()
+    {
+        $room = factory(Room::class)->create();
+
+        $roomHash = app(CodeGenerator::class)->encode($room->getKey());
+
+        $this->assertEmpty(Session::get('deviceIdForRoom:' . $roomHash));
+
+        $room->storeDeviceId($deviceId = '12345678');
+
+        $this->assertEquals('12345678', $room->deviceId);
     }
 }

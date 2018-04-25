@@ -47392,7 +47392,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
 
-    props: ['name', 'rkey', 'code', 'access_token'],
+    props: ['name', 'rkey', 'code', 'access_token', 'existing_player_id'],
 
     methods: {
         searchSongs: function searchSongs(song) {
@@ -47444,8 +47444,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 }
             });
 
-            _this.playerId = player._options.id;
-
+            if (_this.existingPlayerId) {
+                _this.playerId = _this.existingPlayerId;
+            } else {
+                _this.playerId = player._options.id;
+            }
             // Error handling
             player.addListener('initialization_error', function (_ref) {
                 var message = _ref.message;
@@ -47466,7 +47469,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             // Playback status updates
             player.addListener('player_state_changed', function (state) {
-                console.log(state);
                 if (state.paused === true && state.duration === 0) {
                     _this.play();
                 }
@@ -47476,7 +47478,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             player.addListener('ready', function (_ref5) {
                 var device_id = _ref5.device_id;
 
-                console.log('Ready with Device ID', device_id);
+                _this.storeDeviceId(device_id).then(function (response) {
+                    console.log('Ready with Device ID', device_id);
+                });
             });
 
             // Connect to the player!
@@ -47485,7 +47489,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
 
-    props: ['accessToken', 'roomName', 'roomKey'],
+    props: { 'accessToken': { default: '' }, 'roomName': { default: '' }, 'roomKey': { default: '' }, 'existingPlayerId': { default: '' } },
 
     methods: {
         play: function play() {
@@ -47499,6 +47503,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         next: function next() {
             axios.put('/room/' + this.roomKey + '/next', { 'device_id': this.playerId });
+        },
+        storeDeviceId: function storeDeviceId(deviceId) {
+            return axios.post('/room/' + this.roomKey + '/device', { 'device_id': deviceId });
         }
     }
 });
@@ -47613,7 +47620,8 @@ var render = function() {
         attrs: {
           accessToken: _vm.access_token,
           roomName: _vm.name,
-          roomKey: _vm.rkey
+          roomKey: _vm.rkey,
+          existingPlayerId: _vm.existing_player_id
         }
       })
     ],

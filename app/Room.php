@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Session;
 class Room extends Model
 {
     protected $fillable = [
-        'name', 'playlistId'
+        'name', 'playlistId', 'deviceId'
     ];
 
     /**
@@ -48,11 +48,18 @@ class Room extends Model
     public function join(string $roomId)
     {
         if (array_get($this->codeGenerator->decode($roomId), 0) == $this->getKey()) {
-            \Auth::login($this->user->guestUser);
+            \Auth::login($this->user);
             return true;
         }
 
         return false;
+    }
+
+    public function storeDeviceId(string $deviceId)
+    {
+        $this->update([
+            'deviceId' => $deviceId
+        ]);
     }
 
     public function addSong(string $songId)

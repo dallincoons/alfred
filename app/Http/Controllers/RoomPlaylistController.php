@@ -49,4 +49,9 @@ class RoomPlaylistController extends Controller
 
         return response()->json($success);
     }
+
+    public function device(Request $request, Room $room)
+    {
+        $room->storeDeviceId($request->input('device_id'));
+    }
 }
