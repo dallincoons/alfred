@@ -147,4 +147,15 @@ class RoomTest extends TestCase
 
         $this->assertContains($currentSong, ['spotify:track:6aiEz7VcFWKbmpL0Q8nxYC', 'spotify:track:1YAXrOLk7EGfv1tlSnGOqi']);
     }
+
+    /** @test */
+    public function adding_a_song_refreshes_session_data()
+    {
+        $room = factory(Room::class)->create();
+        $room->addSong('46ty9wS8la1HWGndeqep7k');
+        $room->addSong('0fgCZv9soFDMFNOOmZ8kck');
+
+        $this->assertContains('46ty9wS8la1HWGndeqep7k', Session::get('playlist:' . $room->playlistId));
+        $this->assertContains('0fgCZv9soFDMFNOOmZ8kck', Session::get('playlist:' . $room->playlistId));
+    }
 }

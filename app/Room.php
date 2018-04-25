@@ -67,6 +67,11 @@ class Room extends Model
         $this->songs()->create([
             'external_id' => $songId
         ]);
+
+        $songQueue = Session::get('playlist:' . $this->playlistId, []);
+        array_push($songQueue, $songId);
+        Session::put('playlist:' . $this->playlistId, $songQueue);
+
         $this->gateway->addSong($this->playlistId, $songId);
     }
 
