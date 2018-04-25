@@ -48,7 +48,7 @@ class Room extends Model
     public function join(string $roomId)
     {
         if (array_get($this->codeGenerator->decode($roomId), 0) == $this->getKey()) {
-            \Auth::login($this->user);
+            \Auth::login($this->user->guestUser);
             return true;
         }
 

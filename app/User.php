@@ -36,7 +36,7 @@ class User extends Authenticatable
 
     public function guestUser()
     {
-        return $this->hasOne(User::class, 'parent_id');
+        return $this->hasOne(GuestUser::class, 'parent_id');
     }
 
     /**
