@@ -68,23 +68,17 @@ class Room extends Model
             'external_id' => $songId
         ]);
 
-        $songQueue = Session::get('playlist:' . $this->playlistId, []);
-        array_push($songQueue, $songId);
-        shuffle($songQueue);
-        Session::put('playlist:' . $this->playlistId, $songQueue);
+        SongQueue::addSong($this->playlistId, $songId);
 
         $this->gateway->addSong($this->playlistId, $songId);
     }
 
     public function play(string $deviceId)
     {
-        if(empty(Session::get('playlist:' . $this->playlistId))) {
-            Session::put('playlist:' . $this->playlistId, ($this->songs()->inRandomOrder()->pluck('external_id')->all()));
-        }
-        $playlist = Session::get('playlist:' . $this->playlistId);
-        $song = array_pop($playlist);
-        Session::put('playlist:' . $this->playlistId, $playlist);
-        return $this->gateway->startSong($deviceId, 'spotify:track:' . $song);
+        $randomSongs = $this->songs()->inRandomOrder()->pluck('external_id')->all();
+        $currentSong = SongQueue::play($this->playlistId, $randomSongs);
+
+        return $this->gateway->startSong($deviceId, 'spotify:track:' . $currentSong);
     }
 
     public function pause(string $deviceId)
