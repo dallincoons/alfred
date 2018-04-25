@@ -70,6 +70,7 @@ class Room extends Model
 
         $songQueue = Session::get('playlist:' . $this->playlistId, []);
         array_push($songQueue, $songId);
+        shuffle($songQueue);
         Session::put('playlist:' . $this->playlistId, $songQueue);
 
         $this->gateway->addSong($this->playlistId, $songId);
