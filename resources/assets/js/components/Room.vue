@@ -6,12 +6,18 @@
         <input type="text" v-model="songName"/>
         <button @click="searchSongs(songName)">Search</button>
 
+        <button @click="play">Play</button>
+        <button @click="pause">Pause</button>
+        <button @click="resume">Resume</button>
+        <button @click="next">Next</button>
+
+        <spotify-web-player v-if="!has_parent || !existing_player_id" :accessToken="access_token" :roomName="name" :roomKey="rkey" @deviceId="storePlayerId"></spotify-web-player>
+
         <div v-for="song in songs">
             <div v-for="item in song.items">
                 <span @click="addSong(rkey, item.id)">{{item.name}} - {{ item.album.artists[0].name }}</span>
             </div>
         </div>
-        <spotify-web-player :accessToken="access_token" :roomName="name" :roomKey="rkey" :existingPlayerId="existing_player_id"></spotify-web-player>
     </div>
 </template>
 
@@ -26,7 +32,8 @@
         data() {
             return {
                 songName: '',
-                songs: []
+                songs: [],
+                playerId: ''
             }
         },
 
@@ -35,8 +42,15 @@
             'rkey',
             'code',
             'access_token',
-            'existing_player_id'
+            'existing_player_id',
+            'has_parent'
         ],
+
+        created() {
+            if(this.existing_player_id) {
+                this.storePlayerId(this.existing_player_id);
+            }
+        },
 
         methods : {
            searchSongs(song) {
@@ -49,7 +63,27 @@
                axios.post('/room/' + room + '/song/' + song).then((response) => {
                    alert('success');
                });
-           }
+           },
+
+            play() {
+                axios.put(`/room/${this.rkey}/device/${this.playerId}/play`);
+            },
+
+            pause() {
+                axios.put(`/room/${this.rkey}/pause`, {'device_id' : this.playerId});
+            },
+
+            resume() {
+                axios.put(`/room/${this.rkey}/resume`, {'device_id' : this.playerId});
+            },
+
+            next() {
+                axios.put(`/room/${this.rkey}/next`, {'device_id' : this.playerId});
+            },
+
+            storePlayerId(deviceId) {
+               this.playerId = deviceId;
+            }
         }
     }
 </script>

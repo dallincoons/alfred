@@ -1,9 +1,6 @@
 <template>
     <div>
-        <button @click="play">Play</button>
-        <button @click="pause">Pause</button>
-        <button @click="resume">Resume</button>
-        <button @click="next">Next</button>
+
     </div>
 </template>
 
@@ -23,11 +20,8 @@
                     getOAuthToken: cb => { cb(token); }
                 });
 
-                if(this.existingPlayerId) {
-                    this.playerId = this.existingPlayerId;
-                } else {
-                    this.playerId = player._options.id;
-                }
+                this.playerId = player._options.id;
+
                 // Error handling
                 player.addListener('initialization_error', ({ message }) => { console.error(message); });
                 player.addListener('authentication_error', ({ message }) => { console.error(message); });
@@ -53,26 +47,11 @@
             };
         },
 
-        props : {'accessToken' : {default: ''}, 'roomName': {default: ''}, 'roomKey' : {default: ''}, 'existingPlayerId' : {default: ''}},
+        props : {'accessToken' : {default: ''}, 'roomName': {default: ''}, 'roomKey' : {default: ''}},
 
         methods : {
-            play() {
-                axios.put(`/room/${this.roomKey}/device/${this.playerId}/play`);
-            },
-
-            pause() {
-                axios.put(`/room/${this.roomKey}/pause`, {'device_id' : this.playerId});
-            },
-
-            resume() {
-                axios.put(`/room/${this.roomKey}/resume`, {'device_id' : this.playerId});
-            },
-
-            next() {
-                axios.put(`/room/${this.roomKey}/next`, {'device_id' : this.playerId});
-            },
-
             storeDeviceId(deviceId) {
+                this.$emit('deviceId', deviceId);
                 return axios.post(`/room/${this.roomKey}/device`, {'device_id' : deviceId})
             }
         }

@@ -62,6 +62,11 @@ class Room extends Model
         ]);
     }
 
+    public function getDeviceIdAttribute()
+    {
+        return \Auth::user()->hasParent() ? $this->attributes['deviceId'] : '';
+    }
+
     public function addSong(string $songId)
     {
         $this->songs()->create([
