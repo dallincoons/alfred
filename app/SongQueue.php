@@ -24,4 +24,12 @@ class SongQueue
         shuffle($songQueue);
         Session::put('playlist:' . $playlistId, $songQueue);
     }
+
+    public static function next($playlistId)
+    {
+        $playlist = Session::get('playlist:' . $playlistId);
+        $song = array_pop($playlist);
+        Session::put('playlist:' . $playlistId, $playlist);
+        return $song;
+    }
 }

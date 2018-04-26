@@ -116,4 +116,27 @@ class RoomTest extends TestCase
 
         $this->assertEquals('12345678', $room->getOriginal('deviceId'));
     }
+
+    /** @test */
+    public function play_next_song()
+    {
+        $room = factory(Room::class)->create();
+
+        $room->addSong('60SJRvzXJnVeVfS4RiH14u');
+        $room->addSong('6SWTXSLOkxrFqJc6WPM0bu');
+
+        $this->assertCount(2, Session::get('playlist:' . $room->playlistId));
+
+        $room->play('12345678');
+
+        $this->assertCount(1, Session::get('playlist:' . $room->playlistId));
+
+        $room->next('12345678');
+
+        $this->assertCount(0, Session::get('playlist:' . $room->playlistId));
+
+        $room->next('12345678');
+
+        $this->assertCount(1, Session::get('playlist:' . $room->playlistId));
+    }
 }

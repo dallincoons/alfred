@@ -98,6 +98,13 @@ class Room extends Model
 
     public function next(string $deviceId)
     {
-        return $this->gateway->next($deviceId);
+        $currentSong = SongQueue::next($this->playlistId);
+
+        if(!$currentSong) {
+            $randomSongs = $this->songs()->inRandomOrder()->pluck('external_id')->all();
+            $currentSong = SongQueue::play($this->playlistId, $randomSongs);
+        }
+
+        return $this->gateway->startSong($deviceId, 'spotify:track:' . $currentSong);
     }
 }
