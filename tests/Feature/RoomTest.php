@@ -114,6 +114,6 @@ class RoomTest extends TestCase
 
         $room->storeDeviceId($deviceId = '12345678');
 
-        $this->assertEquals('12345678', $room->deviceId);
+        $this->assertEquals('12345678', $room->getOriginal('deviceId'));
     }
 }
