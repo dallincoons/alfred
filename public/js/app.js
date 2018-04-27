@@ -52372,6 +52372,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -52482,8 +52488,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             // Playback status updates
             player.addListener('player_state_changed', function (state) {
-                if (state.paused === true && state.duration === 0) {
-                    _this.play();
+                if (state.paused === true && state.position === 0) {
+                    _this.next();
                 }
             });
 
@@ -52508,6 +52514,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         storeDeviceId: function storeDeviceId(deviceId) {
             this.$emit('deviceId', deviceId);
             return axios.post('/room/' + this.roomKey + '/device', { 'device_id': deviceId });
+        },
+        next: function next() {
+            this.$emit('next');
         }
     }
 });
@@ -52598,7 +52607,7 @@ var render = function() {
               roomName: _vm.name,
               roomKey: _vm.rkey
             },
-            on: { deviceId: _vm.storePlayerId }
+            on: { deviceId: _vm.storePlayerId, next: _vm.next }
           })
         : _vm._e(),
       _vm._v(" "),

@@ -30,8 +30,8 @@
 
                 // Playback status updates
                 player.addListener('player_state_changed', state => {
-                     if (state.paused === true && state.duration === 0) {
-                        this.play();
+                     if (state.paused === true && state.position === 0) {
+                        this.next();
                      }
                 });
 
@@ -53,6 +53,10 @@
             storeDeviceId(deviceId) {
                 this.$emit('deviceId', deviceId);
                 return axios.post(`/room/${this.roomKey}/device`, {'device_id' : deviceId})
+            },
+
+            next() {
+                this.$emit('next');
             }
         }
     }

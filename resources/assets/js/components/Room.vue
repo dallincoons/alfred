@@ -11,7 +11,13 @@
         <button @click="resume">Resume</button>
         <button @click="next">Next</button>
 
-        <spotify-web-player v-if="!has_parent || !existing_player_id" :accessToken="access_token" :roomName="name" :roomKey="rkey" @deviceId="storePlayerId"></spotify-web-player>
+        <spotify-web-player v-if="!has_parent || !existing_player_id"
+            :accessToken="access_token"
+            :roomName="name"
+            :roomKey="rkey"
+            @deviceId="storePlayerId"
+            @next="next"
+            ></spotify-web-player>
 
         <div v-for="song in songs">
             <div v-for="item in song.items">
