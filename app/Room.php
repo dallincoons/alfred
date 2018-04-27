@@ -4,7 +4,6 @@ namespace App;
 
 use App\Gateways\SpotifyGatewayInterface;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Session;
 
 class Room extends Model
 {
