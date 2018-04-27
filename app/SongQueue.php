@@ -11,10 +11,7 @@ class SongQueue
         if(empty(Session::get('playlist:' . $playlistId))) {
             Session::put('playlist:' . $playlistId, $songs);
         }
-        $playlist = Session::get('playlist:' . $playlistId);
-        $song = array_pop($playlist);
-        Session::put('playlist:' . $playlistId, $playlist);
-        return $song;
+        return self::next($playlistId);
     }
 
     public static function addSong(string $playlistId, string $songId)

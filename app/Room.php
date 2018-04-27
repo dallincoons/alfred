@@ -80,8 +80,7 @@ class Room extends Model
 
     public function play(string $deviceId)
     {
-        $randomSongs = $this->songs()->inRandomOrder()->pluck('external_id')->all();
-        $currentSong = SongQueue::play($this->playlistId, $randomSongs);
+        $currentSong = $this->reset();
 
         return $this->gateway->startSong($deviceId, 'spotify:track:' . $currentSong);
     }
@@ -101,10 +100,15 @@ class Room extends Model
         $currentSong = SongQueue::next($this->playlistId);
 
         if(!$currentSong) {
-            $randomSongs = $this->songs()->inRandomOrder()->pluck('external_id')->all();
-            $currentSong = SongQueue::play($this->playlistId, $randomSongs);
+            $currentSong = $this->reset();
         }
 
         return $this->gateway->startSong($deviceId, 'spotify:track:' . $currentSong);
+    }
+
+    public function reset(): string
+    {
+        $randomSongs = $this->songs()->inRandomOrder()->pluck('external_id')->all();
+        return SongQueue::play($this->playlistId, $randomSongs);
     }
 }
