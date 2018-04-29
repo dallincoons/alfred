@@ -698,14 +698,19 @@ button,
  * @import "components/forms";
  */
 
+@font-face {
+  font-family: 'Nunito';
+  src: url('https://fonts.googleapis.com/css?family=Nunito:300,400,400i,700');
+}
+
 /**
- * This injects all of Tailwind's utility classes, generated based on your
- * config file.
- *
- * If using `postcss-import`, use this import instead:
- *
- * @import "tailwindcss/utilities";
- */
+   * This injects all of Tailwind's utility classes, generated based on your
+   * config file.
+   *
+   * If using `postcss-import`, use this import instead:
+   *
+   * @import "tailwindcss/utilities";
+   */
 
 .list-reset {
   list-style: none;
@@ -2568,6 +2573,10 @@ button,
 
 .font-mono {
   font-family: Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;
+}
+
+.font-nunito {
+  font-family: Nunito, sans-serif;
 }
 
 .font-hairline {
@@ -6561,6 +6570,10 @@ button,
     font-family: Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;
   }
 
+  .sm\:font-nunito {
+    font-family: Nunito, sans-serif;
+  }
+
   .sm\:font-hairline {
     font-weight: 100;
   }
@@ -10528,6 +10541,10 @@ button,
 
   .md\:font-mono {
     font-family: Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;
+  }
+
+  .md\:font-nunito {
+    font-family: Nunito, sans-serif;
   }
 
   .md\:font-hairline {
@@ -14499,6 +14516,10 @@ button,
     font-family: Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;
   }
 
+  .lg\:font-nunito {
+    font-family: Nunito, sans-serif;
+  }
+
   .lg\:font-hairline {
     font-weight: 100;
   }
@@ -18466,6 +18487,10 @@ button,
 
   .xl\:font-mono {
     font-family: Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;
+  }
+
+  .xl\:font-nunito {
+    font-family: Nunito, sans-serif;
   }
 
   .xl\:font-hairline {

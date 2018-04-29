@@ -29,6 +29,10 @@ class RoomController extends Controller
 
     public function store(Request $request)
     {
+        if(!\Auth::check()) {
+            return redirect('/connect');
+        }
+
         $room = \Auth::user()->createRoom($request->room_name);
 
         return redirect('rooms/' . $room->getKey());

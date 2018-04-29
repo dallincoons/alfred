@@ -16,7 +16,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
-<body>
+<body class="bg-grey-lightest font-nunito">
 <div id="app">
     @yield('content')
 </div>
