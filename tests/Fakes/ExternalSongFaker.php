@@ -8,8 +8,27 @@ class ExternalSongFaker
 {
     public static function withId(string $id)
     {
-        return new ExternalSong([
+        return new ExternalSong(self::validParams([
             'id' => $id
-        ]);
+        ]));
+    }
+
+    public static function any()
+    {
+        return new ExternalSong(self::validParams());
+    }
+
+    public static function validParams(array $overrides = []): array
+    {
+        return array_merge([
+            'id' => '1234',
+            'album' => [
+                'artists' => [
+                    0 => [
+                        'name' => 'Ties That Bind'
+                    ]
+                ]
+            ]
+        ], $overrides);
     }
 }

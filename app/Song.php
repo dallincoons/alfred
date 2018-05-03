@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Song extends Model
 {
     protected $fillable = [
-        'external_id'
+        'external_id', 'title'
     ];
 }

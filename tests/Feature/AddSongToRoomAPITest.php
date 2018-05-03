@@ -2,6 +2,7 @@
 
 use App\Gateways\SpotifyGatewayInterface;
 use App\Room;
+use Tests\Fakes\ExternalSongFaker;
 use Tests\TestCase;
 
 class AddSongToRoomAPITest extends TestCase
@@ -24,7 +25,7 @@ class AddSongToRoomAPITest extends TestCase
             'playlistId' => $id
         ]);
 
-        $response = $this->post('room/' . $room->getKey() . '/song', ['song' => ['id' => '1234']]);
+        $response = $this->post('room/' . $room->getKey() . '/song', ['song' => ExternalSongFaker::validParams()]);
 
         $response->assertSuccessful();
     }

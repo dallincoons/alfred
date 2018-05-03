@@ -80,9 +80,10 @@ class RoomTest extends TestCase
 
         $room->join($roomId);
 
-        $room->addSong(ExternalSongFaker::withId('60SJRvzXJnVeVfS4RiH14u'));
+        $room->addSong(ExternalSongFaker::any());
 
-        $this->assertEquals('60SJRvzXJnVeVfS4RiH14u', $room->songs->first()->external_id);
+        $this->assertEquals('1234', $room->songs->first()->external_id);
+        $this->assertEquals('Ties That Bind', $room->songs->first()->title);
     }
 
     /** @test */
