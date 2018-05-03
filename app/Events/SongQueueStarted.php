@@ -2,6 +2,7 @@
 
 namespace App\Events;
 
+use App\Song;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Foundation\Events\Dispatchable;
@@ -17,11 +18,11 @@ class SongQueueStarted implements ShouldBroadcast
     /**
      * Create a new event instance.
      *
-     * @return void
+     * @param Song $song
      */
-    public function __construct()
+    public function __construct(Song $song)
     {
-        //
+        $this->song = $song;
     }
 
     /**

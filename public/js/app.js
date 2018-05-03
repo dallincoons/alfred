@@ -52338,6 +52338,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -52350,7 +52354,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return {
             songName: '',
             songs: [],
-            playerId: ''
+            playerId: '',
+            currentSong: {}
         };
     },
 
@@ -52358,22 +52363,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     props: ['name', 'rkey', 'code', 'access_token', 'existing_player_id', 'has_parent'],
 
     created: function created() {
+        var _this = this;
+
         if (this.existing_player_id) {
             this.storePlayerId(this.existing_player_id);
         }
 
         Echo.channel('song-queue').listen('SongQueueStarted', function (e) {
-            console.log(e);
+            _this.currentSong = e.song;
         });
     },
 
 
     methods: {
         searchSongs: function searchSongs(song) {
-            var _this = this;
+            var _this2 = this;
 
             axios.get('/spotify/songs?q=' + song).then(function (response) {
-                _this.songs = response.data;
+                _this2.songs = response.data;
             });
         },
         addSong: function addSong(room, song) {
@@ -52573,6 +52580,18 @@ var render = function() {
             },
             on: { deviceId: _vm.storePlayerId, next: _vm.next }
           })
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.currentSong.title
+        ? _c("div", [
+            _vm._v(
+              "\n        Currently Playing: " +
+                _vm._s(_vm.currentSong.title) +
+                " - " +
+                _vm._s(_vm.currentSong.artist_title) +
+                "\n    "
+            )
+          ])
         : _vm._e(),
       _vm._v(" "),
       _vm._l(_vm.songs, function(song) {

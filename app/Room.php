@@ -89,7 +89,7 @@ class Room extends Model
     {
         $currentSong = $this->reset();
 
-        SongQueueStarted::dispatch();
+        SongQueueStarted::dispatch(Song::where('external_id', $currentSong)->first());
 
         return $this->gateway->startSong($deviceId, 'spotify:track:' . $currentSong);
     }
@@ -112,12 +112,14 @@ class Room extends Model
             $currentSong = $this->reset();
         }
 
+        SongQueueStarted::dispatch(Song::where('external_id', $currentSong)->first());
+
         return $this->gateway->startSong($deviceId, 'spotify:track:' . $currentSong);
     }
 
     public function reset(): string
     {
-        $randomSongs = $this->songs()->inRandomOrder()->pluck('external_id')->all();
-        return SongQueue::play($this->playlistId, $randomSongs);
+        $songIds = $this->songs()->pluck('external_id')->all();
+        return SongQueue::play($this->playlistId, $songIds);
     }
 }

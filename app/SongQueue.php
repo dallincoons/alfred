@@ -8,6 +8,8 @@ class SongQueue
 {
     public static  function play(string $playlistId, array $songs)
     {
+        shuffle($songs);
+
         if(empty(Session::get('playlist:' . $playlistId))) {
             Session::put('playlist:' . $playlistId, $songs);
         }

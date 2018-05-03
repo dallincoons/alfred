@@ -19,6 +19,10 @@
             @next="next"
             ></spotify-web-player>
 
+        <div v-if="currentSong.title">
+            Currently Playing: {{ currentSong.title }} - {{currentSong.artist_title}}
+        </div>
+
         <div v-for="song in songs">
             <div v-for="item in song.items">
                 <span @click="addSong(rkey, item)">{{item.name}} - {{ item.album.artists[0].name }}</span>
@@ -39,7 +43,8 @@
             return {
                 songName: '',
                 songs: [],
-                playerId: ''
+                playerId: '',
+                currentSong: {}
             }
         },
 
@@ -59,7 +64,7 @@
 
             Echo.channel(`song-queue`)
                 .listen('SongQueueStarted', (e) => {
-                    console.log(e);
+                    this.currentSong = e.song;
                 });
         },
 
