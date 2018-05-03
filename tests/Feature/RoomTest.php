@@ -7,6 +7,7 @@ use App\Room;
 use App\Song;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Session;
+use Tests\Fakes\ExternalSongFaker;
 use Tests\TestCase;
 
 class RoomTest extends TestCase
@@ -99,7 +100,7 @@ class RoomTest extends TestCase
 
         $room->join($roomId);
 
-        $room->addSong('60SJRvzXJnVeVfS4RiH14u');
+        $room->addSong(ExternalSongFaker::withId('60SJRvzXJnVeVfS4RiH14u'));
 
         $songs = app(SpotifyGatewayInterface::class)->playlists[$room->playlistId]->songs;
 
@@ -126,8 +127,8 @@ class RoomTest extends TestCase
         /** @var Room $room */
         $room = factory(Room::class)->create();
 
-        $room->addSong('60SJRvzXJnVeVfS4RiH14u');
-        $room->addSong('6SWTXSLOkxrFqJc6WPM0bu');
+        $room->addSong(ExternalSongFaker::withId('60SJRvzXJnVeVfS4RiH14u'));
+        $room->addSong(ExternalSongFaker::withId('6SWTXSLOkxrFqJc6WPM0bu'));
 
         $this->assertCount(2, Session::get('playlist:' . $room->playlistId));
 
@@ -145,17 +146,31 @@ class RoomTest extends TestCase
     }
 
     /** @test */
+    public function starting_playback_fires_event()
+    {
+        Event::fake();
+
+        /** @var Room $room */
+        $room = factory(Room::class)->create();
+
+        $room->addSong(ExternalSongFaker::withId('60SJRvzXJnVeVfS4RiH14u'));
+        $room->play('12345678');
+
+        Event::assertDispatched(SongQueueStarted::class);
+    }
+
+    /** @test */
     public function adding_same_song_another_room_doesnt_duplicate_song()
     {
         /** @var Room $room */
         $room = factory(Room::class)->create();
 
-        $room->addSong('60SJRvzXJnVeVfS4RiH14u');
+        $room->addSong(ExternalSongFaker::withId('60SJRvzXJnVeVfS4RiH14u'));
 
         /** @var Room $room */
         $room = factory(Room::class)->create();
 
-        $room->addSong('60SJRvzXJnVeVfS4RiH14u');
+        $room->addSong(ExternalSongFaker::withId('60SJRvzXJnVeVfS4RiH14u'));
 
         $this->assertCount(1, Song::where('external_id', '60SJRvzXJnVeVfS4RiH14u')->get());
     }

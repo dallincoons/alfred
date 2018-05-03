@@ -24,7 +24,7 @@ class AddSongToRoomAPITest extends TestCase
             'playlistId' => $id
         ]);
 
-        $response = $this->post('room/' . $room->getKey() . '/song/1234');
+        $response = $this->post('room/' . $room->getKey() . '/song', ['song' => ['id' => '1234']]);
 
         $response->assertSuccessful();
     }

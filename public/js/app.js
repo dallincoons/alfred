@@ -52361,6 +52361,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         if (this.existing_player_id) {
             this.storePlayerId(this.existing_player_id);
         }
+
+        Echo.channel('song-queue').listen('SongQueueStarted', function (e) {
+            console.log(e);
+        });
     },
 
 
@@ -52373,7 +52377,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         addSong: function addSong(room, song) {
-            axios.post('/room/' + room + '/song/' + song).then(function (response) {
+            axios.post('/room/' + room + '/song', { song: song }).then(function (response) {
                 alert('success');
             });
         },
@@ -52581,7 +52585,7 @@ var render = function() {
                 {
                   on: {
                     click: function($event) {
-                      _vm.addSong(_vm.rkey, item.id)
+                      _vm.addSong(_vm.rkey, item)
                     }
                   }
                 },

@@ -21,7 +21,7 @@
 
         <div v-for="song in songs">
             <div v-for="item in song.items">
-                <span @click="addSong(rkey, item.id)">{{item.name}} - {{ item.album.artists[0].name }}</span>
+                <span @click="addSong(rkey, item)">{{item.name}} - {{ item.album.artists[0].name }}</span>
             </div>
         </div>
     </div>
@@ -56,6 +56,11 @@
             if(this.existing_player_id) {
                 this.storePlayerId(this.existing_player_id);
             }
+
+            Echo.channel(`song-queue`)
+                .listen('SongQueueStarted', (e) => {
+                    console.log(e);
+                });
         },
 
         methods : {
@@ -66,7 +71,7 @@
            },
 
            addSong(room, song) {
-               axios.post('/room/' + room + '/song/' + song).then((response) => {
+               axios.post('/room/' + room + '/song', {song: song}).then((response) => {
                    alert('success');
                });
            },

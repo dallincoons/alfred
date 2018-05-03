@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Events\SongQueueStarted;
+use App\Gateways\ExternalSong;
 use App\Gateways\SpotifyGatewayInterface;
 use Illuminate\Database\Eloquent\Model;
 
@@ -66,9 +68,13 @@ class Room extends Model
         return \Auth::user()->hasParent() ? $this->attributes['deviceId'] : '';
     }
 
-    public function addSong(string $songId)
+    public function addSong(ExternalSong $song)
     {
-        $song = Song::firstOrCreate(['external_id' => $songId]);
+        $songId = $song->getId();
+
+        $song = Song::firstOrCreate([
+            'external_id' => $songId
+        ]);
 
         $this->songs()->attach($song);
 
@@ -80,6 +86,8 @@ class Room extends Model
     public function play(string $deviceId)
     {
         $currentSong = $this->reset();
+
+        SongQueueStarted::dispatch();
 
         return $this->gateway->startSong($deviceId, 'spotify:track:' . $currentSong);
     }
