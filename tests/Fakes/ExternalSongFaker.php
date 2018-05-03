@@ -22,10 +22,11 @@ class ExternalSongFaker
     {
         return array_merge([
             'id' => '1234',
+            'name' => 'Ties That Bind',
             'album' => [
                 'artists' => [
                     0 => [
-                        'name' => 'Ties That Bind'
+                        'name' => 'Bummer Deal'
                     ]
                 ]
             ]

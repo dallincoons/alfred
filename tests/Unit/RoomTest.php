@@ -83,6 +83,7 @@ class RoomTest extends TestCase
         $room->addSong(ExternalSongFaker::any());
 
         $this->assertEquals('1234', $room->songs->first()->external_id);
+        $this->assertEquals('Bummer Deal', $room->songs->first()->artist_title);
         $this->assertEquals('Ties That Bind', $room->songs->first()->title);
     }
 

@@ -12,10 +12,11 @@ class ExternalSongTest extends TestCase
     {
         $song = new ExternalSong([
             'id' => '1234',
+            'name' => 'Ties That Bind',
             'album' => [
                 'artists' => [
                     0 => [
-                        'name' => 'Ties That Bind'
+                        'name' => 'Shellac'
                     ]
                 ]
             ]
@@ -23,5 +24,6 @@ class ExternalSongTest extends TestCase
 
         $this->assertEquals('1234', $song->getId());
         $this->assertEquals('Ties That Bind', $song->getTitle());
+        $this->assertEquals('Shellac', $song->getArtistTitle());
     }
 }

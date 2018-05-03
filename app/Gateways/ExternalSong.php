@@ -21,6 +21,11 @@ class ExternalSong
 
     public function getTitle()
     {
+        return array_get($this->rawSong, 'name');
+    }
+
+    public function getArtistTitle()
+    {
         return array_get($this->rawSong, 'album.artists.0.name');
     }
 }
