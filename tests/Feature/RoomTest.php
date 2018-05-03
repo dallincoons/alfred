@@ -1,8 +1,11 @@
 <?php
 
 use App\CodeGenerator;
+use App\Events\SongQueueStarted;
 use App\Gateways\SpotifyGatewayInterface;
 use App\Room;
+use App\Song;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Session;
 use Tests\TestCase;
 
@@ -120,6 +123,7 @@ class RoomTest extends TestCase
     /** @test */
     public function play_next_song()
     {
+        /** @var Room $room */
         $room = factory(Room::class)->create();
 
         $room->addSong('60SJRvzXJnVeVfS4RiH14u');
@@ -138,5 +142,21 @@ class RoomTest extends TestCase
         $room->next('12345678');
 
         $this->assertCount(1, Session::get('playlist:' . $room->playlistId));
+    }
+
+    /** @test */
+    public function adding_same_song_another_room_doesnt_duplicate_song()
+    {
+        /** @var Room $room */
+        $room = factory(Room::class)->create();
+
+        $room->addSong('60SJRvzXJnVeVfS4RiH14u');
+
+        /** @var Room $room */
+        $room = factory(Room::class)->create();
+
+        $room->addSong('60SJRvzXJnVeVfS4RiH14u');
+
+        $this->assertCount(1, Song::where('external_id', '60SJRvzXJnVeVfS4RiH14u')->get());
     }
 }

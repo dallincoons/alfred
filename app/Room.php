@@ -68,9 +68,9 @@ class Room extends Model
 
     public function addSong(string $songId)
     {
-        $this->songs()->create([
-            'external_id' => $songId
-        ]);
+        $song = Song::firstOrCreate(['external_id' => $songId]);
+
+        $this->songs()->attach($song);
 
         SongQueue::addSong($this->playlistId, $songId);
 
