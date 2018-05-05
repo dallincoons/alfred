@@ -40,11 +40,11 @@ class PlayingState implements PlayerMachineState
         if(!$currentSong) {
             $songs = $playerMachine->room()->songs()->pluck('external_id')->all();
             $currentSong = array_shift($songs);
-            Session::put('playlist:' . $playerMachine->playlistId(), $songs);
+            Session::put($playerMachine->room()->queueSessionName(), $songs);
         }
 
         SongQueueStarted::dispatch(Song::where('external_id', $currentSong)->first());
-        SongQueueUpdated::dispatch( \Session::get('playlist:' . $playerMachine->playlistId()) );
+        SongQueueUpdated::dispatch( \Session::get($playerMachine->room()->queueSessionName()) );
 
         return $this->gateway->startSong($playerMachine->deviceId(), 'spotify:track:' . $currentSong);
     }

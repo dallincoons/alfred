@@ -16,12 +16,12 @@ class SongQueue
         return self::next($playlistId);
     }
 
-    public static function addSong(string $playlistId, string $songId)
+    public static function addSong(string $sessionName, string $songId)
     {
-        $songQueue = Session::get('playlist:' . $playlistId, []);
+        $songQueue = Session::get($sessionName, []);
         array_push($songQueue, $songId);
         shuffle($songQueue);
-        Session::put('playlist:' . $playlistId, $songQueue);
+        Session::put($sessionName, $songQueue);
     }
 
     public static function next($playlistId)

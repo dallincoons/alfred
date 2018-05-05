@@ -88,11 +88,16 @@ class Room extends Model
 
         $this->songs()->attach($song);
 
-        SongQueue::addSong($this->playlistId, $songId);
+        SongQueue::addSong($this->queueSessionName(), $songId);
 
         $this->gateway->addSong($this->playlistId, $songId);
 
         return $song;
+    }
+
+    public function queueSessionName()
+    {
+        return 'playlist:' . $this->playlistId;
     }
 
     public function player()

@@ -130,19 +130,19 @@ class RoomTest extends TestCase
         $room->addSong(ExternalSongFaker::withId('60SJRvzXJnVeVfS4RiH14u'));
         $room->addSong(ExternalSongFaker::withId('6SWTXSLOkxrFqJc6WPM0bu'));
 
-        $this->assertCount(2, Session::get('playlist:' . $room->playlistId));
+        $this->assertCount(2, Session::get($room->queueSessionName()));
 
         $room->play();
 
-        $this->assertCount(1, Session::get('playlist:' . $room->playlistId));
+        $this->assertCount(1, Session::get($room->queueSessionName()));
 
-        $room->next('12345678');
+        $room->next();
 
-        $this->assertCount(0, Session::get('playlist:' . $room->playlistId));
+        $this->assertCount(0, Session::get($room->queueSessionName()));
 
-        $room->next('12345678');
+        $room->next();
 
-        $this->assertCount(1, Session::get('playlist:' . $room->playlistId));
+        $this->assertCount(1, Session::get($room->queueSessionName()));
     }
 
     /** @test */

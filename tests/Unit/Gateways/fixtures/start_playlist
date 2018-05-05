@@ -59,3 +59,60 @@
             Access-Control-Max-Age: '604800'
             X-Content-Type-Options: nosniff
             Strict-Transport-Security: max-age=31536000
+-
+    request:
+        method: POST
+        url: 'https://api.spotify.com/v1/users/1213003440/playlists'
+        headers:
+            Host: api.spotify.com
+            Authorization: 'Bearer BQDdAZttqwY5Fm9Eb7aOrYlzYUOeMs-Ga2lv6jjeUjM2EkFSVlU4yVmhYZWEyriYiaFeT1nR98avrNBA72VRJKJIjHbouzwBHOIpp6V4vM8Fuvh-zYT05AKt9W-FsEn3Jh4yc4mLSQdeC3Vp6mZcMfeJQUJbX_vyKkZHVPEd2u_Fs46zq7q0lDUVf3QpxGd2D0thvJLnyl1vqNasw6KUjyH3-Gz6v1JGNLhvANxOe0a6aHOAKZMLdk6Vh4YvHg'
+            Content-Type: application/json
+        body: '{"name":"test123"}'
+    response:
+        status:
+            http_version: '1.1'
+            code: '201'
+            message: Created
+        headers:
+            Content-Type: 'application/json; charset=utf-8'
+            Cache-Control: 'private, max-age=0'
+            Location: 'https://api.spotify.com/v1/users/1213003440/playlists/0hbQNacBdygepCyNEfFUyf'
+            Access-Control-Allow-Origin: '*'
+            Access-Control-Allow-Headers: 'Accept, Authorization, Origin, Content-Type, Retry-After'
+            Access-Control-Allow-Methods: 'GET, POST, OPTIONS, PUT, DELETE, PATCH'
+            Access-Control-Allow-Credentials: 'true'
+            Access-Control-Max-Age: '604800'
+            Content-Encoding: gzip
+            Date: 'Sat, 05 May 2018 21:08:41 GMT'
+            Via: '1.1 google'
+            Alt-Svc: clear
+            Transfer-Encoding: chunked
+        body: "{\n  \"collaborative\" : false,\n  \"description\" : null,\n  \"external_urls\" : {\n    \"spotify\" : \"https://open.spotify.com/user/1213003440/playlist/0hbQNacBdygepCyNEfFUyf\"\n  },\n  \"followers\" : {\n    \"href\" : null,\n    \"total\" : 0\n  },\n  \"href\" : \"https://api.spotify.com/v1/users/1213003440/playlists/0hbQNacBdygepCyNEfFUyf\",\n  \"id\" : \"0hbQNacBdygepCyNEfFUyf\",\n  \"images\" : [ ],\n  \"name\" : \"test123\",\n  \"owner\" : {\n    \"display_name\" : \"Dallin Coons\",\n    \"external_urls\" : {\n      \"spotify\" : \"https://open.spotify.com/user/1213003440\"\n    },\n    \"href\" : \"https://api.spotify.com/v1/users/1213003440\",\n    \"id\" : \"1213003440\",\n    \"type\" : \"user\",\n    \"uri\" : \"spotify:user:1213003440\"\n  },\n  \"primary_color\" : null,\n  \"public\" : true,\n  \"snapshot_id\" : \"4+bVtuEVybuqmFKIqrsNQxIHl7FztPPFcOxuxJNz8hCKn4NUnz7TYOsjLem0KxG5\",\n  \"tracks\" : {\n    \"href\" : \"https://api.spotify.com/v1/users/1213003440/playlists/0hbQNacBdygepCyNEfFUyf/tracks\",\n    \"items\" : [ ],\n    \"limit\" : 100,\n    \"next\" : null,\n    \"offset\" : 0,\n    \"previous\" : null,\n    \"total\" : 0\n  },\n  \"type\" : \"playlist\",\n  \"uri\" : \"spotify:user:1213003440:playlist:0hbQNacBdygepCyNEfFUyf\"\n}"
+-
+    request:
+        method: PUT
+        url: 'https://api.spotify.com/v1/me/player/play?device_id=f5384d627798e22e5e592a0ab566048b59c57511'
+        headers:
+            Host: api.spotify.com
+            Authorization: 'Bearer BQDdAZttqwY5Fm9Eb7aOrYlzYUOeMs-Ga2lv6jjeUjM2EkFSVlU4yVmhYZWEyriYiaFeT1nR98avrNBA72VRJKJIjHbouzwBHOIpp6V4vM8Fuvh-zYT05AKt9W-FsEn3Jh4yc4mLSQdeC3Vp6mZcMfeJQUJbX_vyKkZHVPEd2u_Fs46zq7q0lDUVf3QpxGd2D0thvJLnyl1vqNasw6KUjyH3-Gz6v1JGNLhvANxOe0a6aHOAKZMLdk6Vh4YvHg'
+            Content-Type: application/json
+        body: '{"context_uri":"spotify:user:1213003440:playlist:0hbQNacBdygepCyNEfFUyf"}'
+    response:
+        status:
+            http_version: '1.1'
+            code: '404'
+            message: 'Not Found'
+        headers:
+            Content-Type: 'application/json; charset=utf-8'
+            Cache-Control: 'private, max-age=0'
+            Access-Control-Allow-Origin: '*'
+            Access-Control-Allow-Headers: 'Accept, Authorization, Origin, Content-Type, Retry-After'
+            Access-Control-Allow-Methods: 'GET, POST, OPTIONS, PUT, DELETE, PATCH'
+            Access-Control-Allow-Credentials: 'true'
+            Access-Control-Max-Age: '604800'
+            Content-Encoding: gzip
+            Date: 'Sat, 05 May 2018 21:08:41 GMT'
+            Via: '1.1 google'
+            Alt-Svc: clear
+            Transfer-Encoding: chunked
+        body: "{\n  \"error\" : {\n    \"status\" : 404,\n    \"message\" : \"Device not found\"\n  }\n}"

@@ -22,13 +22,15 @@ class IdleState implements PlayerMachineState
 
     public function play(PlayerMachine $playerMachine, array $songs): bool
     {
-        if(empty(Session::get('playlist:' . $playerMachine->playlistId()))) {
-            Session::put('playlist:' . $playerMachine->playlistId(), $songs);
+        $sessionName = $playerMachine->room()->queueSessionName();
+
+        if(empty(Session::get($sessionName))) {
+            Session::put($sessionName, $songs);
         }
 
         $currentSong = array_shift($songs);
 
-        Session::put('playlist:' . $playerMachine->playlistId(), $songs);
+        Session::put($sessionName, $songs);
 
         SongQueueStarted::dispatch(Song::where('external_id', $currentSong)->first());
         SongQueueUpdated::dispatch( $songs );
