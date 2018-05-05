@@ -55,6 +55,7 @@ class SpotifyController extends Controller
             /** @var User $user */
             $user = \Auth::user()->hasParent() ? \Auth::user() : \Auth::user();
             $room = $user->createRoom(\Session::get('create-room')['name']);
+            \Session::forget('create-room');
 
             return redirect('/rooms/' . $room->getKey());
         }

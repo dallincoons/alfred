@@ -3,6 +3,7 @@
 @section('content')
         <div class="max-w-3xl h-screen mx-auto flex items-center content-center">
             @if(!\Auth::check())
+                <a href="/connect">Login</a>
                 <div class="mx-auto w-1/2">
                     <div class="flex justify-around flex-auto">
                         <form action="/rooms" method="POST" class="mt-3">
@@ -27,6 +28,12 @@
                     <input name="room" />
                     <button>Save</button>
                 </form>
+
+                <ul>
+                @foreach(\Auth::user()->rooms as $room)
+                        <li><a href="/rooms/{{$room->getKey()}}">{{$room->name}}</a></li>
+                @endforeach
+                </ul>
 
             @endif
         </div>
