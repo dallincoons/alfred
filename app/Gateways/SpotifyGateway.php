@@ -2,6 +2,8 @@
 
 namespace App\Gateways;
 
+use SpotifyWebAPI\SpotifyWebAPIException;
+
 class SpotifyGateway implements SpotifyGatewayInterface
 {
     /**
@@ -15,6 +17,32 @@ class SpotifyGateway implements SpotifyGatewayInterface
 
         if(\Auth::check()) {
             $this->api->setAccessToken(\Auth::user()->access_token);
+
+            $this->checkAccessToken();
+        }
+    }
+
+    protected function checkAccessToken()
+    {
+        $session = new \SpotifyWebAPI\Session(
+            config('services.spotify.client_id'),
+            config('services.spotify.client_secret'),
+            config('services.spotify.redirect')
+        );
+
+        try {
+            //@todo get rid of this
+            if(!\App::runningUnitTests()) {
+                $this->api->me();
+            }
+        } catch (SpotifyWebAPIException $e) {
+            $session->refreshAccessToken(\Auth::user()->refresh_token);
+            $user = \Auth::user();
+            $user->access_token = $session->getAccessToken();
+            if ($session->getRefreshToken()) {
+                $user->refresh_token = $session->getRefreshToken();
+            }
+            $user->save();
         }
     }
 
