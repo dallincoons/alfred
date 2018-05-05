@@ -5,6 +5,8 @@ namespace Tests\Feature;
 use App\Gateways\SpotifyGateway;
 use App\Gateways\SpotifyGatewayInterface;
 use App\GuestUser;
+use App\PlayerStateMachine\PlayerMachine;
+use App\PlayerStateMachine\PlayerMachineState;
 use App\Room;
 use App\Spotify;
 use App\User;
@@ -111,19 +113,20 @@ class RoomTest extends TestCase
         $room->addSong(ExternalSongFaker::withId('0fgCZv9soFDMFNOOmZ8kck'));
 
         $songs = ['spotify:track:46ty9wS8la1HWGndeqep7k', 'spotify:track:0fgCZv9soFDMFNOOmZ8kck'];
-        $room->play('82c86b09fbd6826211f9223a3480f455c65ea17b');
+        $room->play();
         $currentSong = app(SpotifyGatewayInterface::class)->currentlyPlayingSong()->id();
 
         $this->assertContains($currentSong, $songs);
 
-        $lastSong = array_first(array_except($songs, array_search($currentSong, $songs)));
-        $room->play('82c86b09fbd6826211f9223a3480f455c65ea17b');
+        $nextSong = array_first(array_except($songs, array_search($currentSong, $songs)));
+
+        $room->next();
         $currentSong = app(SpotifyGatewayInterface::class)->currentlyPlayingSong();
 
-        $this->assertEquals($lastSong, $currentSong->id());
+        $this->assertEquals($nextSong, $currentSong->id());
 
         $songs = ['spotify:track:46ty9wS8la1HWGndeqep7k', 'spotify:track:0fgCZv9soFDMFNOOmZ8kck'];
-        $room->play('82c86b09fbd6826211f9223a3480f455c65ea17b');
+        $room->next();
         $currentSong = app(SpotifyGatewayInterface::class)->currentlyPlayingSong()->id();
 
         $this->assertContains($currentSong, $songs);
@@ -160,5 +163,13 @@ class RoomTest extends TestCase
 
         $this->assertContains('46ty9wS8la1HWGndeqep7k', Session::get('playlist:' . $room->playlistId));
         $this->assertContains('0fgCZv9soFDMFNOOmZ8kck', Session::get('playlist:' . $room->playlistId));
+    }
+
+    /** @test */
+    public function room_provides_player_state_machine()
+    {
+        $room = factory(Room::class)->create();
+
+        $this->assertInstanceOf(PlayerMachine::class, $room->playerState());
     }
 }

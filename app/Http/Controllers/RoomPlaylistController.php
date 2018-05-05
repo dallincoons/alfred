@@ -24,7 +24,7 @@ class RoomPlaylistController extends Controller
 
     public function play(Room $room, string $deviceId)
     {
-        $success = $room->play($deviceId);
+        $success = $room->play();
 
         return response()->json($success);
     }

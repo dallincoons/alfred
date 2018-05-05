@@ -132,7 +132,7 @@ class RoomTest extends TestCase
 
         $this->assertCount(2, Session::get('playlist:' . $room->playlistId));
 
-        $room->play('12345678');
+        $room->play();
 
         $this->assertCount(1, Session::get('playlist:' . $room->playlistId));
 

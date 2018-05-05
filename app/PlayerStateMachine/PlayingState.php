@@ -1,0 +1,49 @@
+<?php
+
+namespace App\PlayerStateMachine;
+
+use App\Events\SongQueueStarted;
+use App\Gateways\SpotifyGatewayInterface;
+use App\Song;
+use App\SongQueue;
+use Illuminate\Support\Facades\Session;
+
+class PlayingState implements PlayerMachineState
+{
+    /**
+     * @var SpotifyGatewayInterface
+     */
+    private $gateway;
+
+    public function __construct(SpotifyGatewayInterface $gateway)
+    {
+        $this->gateway = $gateway;
+    }
+
+    public function play(PlayerMachine $playerMachine, array $songs): bool
+    {
+        return false;
+    }
+
+    public function pause(PlayerMachineContext $context)
+    {
+        $context->setState($pausedState = new PausedState);
+
+        $pausedState->pause($context);
+    }
+
+    public function next(PlayerMachine $playerMachine)
+    {
+        $currentSong = SongQueue::next($playerMachine->playlistId());
+
+        if(!$currentSong) {
+            $songs = $playerMachine->room()->songs()->pluck('external_id')->all();
+            $currentSong = array_shift($songs);
+            Session::put('playlist:' . $playerMachine->playlistId(), $songs);
+        }
+
+        SongQueueStarted::dispatch(Song::where('external_id', $currentSong)->first());
+
+        return $this->gateway->startSong($playerMachine->deviceId(), 'spotify:track:' . $currentSong);
+    }
+}

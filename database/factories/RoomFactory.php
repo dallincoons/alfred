@@ -19,5 +19,6 @@ $factory->define(App\Room::class, function (Faker $faker) {
         'user_id' => \Auth::user()->getKey(),
         'name' => $faker->word,
         'playlistId' => str_random(10),
+        'deviceId' => str_random(10)
     ];
 });

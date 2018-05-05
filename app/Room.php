@@ -5,12 +5,17 @@ namespace App;
 use App\Events\SongQueueStarted;
 use App\Gateways\ExternalSong;
 use App\Gateways\SpotifyGatewayInterface;
+use App\PlayerStateMachine\PlayerMachine;
 use Illuminate\Database\Eloquent\Model;
 
 class Room extends Model
 {
     protected $fillable = [
         'name', 'playlistId', 'deviceId'
+    ];
+
+    protected $appends = [
+        'existingDeviceId'
     ];
 
     /**
@@ -22,6 +27,11 @@ class Room extends Model
      * @var SpotifyGatewayInterface
      */
     private $gateway;
+
+    /**
+     * @var PlayerMachine
+     */
+    private $machine;
 
     public function __construct(array $attributes = array())
     {
@@ -63,7 +73,7 @@ class Room extends Model
         ]);
     }
 
-    public function getDeviceIdAttribute()
+    public function getExistingDeviceIdAttribute()
     {
         return \Auth::user()->hasParent() ? $this->attributes['deviceId'] : '';
     }
@@ -85,13 +95,17 @@ class Room extends Model
         $this->gateway->addSong($this->playlistId, $songId);
     }
 
-    public function play(string $deviceId)
+    public function playerState()
     {
-        $currentSong = $this->reset();
+        if (!$this->state) {
+            $this->state = new PlayerMachine($this);
+        }
+        return $this->state;
+    }
 
-        SongQueueStarted::dispatch(Song::where('external_id', $currentSong)->first());
-
-        return $this->gateway->startSong($deviceId, 'spotify:track:' . $currentSong);
+    public function play()
+    {
+        return $this->playerState()->play($this->songs()->pluck('external_id')->all());
     }
 
     public function pause(string $deviceId)
@@ -104,7 +118,7 @@ class Room extends Model
         return $this->gateway->resumeSong($deviceId);
     }
 
-    public function next(string $deviceId)
+    public function next()
     {
         $currentSong = SongQueue::next($this->playlistId);
 
@@ -114,7 +128,7 @@ class Room extends Model
 
         SongQueueStarted::dispatch(Song::where('external_id', $currentSong)->first());
 
-        return $this->gateway->startSong($deviceId, 'spotify:track:' . $currentSong);
+        return $this->gateway->startSong($this->deviceId, 'spotify:track:' . $currentSong);
     }
 
     public function reset(): string
