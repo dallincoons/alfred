@@ -8,5 +8,6 @@
         access_token="{{\Auth::user()->access_token}}"
         existing_player_id="{{$room->existingDeviceId}}"
         has_parent="{{\Auth::user()->hasParent()}}"
+        room_songs="{{$songs}}"
     ></room>
 @endsection

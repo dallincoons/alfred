@@ -23,6 +23,16 @@
             Currently Playing: {{ currentSong.title }} - {{currentSong.artist_title}}
         </div>
 
+        <span v-if="queue.length">Queue:</span>
+        <div v-for="song in queue">
+            {{ song.title }} - {{song.artist_title}}
+        </div>
+
+        All Songs:
+        <div v-for="song in JSON.parse(room_songs)">
+            {{ song.title }} - {{song.artist_title}}
+        </div>
+
         <div v-for="song in songs">
             <div v-for="item in song.items">
                 <span @click="addSong(rkey, item)">{{item.name}} - {{ item.album.artists[0].name }}</span>
@@ -44,7 +54,8 @@
                 songName: '',
                 songs: [],
                 playerId: '',
-                currentSong: {}
+                currentSong: {},
+                queue: [],
             }
         },
 
@@ -54,7 +65,8 @@
             'code',
             'access_token',
             'existing_player_id',
-            'has_parent'
+            'has_parent',
+            'room_songs'
         ],
 
         created() {
@@ -65,6 +77,11 @@
             Echo.channel(`song-queue`)
                 .listen('SongQueueStarted', (e) => {
                     this.currentSong = e.song;
+                });
+
+            Echo.channel(`song-queue`)
+                .listen('SongQueueUpdated', (e) => {
+                    this.queue = e.queue;
                 });
         },
 

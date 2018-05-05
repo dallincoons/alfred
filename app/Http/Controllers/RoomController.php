@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\CodeGenerator;
 use App\Room;
+use App\Song;
 use Illuminate\Http\Request;
 
 class RoomController extends Controller
@@ -24,7 +25,9 @@ class RoomController extends Controller
     {
         $roomCode = $this->codeGenerator->encode($room->getKey());
 
-        return view('room.show', compact('room', 'roomCode'));
+        $songs = $room->songs;
+
+        return view('room.show', compact('room', 'roomCode', 'songs'));
     }
 
     public function store(Request $request)

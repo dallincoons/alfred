@@ -2,6 +2,8 @@
 
 namespace App\PlayerStateMachine;
 
+use Illuminate\Support\Facades\Session;
+
 class PlayerMachineContext
 {
     /**
@@ -16,6 +18,8 @@ class PlayerMachineContext
 
     public function setState(PlayerMachineState $state)
     {
+        Session::put('player', get_class($state));
+
         $this->state = $state;
     }
 }

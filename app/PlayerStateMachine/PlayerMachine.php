@@ -33,7 +33,7 @@ class PlayerMachine
         $this->playlistId = $room->playlistId;
         $this->room = $room;
         $this->context = new PlayerMachineContext();
-        $this->context->setState(app(IdleState::class));
+        $this->context->setState(app(\Session::get('player') ?? IdleState::class));
     }
 
     public function play(array $songs)
@@ -43,7 +43,12 @@ class PlayerMachine
 
     public function pause()
     {
-        $this->context->state()->pause($this->context);
+        $this->context->state()->pause($this);
+    }
+
+    public function resume()
+    {
+        $this->context->state()->resume($this);
     }
 
     public function next()

@@ -2,7 +2,6 @@
 
 namespace App;
 
-use App\Events\SongQueueStarted;
 use App\Gateways\ExternalSong;
 use App\Gateways\SpotifyGatewayInterface;
 use App\PlayerStateMachine\PlayerMachine;
@@ -27,11 +26,6 @@ class Room extends Model
      * @var SpotifyGatewayInterface
      */
     private $gateway;
-
-    /**
-     * @var PlayerMachine
-     */
-    private $machine;
 
     public function __construct(array $attributes = array())
     {
@@ -95,7 +89,7 @@ class Room extends Model
         $this->gateway->addSong($this->playlistId, $songId);
     }
 
-    public function playerState()
+    public function player()
     {
         if (!$this->state) {
             $this->state = new PlayerMachine($this);
@@ -105,30 +99,22 @@ class Room extends Model
 
     public function play()
     {
-        return $this->playerState()->play($this->songs()->pluck('external_id')->all());
+        return $this->player()->play($this->songs()->pluck('external_id')->all());
     }
 
-    public function pause(string $deviceId)
+    public function pause()
     {
-        return $this->gateway->pause($deviceId);
+        return $this->player()->pause();
     }
 
-    public function resume(string $deviceId)
+    public function resume()
     {
-        return $this->gateway->resumeSong($deviceId);
+        return $this->player()->resume();
     }
 
     public function next()
     {
-        $currentSong = SongQueue::next($this->playlistId);
-
-        if(!$currentSong) {
-            $currentSong = $this->reset();
-        }
-
-        SongQueueStarted::dispatch(Song::where('external_id', $currentSong)->first());
-
-        return $this->gateway->startSong($this->deviceId, 'spotify:track:' . $currentSong);
+        return $this->player()->next();
     }
 
     public function reset(): string

@@ -22,36 +22,38 @@ class RoomPlaylistController extends Controller
         });
     }
 
-    public function play(Room $room, string $deviceId)
+    public function play(Room $room)
     {
-        $success = $room->play();
+        $success = $room->player()->play($room->songs()->pluck('external_id')->all());
 
         return response()->json($success);
     }
 
     public function pause(Request $request, Room $room)
     {
-        $success = $room->pause($request->input('device_id'));
+        $success = $room->pause();
 
         return response()->json($success);
     }
 
     public function resume(Request $request, Room $room)
     {
-        $success = $room->resume($request->input('device_id'));
+        $success = $room->resume();
 
         return response()->json($success);
     }
 
     public function next(Request $request, Room $room)
     {
-        $success = $room->next($request->input('device_id'));
+        $success = $room->next();
 
         return response()->json($success);
     }
 
     public function device(Request $request, Room $room)
     {
+        \Session::forget('player');
+        \Session::forget('playlist:' . $room->playlistId);
         $room->storeDeviceId($request->input('device_id'));
     }
 }

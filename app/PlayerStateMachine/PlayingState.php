@@ -3,6 +3,7 @@
 namespace App\PlayerStateMachine;
 
 use App\Events\SongQueueStarted;
+use App\Events\SongQueueUpdated;
 use App\Gateways\SpotifyGatewayInterface;
 use App\Song;
 use App\SongQueue;
@@ -25,11 +26,11 @@ class PlayingState implements PlayerMachineState
         return false;
     }
 
-    public function pause(PlayerMachineContext $context)
+    public function pause(PlayerMachine $playerMachine)
     {
-        $context->setState($pausedState = new PausedState);
+        $this->gateway->pause($playerMachine->deviceId());
 
-        $pausedState->pause($context);
+        $playerMachine->context()->setState($pausedState = app(PausedState::class));
     }
 
     public function next(PlayerMachine $playerMachine)
@@ -43,6 +44,7 @@ class PlayingState implements PlayerMachineState
         }
 
         SongQueueStarted::dispatch(Song::where('external_id', $currentSong)->first());
+        SongQueueUpdated::dispatch( \Session::get('playlist:' . $playerMachine->playlistId()) );
 
         return $this->gateway->startSong($playerMachine->deviceId(), 'spotify:track:' . $currentSong);
     }

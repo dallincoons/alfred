@@ -3,6 +3,7 @@
 namespace App\PlayerStateMachine;
 
 use App\Events\SongQueueStarted;
+use App\Events\SongQueueUpdated;
 use App\Gateways\SpotifyGatewayInterface;
 use App\Song;
 use Illuminate\Support\Facades\Session;
@@ -21,7 +22,6 @@ class IdleState implements PlayerMachineState
 
     public function play(PlayerMachine $playerMachine, array $songs): bool
     {
-
         if(empty(Session::get('playlist:' . $playerMachine->playlistId()))) {
             Session::put('playlist:' . $playerMachine->playlistId(), $songs);
         }
@@ -31,6 +31,7 @@ class IdleState implements PlayerMachineState
         Session::put('playlist:' . $playerMachine->playlistId(), $songs);
 
         SongQueueStarted::dispatch(Song::where('external_id', $currentSong)->first());
+        SongQueueUpdated::dispatch( $songs );
 
         $playerMachine->context()->setState($playingState = app(PlayingState::class));
 
@@ -38,7 +39,7 @@ class IdleState implements PlayerMachineState
         return app(SpotifyGatewayInterface::class)->startSong($playerMachine->deviceId(), 'spotify:track:' . $currentSong);
     }
 
-    public function pause(PlayerMachineContext $context)
+    public function pause(PlayerMachine $playerMachine)
     {
         //
     }

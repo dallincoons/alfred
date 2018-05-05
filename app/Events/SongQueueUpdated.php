@@ -2,6 +2,7 @@
 
 namespace App\Events;
 
+use App\Song;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Foundation\Events\Dispatchable;
@@ -15,16 +16,24 @@ class SongQueueUpdated implements ShouldBroadcast
     /**
      * @var array
      */
-    private $queue;
+    public $queue;
 
     /**
      * Create a new event instance.
      *
-     * @param string $songQueue
+     * @param array $songQueue
      */
-    public function __construct(string $songQueue)
+    public function __construct(array $songQueue)
     {
-        $this->queue = $songQueue;
+        $songs = Song::whereIn('external_id', $songQueue)->get();
+
+        $orderedQueue = [];
+
+        foreach(array_reverse($songQueue) as $songInQueue) {
+            $orderedQueue[] = ($songs->where('external_id', $songInQueue)->first());
+        }
+
+        $this->queue = $orderedQueue;
     }
 
     /**

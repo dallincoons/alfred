@@ -52342,6 +52342,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -52355,12 +52365,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             songName: '',
             songs: [],
             playerId: '',
-            currentSong: {}
+            currentSong: {},
+            queue: []
         };
     },
 
 
-    props: ['name', 'rkey', 'code', 'access_token', 'existing_player_id', 'has_parent'],
+    props: ['name', 'rkey', 'code', 'access_token', 'existing_player_id', 'has_parent', 'room_songs'],
 
     created: function created() {
         var _this = this;
@@ -52371,6 +52382,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
         Echo.channel('song-queue').listen('SongQueueStarted', function (e) {
             _this.currentSong = e.song;
+        });
+
+        Echo.channel('song-queue').listen('SongQueueUpdated', function (e) {
+            _this.queue = e.queue;
         });
     },
 
@@ -52593,6 +52608,32 @@ var render = function() {
             )
           ])
         : _vm._e(),
+      _vm._v(" "),
+      _vm.queue.length ? _c("span", [_vm._v("Queue:")]) : _vm._e(),
+      _vm._v(" "),
+      _vm._l(_vm.queue, function(song) {
+        return _c("div", [
+          _vm._v(
+            "\n        " +
+              _vm._s(song.title) +
+              " - " +
+              _vm._s(song.artist_title) +
+              "\n    "
+          )
+        ])
+      }),
+      _vm._v("\n\n    All Songs:\n    "),
+      _vm._l(JSON.parse(_vm.room_songs), function(song) {
+        return _c("div", [
+          _vm._v(
+            "\n        " +
+              _vm._s(song.title) +
+              " - " +
+              _vm._s(song.artist_title) +
+              "\n    "
+          )
+        ])
+      }),
       _vm._v(" "),
       _vm._l(_vm.songs, function(song) {
         return _c(

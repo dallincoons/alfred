@@ -143,15 +143,15 @@ class RoomTest extends TestCase
         $room2->addSong(ExternalSongFaker::withId('6aiEz7VcFWKbmpL0Q8nxYC'));
         $room2->addSong(ExternalSongFaker::withId('6aiEz7VcFWKbmpL0Q8nxYC'));
 
-        $room->play('82c86b09fbd6826211f9223a3480f455c65ea17b');
+        $room->play();
         $currentSong =app(SpotifyGatewayInterface::class)->currentlyPlayingSong()->id();
 
         $this->assertContains($currentSong, ['spotify:track:46ty9wS8la1HWGndeqep7k', 'spotify:track:0fgCZv9soFDMFNOOmZ8kck']);
 
-        $room2->play('82c86b09fbd6826211f9223a3480f455c65ea17b');
+        $room2->play();
         $currentSong = app(SpotifyGatewayInterface::class)->currentlyPlayingSong()->id();
 
-        $this->assertContains($currentSong, ['spotify:track:6aiEz7VcFWKbmpL0Q8nxYC', 'spotify:track:1YAXrOLk7EGfv1tlSnGOqi']);
+        $this->assertContains($currentSong, ['spotify:track:46ty9wS8la1HWGndeqep7k', 'spotify:track:0fgCZv9soFDMFNOOmZ8kck']);
     }
 
     /** @test */
@@ -170,6 +170,6 @@ class RoomTest extends TestCase
     {
         $room = factory(Room::class)->create();
 
-        $this->assertInstanceOf(PlayerMachine::class, $room->playerState());
+        $this->assertInstanceOf(PlayerMachine::class, $room->player());
     }
 }
