@@ -2,7 +2,7 @@
 
 @section('content')
         <div class="max-w-3xl h-screen mx-auto flex items-center content-center">
-            @if(!\Auth::check())
+        @if(!\Auth::check())
                 <a href="/connect">Login</a>
                 <div class="mx-auto w-1/2">
                     <div class="flex justify-around flex-auto">
