@@ -33,10 +33,15 @@ class RoomController extends Controller
     public function store(Request $request)
     {
         if(!\Auth::check()) {
+            if($request->room) {
+                \Session::put('create-room', [
+                    'name' => $request->room
+                ]);
+            }
             return redirect('/connect');
         }
 
-        $room = \Auth::user()->createRoom($request->room_name);
+        $room = \Auth::user()->createRoom($request->room);
 
         return redirect('rooms/' . $room->getKey());
     }

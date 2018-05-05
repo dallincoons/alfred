@@ -24,7 +24,7 @@
                 <h2>Create Room</h2>
                 <form action="rooms" method="POST">
                     {{ csrf_field() }}
-                    <input name="room_name" />
+                    <input name="room" />
                     <button>Save</button>
                 </form>
 

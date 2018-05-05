@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 class Room extends Model
 {
     protected $fillable = [
-        'name', 'playlistId', 'deviceId'
+        'name', 'playlistId', 'deviceId', 'user_id'
     ];
 
     protected $appends = [

@@ -8,6 +8,7 @@ use App\SpotifyUser;
 use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
+use Illuminate\Support\Facades\Event;
 use Tests\Fakes\FakeSpotifyGateway;
 
 abstract class TestCase extends BaseTestCase
@@ -27,6 +28,8 @@ abstract class TestCase extends BaseTestCase
     protected function setUp()
     {
         parent::setUp();
+
+        Event::fake();
 
         $this->app->singleton(SpotifyGatewayInterface::class, FakeSpotifyGateway::class);
 

@@ -6,6 +6,7 @@ use App\Gateways\CrawlerInterface;
 use App\Gateways\GoutteCrawler;
 use App\Gateways\SpotifyGateway;
 use App\Gateways\SpotifyGatewayInterface;
+use App\Room;
 use App\Spotify;
 use App\SpotifyUser;
 use App\User;
@@ -30,7 +31,7 @@ class SpotifyController extends Controller
 
     public function connect()
     {
-        $scopes = explode(',', 'user-read-private,user-read-birthdate,streaming,user-read-playback-state,user-modify-playback-state,playlist-read-private,playlist-read-collaborative,playlist-modify-public,playlist-modify-private,streaming,user-library-read,user-library-modify,user-read-currently-playing,user-read-recently-played');
+        $scopes = explode(',', env('REQUIRED_SCOPES'));
 
         return Socialite::with('spotify')
             ->setScopes($scopes)
@@ -49,6 +50,14 @@ class SpotifyController extends Controller
             $user->refreshToken,
             (string) array_get($user->user, 'uri')
         ));
+
+        if (\Session::get('create-room')) {
+            /** @var User $user */
+            $user = \Auth::user()->hasParent() ? \Auth::user() : \Auth::user();
+            $room = $user->createRoom(\Session::get('create-room')['name']);
+
+            return redirect('/rooms/' . $room->getKey());
+        }
 
         return redirect('/');
     }
