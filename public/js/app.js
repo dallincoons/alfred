@@ -52449,7 +52449,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             playerId: ''
         };
     },
-    created: function created() {
+    mounted: function mounted() {
         var _this = this;
 
         window.onSpotifyWebPlaybackSDKReady = function () {

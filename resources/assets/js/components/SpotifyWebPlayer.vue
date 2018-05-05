@@ -12,7 +12,7 @@
             }
         },
 
-        created() {
+        mounted() {
             window.onSpotifyWebPlaybackSDKReady = () => {
                 const token = this.accessToken;
                 const player = new Spotify.Player({
