@@ -52352,6 +52352,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 
@@ -52366,12 +52368,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             songs: [],
             playerId: '',
             currentSong: {},
-            queue: []
+            queue: [],
+            room_songs: JSON.parse(this.raw_room_songs)
         };
     },
 
 
-    props: ['name', 'rkey', 'code', 'access_token', 'existing_player_id', 'has_parent', 'room_songs'],
+    props: ['name', 'rkey', 'code', 'access_token', 'existing_player_id', 'has_parent', 'raw_room_songs'],
 
     created: function created() {
         var _this = this;
@@ -52387,6 +52390,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         Echo.channel('song-queue').listen('SongQueueUpdated', function (e) {
             _this.queue = e.queue;
         });
+
+        Echo.channel('songs').listen('SongAdded', function (e) {
+            _this.room_songs.push(e.song);
+        });
     },
 
 
@@ -52399,8 +52406,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         addSong: function addSong(room, song) {
+            var _this3 = this;
+
             axios.post('/room/' + room + '/song', { song: song }).then(function (response) {
-                alert('success');
+                _this3.songs = [];
             });
         },
         play: function play() {
@@ -52609,21 +52618,29 @@ var render = function() {
           ])
         : _vm._e(),
       _vm._v(" "),
-      _vm.queue.length ? _c("span", [_vm._v("Queue:")]) : _vm._e(),
-      _vm._v(" "),
-      _vm._l(_vm.queue, function(song) {
-        return _c("div", [
-          _vm._v(
-            "\n        " +
-              _vm._s(song.title) +
-              " - " +
-              _vm._s(song.artist_title) +
-              "\n    "
+      _vm.queue.length
+        ? _c(
+            "div",
+            [
+              _c("span", [_vm._v("Queue:")]),
+              _vm._v(" "),
+              _vm._l(_vm.queue, function(song) {
+                return _c("div", [
+                  _vm._v(
+                    "\n            " +
+                      _vm._s(song.title) +
+                      " - " +
+                      _vm._s(song.artist_title) +
+                      "\n        "
+                  )
+                ])
+              })
+            ],
+            2
           )
-        ])
-      }),
+        : _vm._e(),
       _vm._v("\n\n    All Songs:\n    "),
-      _vm._l(JSON.parse(_vm.room_songs), function(song) {
+      _vm._l(_vm.room_songs, function(song) {
         return _c("div", [
           _vm._v(
             "\n        " +

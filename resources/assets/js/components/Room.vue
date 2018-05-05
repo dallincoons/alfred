@@ -23,13 +23,15 @@
             Currently Playing: {{ currentSong.title }} - {{currentSong.artist_title}}
         </div>
 
-        <span v-if="queue.length">Queue:</span>
-        <div v-for="song in queue">
-            {{ song.title }} - {{song.artist_title}}
+        <div v-if="queue.length">
+            <span>Queue:</span>
+            <div v-for="song in queue">
+                {{ song.title }} - {{song.artist_title}}
+            </div>
         </div>
 
         All Songs:
-        <div v-for="song in JSON.parse(room_songs)">
+        <div v-for="song in room_songs">
             {{ song.title }} - {{song.artist_title}}
         </div>
 
@@ -56,6 +58,7 @@
                 playerId: '',
                 currentSong: {},
                 queue: [],
+                room_songs: JSON.parse(this.raw_room_songs)
             }
         },
 
@@ -66,7 +69,7 @@
             'access_token',
             'existing_player_id',
             'has_parent',
-            'room_songs'
+            'raw_room_songs'
         ],
 
         created() {
@@ -83,6 +86,11 @@
                 .listen('SongQueueUpdated', (e) => {
                     this.queue = e.queue;
                 });
+
+            Echo.channel(`songs`)
+                .listen('SongAdded', (e) => {
+                    this.room_songs.push(e.song);
+                });
         },
 
         methods : {
@@ -94,7 +102,7 @@
 
            addSong(room, song) {
                axios.post('/room/' + room + '/song', {song: song}).then((response) => {
-                   alert('success');
+                   this.songs = [];
                });
            },
 

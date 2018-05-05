@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\SongAdded;
 use App\Gateways\ExternalSong;
 use App\Room;
 use Illuminate\Http\Request;
@@ -12,8 +13,10 @@ class RoomSongController extends Controller
     {
         $externalSong = new ExternalSong($request->input('song'));
 
-        $room->addSong($externalSong);
+        $song = $room->addSong($externalSong);
 
-        return response()->json();
+        SongAdded::dispatch($song);
+
+        return response()->json($song);
     }
 }

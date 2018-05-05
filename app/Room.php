@@ -72,7 +72,11 @@ class Room extends Model
         return \Auth::user()->hasParent() ? $this->attributes['deviceId'] : '';
     }
 
-    public function addSong(ExternalSong $song)
+    /**
+     * @param ExternalSong $song
+     * @return Song
+     */
+    public function addSong(ExternalSong $song): Song
     {
         $songId = $song->getId();
 
@@ -87,6 +91,8 @@ class Room extends Model
         SongQueue::addSong($this->playlistId, $songId);
 
         $this->gateway->addSong($this->playlistId, $songId);
+
+        return $song;
     }
 
     public function player()
