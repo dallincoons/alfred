@@ -36,6 +36,10 @@ class PlayerMachine
         $this->context->setState(app(\Session::get('player') ?? IdleState::class));
     }
 
+    /**
+     * @param array $songs
+     * @return bool
+     */
     public function play(array $songs)
     {
         return $this->context->state()->play($this, $songs);

@@ -48,4 +48,12 @@ class PlayingState implements PlayerMachineState
 
         return $this->gateway->startSong($playerMachine->deviceId(), 'spotify:track:' . $currentSong);
     }
+
+    /**
+     * @param PlayerMachine $playerMachine
+     */
+    public function resume(PlayerMachine $playerMachine)
+    {
+        // TODO: Implement resume() method.
+    }
 }

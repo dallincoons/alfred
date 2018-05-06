@@ -20,6 +20,11 @@ class IdleState implements PlayerMachineState
         $this->gateway = $gateway;
     }
 
+    /**
+     * @param PlayerMachine $playerMachine
+     * @param array $songs
+     * @return bool
+     */
     public function play(PlayerMachine $playerMachine, array $songs): bool
     {
         $sessionName = $playerMachine->room()->queueSessionName();
@@ -41,13 +46,27 @@ class IdleState implements PlayerMachineState
         return app(SpotifyGatewayInterface::class)->startSong($playerMachine->deviceId(), 'spotify:track:' . $currentSong);
     }
 
+    /**
+     * @param PlayerMachine $playerMachine
+     */
     public function pause(PlayerMachine $playerMachine)
     {
         //
     }
 
+    /**
+     * @param PlayerMachine $playerMachine
+     */
     public function next(PlayerMachine $playerMachine)
     {
 
+    }
+
+    /**
+     * @param PlayerMachine $playerMachine
+     */
+    public function resume(PlayerMachine $playerMachine)
+    {
+        // TODO: Implement resume() method.
     }
 }

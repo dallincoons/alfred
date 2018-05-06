@@ -16,6 +16,9 @@ class PlayerMachineContext
         return $this->state;
     }
 
+    /**
+     * @param PlayerMachineState $state
+     */
     public function setState(PlayerMachineState $state)
     {
         Session::put('player', get_class($state));
