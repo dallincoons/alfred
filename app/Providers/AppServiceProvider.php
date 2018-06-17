@@ -7,6 +7,7 @@ use App\Gateways\GoutteCrawler;
 use App\Gateways\SpotifyGateway;
 use App\Gateways\SpotifyGatewayInterface;
 use App\PlayerStateMachine\IdleState;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\ServiceProvider;
 
@@ -19,6 +20,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Schema::defaultStringLength(191);
     }
 
     /**

@@ -50,6 +50,31 @@
    * @import "tailwindcss/utilities";
    */
 @tailwind utilities;
+.bg-gradient {
+  background: #e96443;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right bottom, #904e95, #e96443);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right bottom, #904e95, #e96443); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.border-bottom {
+  border-bottom: white solid 3px;
+}
+
+.text-capitalize {
+  text-transform: uppercase;
+}
+
+.bg-button {
+  background: white;
+  color: #904e95;
+  transition: all .5s ease-in-out;
+}
+
+.bg-button:hover {
+  background: #904e95;
+  color: white;
+  transition: all .5s ease-in-out;
+}
 
 /**
  * Here you would add any custom utilities you need that don't come out of the

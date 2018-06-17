@@ -45,6 +45,7 @@ View the full documentation at https://tailwindcss.com.
 
 let colors = {
   'transparent': 'transparent',
+  'transparent-white' : 'rgba(255,255,255, .5)',
 
   'black': '#22292f',
   'grey-darkest': '#3d4852',
