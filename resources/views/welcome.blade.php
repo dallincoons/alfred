@@ -42,6 +42,15 @@
                             <input name="room" placeholder="ROOM CODE" class="bg-transparent text-2xl border-bottom mb-3" />
                             <input type="submit" value="Join" class="h-6 "/>
                         </form>
+                        @if (count($errors) > 0)
+                            <div class="error">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
                     </div>
                     {{--<div class="">--}}
                         {{--<form action="room/join" method="POST" class="flex flex-col text-lg content-center w-full">--}}
