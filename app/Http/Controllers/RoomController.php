@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\CodeGenerator;
+use App\Http\Requests\RoomStoreRequest;
 use App\Room;
 use App\Song;
 use Illuminate\Http\Request;
@@ -30,7 +31,7 @@ class RoomController extends Controller
         return view('room.show', compact('room', 'roomCode', 'songs'));
     }
 
-    public function store(Request $request)
+    public function store(RoomStoreRequest $request)
     {
         if(!\Auth::check()) {
             if($request->room) {
