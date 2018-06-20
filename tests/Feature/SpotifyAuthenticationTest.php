@@ -22,7 +22,8 @@ class SpotifyAuthenticationTest extends TestCase
                 'token' => $token = str_random(15),
                 'refreshToken' => str_random(15),
                 'user' => [
-                    'uri' => str_random(10)
+                    'uri' => str_random(10),
+                    'product' => 'premium'
                 ]
             ]);
 
@@ -50,7 +51,8 @@ class SpotifyAuthenticationTest extends TestCase
                 'token' => $token = str_random(15),
                 'refreshToken' => str_random(15),
                 'user' => [
-                    'uri' => str_random(10)
+                    'uri' => str_random(10),
+                    'product' => 'premium'
                 ]
             ]);
 

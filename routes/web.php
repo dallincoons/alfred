@@ -4,6 +4,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/not-premium', function() {
+    return view('not-premium');
+});
+
 Route::get('/connect', 'SpotifyController@connect');
 Route::get('/spotify-callback', 'SpotifyController@callback');
 Route::get('spotify/songs', 'SpotifyController@songs');

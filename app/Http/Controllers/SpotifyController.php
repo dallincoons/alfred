@@ -2,11 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Gateways\CrawlerInterface;
-use App\Gateways\GoutteCrawler;
-use App\Gateways\SpotifyGateway;
 use App\Gateways\SpotifyGatewayInterface;
-use App\Room;
 use App\Spotify;
 use App\SpotifyUser;
 use App\User;
@@ -42,6 +38,10 @@ class SpotifyController extends Controller
     public function callback(Request $request)
     {
         $user = Socialite::driver('spotify')->stateless()->user();
+
+        if ($user->user['product'] !== 'premium') {
+            return redirect('/not-premium');
+        }
 
         Spotify::login(new SpotifyUser(
             $user->id,
