@@ -30,15 +30,15 @@ class RoomTest extends TestCase
     }
 
     /** @test */
-    public function guest_can_join_room_using_code()
-    {
-        $room = factory(Room::class)->create();
-
-        $response = $this->post('/room/join', ['room' => $room->share()]);
-
-        $response->assertRedirect('/rooms/' . $room->getKey());
-        $this->assertTrue(\Auth::user()->hasParent());
-    }
+//    public function guest_can_join_room_using_code()
+//    {
+//        $room = factory(Room::class)->create();
+//
+//        $response = $this->post('/room/join', ['room' => $room->share()]);
+//
+//        $response->assertRedirect('/rooms/' . $room->getKey());
+//        $this->assertTrue(\Auth::user()->hasParent());
+//    }
 
     /** @test */
     public function room_cannot_be_accessed_unless_authenticated()
@@ -65,7 +65,7 @@ class RoomTest extends TestCase
         $response = $this->post('/room/join', ['room' => $room->share()]);
 
         $response->assertRedirect('/rooms/' . $room->getKey());
-        $this->assertEquals(\Auth::user(), ($room->user->guestUser));
+        $this->assertEquals(\Auth::user(), ($room->user));
     }
 
     /** @test */
@@ -78,7 +78,7 @@ class RoomTest extends TestCase
         $response = $this->post('/room/join', ['room' => strtolower($room->share())]);
 
         $response->assertRedirect('/rooms/' . $room->getKey());
-        $this->assertEquals(\Auth::user(), ($room->user->guestUser));
+        $this->assertEquals(\Auth::user(), ($room->user));
     }
 
     /** @test */
