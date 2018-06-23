@@ -52394,6 +52394,148 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -52409,7 +52551,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             playerId: '',
             currentSong: {},
             queue: [],
-            room_songs: JSON.parse(this.raw_room_songs)
+            room_songs: JSON.parse(this.raw_room_songs),
+            playSong: true
         };
     },
 
@@ -52425,6 +52568,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
         Echo.channel('song-queue').listen('SongQueueStarted', function (e) {
             _this.currentSong = e.song;
+            console.log(_this.currentSong);
         });
 
         Echo.channel('song-queue').listen('SongQueueUpdated', function (e) {
@@ -52453,14 +52597,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         play: function play() {
+            if (this.currentSong.title) {
+                axios.put('/room/' + this.rkey + '/resume', { 'device_id': this.playerId });
+                this.playSong = !this.playSong;
+                return;
+            }
             axios.put('/room/' + this.rkey + '/device/' + this.playerId + '/play');
+            this.playSong = !this.playSong;
         },
         pause: function pause() {
             axios.put('/room/' + this.rkey + '/pause', { 'device_id': this.playerId });
+            this.playSong = !this.playSong;
         },
-        resume: function resume() {
-            axios.put('/room/' + this.rkey + '/resume', { 'device_id': this.playerId });
-        },
+
+
+        // resume() {
+        //     axios.put(`/room/${this.rkey}/resume`, {'device_id' : this.playerId});
+        // },
+
         next: function next() {
             axios.put('/room/' + this.rkey + '/next', { 'device_id': this.playerId });
         },
@@ -52584,145 +52738,247 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _c("h1", [
-        _vm._v(_vm._s(_vm.name) + " - "),
-        _c("span", [_vm._v(_vm._s(_vm.code))])
-      ]),
+  return _c("div", { staticClass: "main-wrapper" }, [
+    _c("div", { staticClass: "player" }, [
+      _vm._m(0),
       _vm._v(" "),
-      _c("span", [_vm._v("Add Song")]),
-      _vm._v(" "),
-      _c("input", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model",
-            value: _vm.songName,
-            expression: "songName"
-          }
-        ],
-        attrs: { type: "text" },
-        domProps: { value: _vm.songName },
-        on: {
-          input: function($event) {
-            if ($event.target.composing) {
-              return
-            }
-            _vm.songName = $event.target.value
-          }
-        }
-      }),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          on: {
-            click: function($event) {
-              _vm.searchSongs(_vm.songName)
-            }
-          }
-        },
-        [_vm._v("Search")]
-      ),
-      _vm._v(" "),
-      _c("button", { on: { click: _vm.play } }, [_vm._v("Play")]),
-      _vm._v(" "),
-      _c("button", { on: { click: _vm.pause } }, [_vm._v("Pause")]),
-      _vm._v(" "),
-      _c("button", { on: { click: _vm.resume } }, [_vm._v("Resume")]),
-      _vm._v(" "),
-      _c("button", { on: { click: _vm.next } }, [_vm._v("Next")]),
-      _vm._v(" "),
-      !_vm.has_parent || !_vm.existing_player_id
-        ? _c("spotify-web-player", {
-            attrs: {
-              accessToken: _vm.access_token,
-              roomName: _vm.name,
-              roomKey: _vm.rkey
-            },
-            on: { deviceId: _vm.storePlayerId, next: _vm.next }
-          })
-        : _vm._e(),
-      _vm._v(" "),
-      _vm.currentSong.title
-        ? _c("div", [
-            _vm._v(
-              "\n        Currently Playing: " +
-                _vm._s(_vm.currentSong.title) +
-                " - " +
-                _vm._s(_vm.currentSong.artist_title) +
-                "\n    "
+      _c("div", { staticClass: "player-controls" }, [
+        _c("div", { staticClass: "player-button" }, [
+          _c("button", { staticClass: "skip-button" }, [
+            _c(
+              "svg",
+              {
+                attrs: {
+                  xmlns: "http://www.w3.org/2000/svg",
+                  viewBox: "0 0 56 61.02"
+                }
+              },
+              [
+                _c("title", [_vm._v("previous")]),
+                _vm._v(" "),
+                _c("path", {
+                  staticClass: "previous",
+                  attrs: {
+                    d:
+                      "M54.24,1a.76.76,0,0,1,.76.76V59.18a.75.75,0,0,1-1.14.65L8.5,33.64,7,32.78V59.69a.32.32,0,0,1-.32.33H1.32A.32.32,0,0,1,1,59.69V1.34A.32.32,0,0,1,1.32,1H6.68A.32.32,0,0,1,7,1.34V28.16l1.5-.87L53.86,1.1a.86.86,0,0,1,.38-.1h0m0-1a1.69,1.69,0,0,0-.88.24L8,26.43V1.34A1.32,1.32,0,0,0,6.68,0H1.32A1.32,1.32,0,0,0,0,1.34V59.69A1.33,1.33,0,0,0,1.32,61H6.68A1.33,1.33,0,0,0,8,59.69V34.51L53.36,60.7a1.79,1.79,0,0,0,.88.24A1.76,1.76,0,0,0,56,59.18V1.76A1.76,1.76,0,0,0,54.24,0Z"
+                  }
+                })
+              ]
             )
-          ])
-        : _vm._e(),
-      _vm._v(" "),
-      _vm.queue.length
-        ? _c(
-            "div",
-            [
-              _c("span", [_vm._v("Queue:")]),
-              _vm._v(" "),
-              _vm._l(_vm.queue, function(song) {
-                return _c("div", [
-                  _vm._v(
-                    "\n            " +
-                      _vm._s(song.title) +
-                      " - " +
-                      _vm._s(song.artist_title) +
-                      "\n        "
+          ]),
+          _vm._v(" "),
+          _c("button", { staticClass: "play-pause-button" }, [
+            _c(
+              "svg",
+              {
+                attrs: {
+                  xmlns: "http://www.w3.org/2000/svg",
+                  viewBox: "0 0 99 99"
+                }
+              },
+              [
+                _c("title", [_vm._v("play-pause-button")]),
+                _vm._v(" "),
+                _c("g", { attrs: { id: "play-pause-button" } }, [
+                  _c("path", {
+                    staticClass: "play-pause-circle",
+                    attrs: {
+                      d:
+                        "M49.5,1A48.5,48.5,0,1,1,1,49.5,48.56,48.56,0,0,1,49.5,1m0-1A49.5,49.5,0,1,0,99,49.5,49.5,49.5,0,0,0,49.5,0Z"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("path", {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.playSong,
+                        expression: "playSong"
+                      }
+                    ],
+                    staticClass: "play",
+                    attrs: {
+                      d:
+                        "M31.64,19.8a.76.76,0,0,1,.38.11L81.74,48.62a.74.74,0,0,1,.38.65.75.75,0,0,1-.38.66L32,78.64a.75.75,0,0,1-.38.1.76.76,0,0,1-.76-.76V20.57a.77.77,0,0,1,.76-.77m0-1a1.76,1.76,0,0,0-1.76,1.77V78a1.76,1.76,0,0,0,1.76,1.76,1.69,1.69,0,0,0,.88-.24L82.24,50.8a1.76,1.76,0,0,0,0-3L32.52,19a1.79,1.79,0,0,0-.88-.24Z"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "g",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: !_vm.playSong,
+                          expression: "!playSong"
+                        }
+                      ],
+                      attrs: { id: "pause" }
+                    },
+                    [
+                      _c("path", {
+                        staticClass: "pause-rect",
+                        attrs: {
+                          d:
+                            "M39.71,19.5a1.79,1.79,0,0,1,1.79,1.79V77.71a1.79,1.79,0,0,1-1.79,1.79H37.29a1.79,1.79,0,0,1-1.79-1.79V21.29a1.79,1.79,0,0,1,1.79-1.79h2.42m0-1H37.29a2.79,2.79,0,0,0-2.79,2.79V77.71a2.79,2.79,0,0,0,2.79,2.79h2.42a2.79,2.79,0,0,0,2.79-2.79V21.29a2.79,2.79,0,0,0-2.79-2.79Z"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("path", {
+                        staticClass: "pause-rect",
+                        attrs: {
+                          d:
+                            "M59.71,19.5a1.79,1.79,0,0,1,1.79,1.79V77.71a1.79,1.79,0,0,1-1.79,1.79H57.29a1.79,1.79,0,0,1-1.79-1.79V21.29a1.79,1.79,0,0,1,1.79-1.79h2.42m0-1H57.29a2.79,2.79,0,0,0-2.79,2.79V77.71a2.79,2.79,0,0,0,2.79,2.79h2.42a2.79,2.79,0,0,0,2.79-2.79V21.29a2.79,2.79,0,0,0-2.79-2.79Z"
+                        }
+                      })
+                    ]
                   )
                 ])
-              })
-            ],
-            2
-          )
-        : _vm._e(),
-      _vm._v("\n\n    All Songs:\n    "),
-      _vm._l(_vm.room_songs, function(song) {
-        return _c("div", [
-          _vm._v(
-            "\n        " +
-              _vm._s(song.title) +
-              " - " +
-              _vm._s(song.artist_title) +
-              "\n    "
-          )
-        ])
-      }),
-      _vm._v(" "),
-      _vm._l(_vm.songs, function(song) {
-        return _c(
-          "div",
-          _vm._l(song.items, function(item) {
-            return _c("div", [
-              _c(
-                "span",
-                {
-                  on: {
-                    click: function($event) {
-                      _vm.addSong(_vm.rkey, item)
-                    }
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c("button", { staticClass: "skip-button" }, [
+            _c(
+              "svg",
+              {
+                attrs: {
+                  xmlns: "http://www.w3.org/2000/svg",
+                  viewBox: "0 0 56 61.02"
+                }
+              },
+              [
+                _c("title", [_vm._v("next")]),
+                _vm._v(" "),
+                _c("path", {
+                  staticClass: "next",
+                  attrs: {
+                    d:
+                      "M54.68,1a.32.32,0,0,1,.32.32V59.68a.32.32,0,0,1-.32.32H49.32a.32.32,0,0,1-.32-.32V32.86l-1.5.86L2.14,59.91a.76.76,0,0,1-.38.11A.77.77,0,0,1,1,59.25V1.84a.7.7,0,0,1,.23-.54.77.77,0,0,1,.53-.22.75.75,0,0,1,.38.1L47.5,27.37l1.5.87V1.32A.32.32,0,0,1,49.32,1h5.36m0-1H49.32A1.32,1.32,0,0,0,48,1.32V26.51L2.64.32A1.69,1.69,0,0,0,1.76.08,1.76,1.76,0,0,0,0,1.84V59.25A1.76,1.76,0,0,0,1.76,61a1.79,1.79,0,0,0,.88-.24L48,34.59V59.68A1.32,1.32,0,0,0,49.32,61h5.36A1.32,1.32,0,0,0,56,59.68V1.32A1.32,1.32,0,0,0,54.68,0Z"
                   }
-                },
-                [
-                  _vm._v(
-                    _vm._s(item.name) +
-                      " - " +
-                      _vm._s(item.album.artists[0].name)
-                  )
-                ]
-              )
-            ])
-          })
-        )
-      })
-    ],
-    2
-  )
+                })
+              ]
+            )
+          ])
+        ]),
+        _vm._v(" "),
+        _vm._m(1)
+      ])
+    ]),
+    _vm._v(" "),
+    _vm._m(2)
+  ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "song-info" }, [
+      _c("div", { staticClass: "album-cover" }),
+      _vm._v(" "),
+      _c("div", { staticClass: "song-details" }, [
+        _c("h3", [_vm._v("Song Title")]),
+        _vm._v(" "),
+        _c("h4", [_vm._v("Artist")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "player-scrubber" }, [
+      _c("div", { staticClass: "song-completion" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "content-wrapper" }, [
+      _c("aside", { staticClass: "room-nav" }, [
+        _c("h4", [_vm._v("Hurricane Trip 2018 - RTYOE")]),
+        _vm._v(" "),
+        _c("h4", [_vm._v("Queue")]),
+        _vm._v(" "),
+        _c("h4", [_vm._v("Add Songs")]),
+        _vm._v(" "),
+        _c("h5", { staticClass: "nav-logo" }, [_vm._v("alfred.fm")])
+      ]),
+      _vm._v(" "),
+      _c("main", { staticClass: "room-content" }, [
+        _c("div", { staticClass: "all-songs" }, [
+          _c("div", [
+            _c("h5", [_vm._v("Title")]),
+            _vm._v(" "),
+            _c("ul", { staticClass: "song-list" }, [
+              _c("li", [_vm._v("Song 1")]),
+              _vm._v(" "),
+              _c("li", [_vm._v("Song 2")]),
+              _vm._v(" "),
+              _c("li", [_vm._v("Song 3")])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", [
+            _c("h5", [_vm._v("Artist")]),
+            _vm._v(" "),
+            _c("ul", { staticClass: "song-list" }, [
+              _c("li", [_vm._v("Laura Stevenson & The Cans")]),
+              _vm._v(" "),
+              _c("li", [_vm._v("The Presidents of the United States")]),
+              _vm._v(" "),
+              _c("li", [_vm._v("David Bowie")])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", [
+            _c("h5", [_vm._v("Album")]),
+            _vm._v(" "),
+            _c("ul", { staticClass: "song-list" }, [
+              _c("li", [_vm._v("A Record")]),
+              _vm._v(" "),
+              _c("li", [_vm._v("Not Sure")]),
+              _vm._v(" "),
+              _c("li", [_vm._v("Don't Know Either")])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", [
+            _c("h5", [_vm._v("User")]),
+            _vm._v(" "),
+            _c("ul", { staticClass: "song-list" }, [
+              _c("li", [_vm._v("Emily Coons")]),
+              _vm._v(" "),
+              _c("li", [_vm._v("Dallin Coons")]),
+              _vm._v(" "),
+              _c("li", [_vm._v("Tommy")])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", [
+            _c("h5", [_vm._v("Date")]),
+            _vm._v(" "),
+            _c("ul", { staticClass: "song-list" }, [
+              _c("li", [_vm._v("05/31/2017")]),
+              _vm._v(" "),
+              _c("li", [_vm._v("07/03/2015")]),
+              _vm._v(" "),
+              _c("li", [_vm._v("02/15/2018")])
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "queue" }),
+        _vm._v(" "),
+        _c("div", { staticClass: "add-songs" })
+      ])
+    ])
+  }
+]
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
