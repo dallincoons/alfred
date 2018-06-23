@@ -174,4 +174,15 @@ class RoomTest extends TestCase
 
         $this->assertCount(1, Song::where('external_id', '60SJRvzXJnVeVfS4RiH14u')->get());
     }
+
+    /** @test */
+    public function it_gets_rooms_queue()
+    {
+        $room = factory(Room::class)->create();
+
+        $room->addSong(ExternalSongFaker::any());
+        $room->addSong(ExternalSongFaker::any());
+
+        $this->assertCount(2, $room->getQueue());
+    }
 }

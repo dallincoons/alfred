@@ -73,6 +73,11 @@ class Room extends Model
         return \Auth::user()->hasParent() ? $this->attributes['deviceId'] : '';
     }
 
+    public function getQueue()
+    {
+        return SongQueue::all($this->playlistId);
+    }
+
     /**
      * @param ExternalSong $song
      * @return Song

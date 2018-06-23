@@ -6,7 +6,12 @@ use Illuminate\Support\Facades\Session;
 
 class SongQueue
 {
-    public static  function play(string $playlistId, array $songs)
+    public static function all(string $playlistIs)
+    {
+        return Session::get('playlist:' . $playlistIs);
+    }
+
+    public static function play(string $playlistId, array $songs)
     {
         shuffle($songs);
 
