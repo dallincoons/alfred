@@ -48,7 +48,8 @@ class SpotifyController extends Controller
             $user->name,
             $user->token,
             $user->refreshToken,
-            (string) array_get($user->user, 'uri')
+            (string) array_get($user->user, 'uri'),
+            (string) array_get($user->user, 'images.0.url')
         ));
 
         if (\Session::get('create-room')) {

@@ -6,6 +6,7 @@ use App\GuestUser;
 use App\Spotify;
 use App\SpotifyUser;
 use App\User;
+use Tests\Fakes\SpotifyUserFaker;
 use Tests\TestCase;
 
 class SpotifyTest extends TestCase
@@ -19,7 +20,7 @@ class SpotifyTest extends TestCase
     {
         User::truncate();
 
-        $spotifyUser = new SpotifyUser(123456789, 'Paul M', '11111', '22222', 'spotify:1234');
+        $spotifyUser = SpotifyUserFaker::any();
 
         $this->assertEquals(0, User::count());
 
@@ -43,7 +44,7 @@ class SpotifyTest extends TestCase
     /** @test */
     public function guest_user_tokens_are_updated_when_user_re_authenticates()
     {
-        $spotifyUser = new SpotifyUser(123456789, 'Paul M', '11111', '22222', 'spotify:1234');
+        $spotifyUser = new SpotifyUser(123456789, 'Paul M', '11111', '22222', 'spotify:1234', 'some_url');
 
         Spotify::login($spotifyUser);
 
@@ -52,7 +53,7 @@ class SpotifyTest extends TestCase
         $this->assertEquals('11111', $user->access_token);
         $this->assertEquals('11111', $user->guestUser->access_token);
 
-        $spotifyUser = new SpotifyUser(123456789, 'Paul M', '33333', '22222', 'spotify:1234');
+        $spotifyUser = new SpotifyUser(123456789, 'Paul M', '33333', '22222', 'spotify:1234', 'some_url');
 
         Spotify::login($spotifyUser);
 

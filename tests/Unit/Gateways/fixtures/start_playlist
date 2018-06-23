@@ -116,3 +116,31 @@
             Alt-Svc: clear
             Transfer-Encoding: chunked
         body: "{\n  \"error\" : {\n    \"status\" : 404,\n    \"message\" : \"Device not found\"\n  }\n}"
+-
+    request:
+        method: POST
+        url: 'https://api.spotify.com/v1/users/123456789/playlists'
+        headers:
+            Host: api.spotify.com
+            Authorization: 'Bearer 11111'
+            Content-Type: application/json
+        body: '{"name":"test123"}'
+    response:
+        status:
+            http_version: '1.1'
+            code: '401'
+            message: Unauthorized
+        headers:
+            Content-Type: application/json
+            WWW-Authenticate: 'Bearer realm="spotify", error="invalid_token", error_description="Invalid access token"'
+            Access-Control-Allow-Origin: '*'
+            Access-Control-Allow-Headers: 'Accept, Authorization, Origin, Content-Type, Retry-After'
+            Access-Control-Allow-Methods: 'GET, POST, OPTIONS, PUT, DELETE, PATCH'
+            Access-Control-Allow-Credentials: 'true'
+            Access-Control-Max-Age: '604800'
+            Content-Encoding: gzip
+            Date: 'Sat, 23 Jun 2018 18:11:38 GMT'
+            Via: '1.1 google'
+            Alt-Svc: clear
+            Transfer-Encoding: chunked
+        body: "{\n  \"error\": {\n    \"status\": 401,\n    \"message\": \"Invalid access token\"\n  }\n}"

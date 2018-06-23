@@ -3,6 +3,7 @@
 use App\Gateways\SpotifyGatewayInterface;
 use App\SpotifyUser;
 use Tests\Fakes\FakeSpotifyGateway;
+use Tests\Fakes\SpotifyUserFaker;
 use Tests\Unit\Gateways\SpotifyGatewayTest;
 
 class FakeSpotifyGatewayTest extends SpotifyGatewayTest
@@ -22,7 +23,7 @@ class FakeSpotifyGatewayTest extends SpotifyGatewayTest
     /** @test */
     public function it_searches_for_songs()
     {
-        $spotifyUser = new SpotifyUser(123456789, 'Paul M', '1111', '22222', 'spotify:1234');
+        $spotifyUser = SpotifyUserFaker::any();
         $this->getGateway()->login($spotifyUser);
 
         $result = $this->getGateway()->search('summertime teenage bottlerocket');

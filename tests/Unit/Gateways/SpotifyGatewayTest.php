@@ -6,6 +6,7 @@ use App\Gateways\SpotifyGateway;
 use App\Gateways\SpotifyGatewayInterface;
 use App\Spotify;
 use App\SpotifyUser;
+use Tests\Fakes\SpotifyUserFaker;
 use Tests\TestCase;
 use Tests\Traits\UsesVcr;
 
@@ -32,7 +33,7 @@ class SpotifyGatewayTest extends TestCase
     {
         $this->insertCassette('it_searches_for_songs');
 
-        $spotifyUser = new SpotifyUser(123456789, 'Paul M', env('TEST_SPOTIFY_KEY'), '22222', 'spotify:1234');
+        $spotifyUser = SpotifyUserFaker::any();
         Spotify::login($spotifyUser);
 
         $result = $this->spotify->search('summertime teenage bottlerocket');

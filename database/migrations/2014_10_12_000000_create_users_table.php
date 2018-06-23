@@ -21,6 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('access_token', 500);
             $table->string('refresh_token');
             $table->string('uri');
+            $table->string('profile_image')->nullable();
             $table->rememberToken();
             $table->timestamps();
 

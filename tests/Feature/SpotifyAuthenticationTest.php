@@ -23,7 +23,12 @@ class SpotifyAuthenticationTest extends TestCase
                 'refreshToken' => str_random(15),
                 'user' => [
                     'uri' => str_random(10),
-                    'product' => 'premium'
+                    'product' => 'premium',
+                    'images' => [
+                        0 => [
+                            'url' => $url = 'https://scontent.xx.fbcdn.net/v/t1.0-1/p200x200/10881700_10202381986186063_7458105300395742320_n.jpg?_nc_cat=0&oh=7811658b6aef8420005271db6768b0ee&oe=5BB81B3A'
+                        ]
+                    ]
                 ]
             ]);
 
@@ -31,6 +36,7 @@ class SpotifyAuthenticationTest extends TestCase
             ->assertRedirect('/');
 
         $this->assertEquals($token, \Auth::user()->access_token);
+        $this->assertEquals($url, \Auth::user()->profile_image);
     }
 
     /** @test */

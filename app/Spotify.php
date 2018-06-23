@@ -15,6 +15,7 @@ class Spotify
                 'name' => $spotifyUser->name,
                 'spotify_id' => $spotifyUser->id,
                 'uri' => $spotifyUser->uri,
+                'profile_image' => $spotifyUser->profile_image,
             ])->save();
 
             $guest = $user->replicate();
