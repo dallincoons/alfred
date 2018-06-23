@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Events\SongAdded;
 use Illuminate\Support\Facades\Session;
 
 class SongQueue

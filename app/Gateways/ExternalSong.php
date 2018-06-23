@@ -14,16 +14,25 @@ class ExternalSong
         $this->rawSong = $rawSong;
     }
 
+    /**
+     * @return string
+     */
     public function getId()
     {
         return array_get($this->rawSong, 'id');
     }
 
+    /**
+     * @return string
+     */
     public function getTitle()
     {
         return array_get($this->rawSong, 'name');
     }
 
+    /**
+     * @return string
+     */
     public function getArtistTitle()
     {
         return array_get($this->rawSong, 'album.artists.0.name');

@@ -15,8 +15,6 @@ class RoomSongController extends Controller
 
         $song = $room->addSong($externalSong);
 
-        SongAdded::dispatch($song);
-
         return response()->json($song);
     }
 }

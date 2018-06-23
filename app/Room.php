@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Events\SongAdded;
 use App\Events\SongQueueUpdated;
 use App\Gateways\ExternalSong;
 use App\Gateways\SpotifyGatewayInterface;
@@ -96,6 +97,7 @@ class Room extends Model
 
         $songQueue = SongQueue::addSong($this->queueSessionName(), $songId);
         SongQueueUpdated::dispatch( $songQueue );
+        SongAdded::dispatch($song);
 
         $this->gateway->addSong($this->playlistId, $songId);
 
