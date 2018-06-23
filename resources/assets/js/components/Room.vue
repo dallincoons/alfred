@@ -69,13 +69,16 @@
             'access_token',
             'existing_player_id',
             'has_parent',
-            'raw_room_songs'
+            'raw_room_songs',
+            'starting_queue'
         ],
 
         created() {
             if(this.existing_player_id) {
                 this.storePlayerId(this.existing_player_id);
             }
+
+            this.queue = JSON.parse(this.starting_queue);
 
             Echo.channel(`song-queue`)
                 .listen('SongQueueStarted', (e) => {

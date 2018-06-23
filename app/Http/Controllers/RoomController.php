@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\CodeGenerator;
 use App\Http\Requests\RoomStoreRequest;
 use App\Room;
+use App\Session;
 use App\Song;
 use Illuminate\Http\Request;
 
@@ -28,7 +29,15 @@ class RoomController extends Controller
 
         $songs = $room->songs;
 
-        return view('room.show', compact('room', 'roomCode', 'songs'));
+        $userId = \Auth::user()->hasParent() ? \Auth::user()->parent_id : \Auth::user()->getKey();
+
+        $songIds = Session::getUserQueue($userId, $room->playlistId);
+
+        $queue = json_encode($songs->filter(function ($song) use ($songIds) {
+            return in_array($song->external_id, $songIds);
+        })->values());
+
+        return view('room.show', compact('room', 'roomCode', 'songs', 'queue'));
     }
 
     public function store(RoomStoreRequest $request)

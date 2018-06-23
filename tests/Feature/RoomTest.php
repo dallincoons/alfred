@@ -5,6 +5,7 @@ use App\Events\SongQueueStarted;
 use App\Gateways\SpotifyGatewayInterface;
 use App\Room;
 use App\Song;
+use App\User;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Session;
 use Tests\Fakes\ExternalSongFaker;

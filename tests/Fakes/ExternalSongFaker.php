@@ -13,9 +13,9 @@ class ExternalSongFaker
         ]));
     }
 
-    public static function any()
+    public static function any(array $overrides = [])
     {
-        return new ExternalSong(self::validParams());
+        return new ExternalSong(self::validParams($overrides));
     }
 
     public static function validParams(array $overrides = []): array
