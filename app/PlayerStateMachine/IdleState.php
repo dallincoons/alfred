@@ -6,6 +6,7 @@ use App\Events\SongQueueStarted;
 use App\Events\SongQueueUpdated;
 use App\Gateways\SpotifyGatewayInterface;
 use App\Song;
+use App\SongQueue;
 use Illuminate\Support\Facades\Session;
 
 class IdleState implements PlayerMachineState
@@ -59,7 +60,26 @@ class IdleState implements PlayerMachineState
      */
     public function next(PlayerMachine $playerMachine)
     {
+        $songs = $playerMachine->room()->songs();
 
+        if (!$songs->count()) {
+            throw new \Exception('There are no songs in the playlist');
+        }
+
+        $currentSong = SongQueue::next($playerMachine->playlistId());
+
+        if(!$currentSong) {
+            $songs = $songs->pluck('external_id')->all();
+            $currentSong = array_shift($songs);
+            \Session::put($playerMachine->room()->queueSessionName(), $songs);
+        }
+
+        SongQueueStarted::dispatch(Song::where('external_id', $currentSong)->first());
+        SongQueueUpdated::dispatch( \Session::get($playerMachine->room()->queueSessionName()) );
+
+        $playerMachine->context()->setState($playingState = app(PlayingState::class));
+
+        return $this->gateway->startSong($playerMachine->deviceId(), 'spotify:track:' . $currentSong);
     }
 
     /**

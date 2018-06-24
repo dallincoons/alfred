@@ -9,7 +9,11 @@ class SongQueue
     public static function all(string $playlistIs)
     {
         return \Session::get('playlist:' . $playlistIs);
+    }
 
+    public static function addSongs(string $playlistId, array $songs)
+    {
+        \Session::put('playlist:' . $playlistId, $songs);
     }
 
     public static function play(string $playlistId, array $songs)
@@ -33,7 +37,7 @@ class SongQueue
 
     public static function next($playlistId)
     {
-        $playlist = \Session::get('playlist:' . $playlistId);
+        $playlist = \Session::get('playlist:' . $playlistId, []);
         $song = array_pop($playlist);
         \Session::put('playlist:' . $playlistId, $playlist);
         return $song;
