@@ -179,6 +179,115 @@
   padding: 1rem 0 0 0;
   font-size: .75rem;
 }
+
+.account-img {
+  border: 4px solid #ffffff;
+  border-radius: 50%;
+  margin: 3rem 0 0 0;
+  width: 200px;
+  height: 200px;
+}
+
+.account-username {
+  color: #ffffff;
+  margin: 1rem 0;
+}
+.logout-link {
+  text-decoration: none;
+  color: #ffffff;
+  font-size: .5em;
+}
+
+.account-img img {
+  border-radius: 50%;
+  width: 100%;
+  min-height: 100%;
+}
+
+.account-options {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  border: 2px solid #ffffff;
+}
+.account-option {
+  color: #ffffff;
+  font-size: 1.2rem;
+  padding: .5rem;
+}
+
+.active {
+  background: #ffffff;
+  color: purple;
+}
+
+.account-content-wrapper {
+  display: flex;
+  flex-direction: column;
+  margin: 2rem 0 0 0;
+  width: 100%;
+}
+
+.rooms-wrapper {
+
+}
+
+.rooms-list {
+  list-style: none;
+}
+
+.room-link {
+  text-decoration: none;
+  color: white;
+  font-size: 1.5rem;
+}
+
+.rooms-list li {
+  padding: 1rem 0;
+}
+.room-action-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+.room-action-wrapper form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.room-input {
+  background: none;
+  border-bottom: 2px solid #ffffff;
+  color: #ffffff;
+  font-size: 2rem;
+}
+
+.room-button {
+  padding: 1rem;
+  background: purple;
+  color: #ffffff;
+  font-size: 1.5rem;
+  margin: 1rem 0;
+}
+
+@media (min-width: 1000px ) {
+  .account-options {
+    width: 30%;
+  }
+
+  .account-content-wrapper {
+    align-items: center;
+  }
+
+  .rooms-wrapper {
+    width: 30%;
+  }
+  .rooms-list {
+    padding: 0;
+  }
+}
 /**
  * Here you would add any custom utilities you need that don't come out of the
  * box with Tailwind.

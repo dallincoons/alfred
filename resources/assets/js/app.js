@@ -17,12 +17,14 @@ window.Vue = require('vue');
 
 import Room from './components/Room.vue';
 import SpotifyWebPlayer from './components/SpotifyWebPlayer';
+import Account from './components/Account';
 
 const app = new Vue({
     el: '#app',
 
     components : {
         Room,
-        SpotifyWebPlayer
+        SpotifyWebPlayer,
+        Account
     }
 });
