@@ -1,5 +1,14 @@
 <template>
     <div class="main-wrapper">
+        <div>
+            <h2>{{code}}</h2>
+        </div>
+        <div>
+            <div v-for="song in room_songs">
+            {{ song.title }} - {{song.artist_title}}
+            </div>
+        </div>
+
         <div class="player">
             <div class="song-info">
                 <div class="album-cover"></div>
@@ -42,59 +51,10 @@
             </div>
 
         </div>
-        <div class="content-wrapper">
-            <aside class="room-nav">
-                <h4>Hurricane Trip 2018 - RTYOE</h4>
-                <h4>Queue</h4>
-                <h4>Add Songs</h4>
-                <h5 class="nav-logo">alfred.fm</h5>
-            </aside>
-            <main class="room-content">
-                <div class="all-songs">
-                    <div>
-                        <h5>Title</h5>
-                        <ul class="song-list">
-                            <li>Song 1</li>
-                            <li>Song 2</li>
-                            <li>Song 3</li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h5>Artist</h5>
-                        <ul class="song-list">
-                            <li>Laura Stevenson & The Cans</li>
-                            <li>The Presidents of the United States</li>
-                            <li>David Bowie</li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h5>Album</h5>
-                        <ul class="song-list">
-                            <li>A Record</li>
-                            <li>Not Sure</li>
-                            <li>Don't Know Either</li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h5>User</h5>
-                        <ul class="song-list">
-                            <li>Emily Coons</li>
-                            <li>Dallin Coons</li>
-                            <li>Tommy</li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h5>Date</h5>
-                        <ul class="song-list">
-                            <li>05/31/2017</li>
-                            <li>07/03/2015</li>
-                            <li>02/15/2018</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="queue"></div>
-                <div class="add-songs"></div>
-            </main>
+        <div class="mobile-nav">
+            <p>Room</p>
+            <p>Search</p>
+            <p></p>
         </div>
     </div>
     <!--<div class="room-wrapper bg-gradient text-white flex flex-col w-screen h-screen">-->
