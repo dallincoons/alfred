@@ -1,11 +1,30 @@
 <template>
-    <div class="main-wrapper">
-        <div>
-            <h2>{{code}}</h2>
+    <div class="main-wrapper bg-gradient h-screen">
+        <div class="room-heading">
+            <h2 class="room-code">{{code}}</h2>
+            <div class="search-section">
+                <div class="search-icon" @click="searchInputVisible = !searchInputVisible">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 55 56.97"><title>search</title><path id="search" data-name="search" d="M54.16,51.89,40.6,37.79a23,23,0,1,0-4.42,4.05L49.84,56.05a3,3,0,0,0,4.32-4.16ZM23,6A17,17,0,1,1,6,23,17,17,0,0,1,23,6Z"/></svg>
+                </div>
+
+                <div v-show="searchInputVisible" class="search-input-wrapper">
+                    <input type="text" v-model="songName" class="search-input" placeholder="Add Song"/>
+                    <button @click="searchSongs(songName)" class="search-button">Search</button>
+                </div>
+            </div>
         </div>
         <div>
-            <div v-for="song in room_songs">
-            {{ song.title }} - {{song.artist_title}}
+            <div class="songs-section" v-show="!searchInputVisible">
+                <div v-for="song in room_songs">
+                    <div class="song-item"><span class="song-title">{{ song.title }}</span><span class="song-artist">- {{song.artist_title}}</span></div>
+                </div>
+            </div>
+
+
+            <div v-for="song in songs" class="songs-section" v-show="searchInputVisible">
+                <div v-for="item in song.items">
+                    <div @click="addSong(rkey, item)" class="song-item"><span>+ </span><span class="song-title">{{item.name}}</span><span class="song-artist">- {{ item.album.artists[0].name }}</span></div>
+                </div>
             </div>
         </div>
 
@@ -50,11 +69,6 @@
                 </div>
             </div>
 
-        </div>
-        <div class="mobile-nav">
-            <p>Room</p>
-            <p>Search</p>
-            <p></p>
         </div>
     </div>
     <!--<div class="room-wrapper bg-gradient text-white flex flex-col w-screen h-screen">-->
@@ -162,6 +176,7 @@
                 queue: [],
                 room_songs: JSON.parse(this.raw_room_songs),
                 playSong: true,
+                searchInputVisible: false
             }
         },
 

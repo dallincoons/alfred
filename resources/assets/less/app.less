@@ -81,17 +81,22 @@
   transition: all .5s ease-in-out;
 }
 .main-wrapper {
-  width: 100%;
-  height: 100vh;
+  max-width: 100%;
+  min-height: 100vh;
+  height: auto;
   display: grid;
   grid-template-rows: auto 1fr;
+  position: relative;
 }
+
 .player {
   width: 100%;
   height: 10%;
   display: grid;
   grid-template-columns: 25% 1fr;
   justify-items: center;
+  position: fixed;
+  bottom: 0;
 }
 
 .player-controls {
@@ -270,6 +275,64 @@
   color: #ffffff;
   font-size: 1.5rem;
   margin: 1rem 0;
+}
+
+.room-heading {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  margin: .5rem 0 0 0;
+}
+
+.room-code {
+  color: #ffffff;
+  margin: 1rem 0 0 1rem;
+}
+
+.search-section {
+  display: flex;
+}
+
+.search-input-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.search-input {
+  background: none;
+  border-bottom: 2px solid #ffffff;
+  color: #ffffff;
+}
+
+.search-button {
+  background: #ffffff;
+  color: purple;
+}
+
+.search-icon {
+  width: 30px;
+  height: 30px;
+  fill: #ffffff;
+  margin: 1rem 1rem 0 0;
+}
+
+.songs-section {
+  margin: 1rem 1rem 5rem 0;
+}
+
+.song-item {
+  padding: .5rem;
+  font-size: 1.2rem;
+  color: #ffffff;
+}
+
+.song-title {
+  font-weight: bolder;
+}
+
+.song-artist {
+  font-style: italic;
+  font-size: 1rem;
 }
 
 @media (max-width: 900px) {
