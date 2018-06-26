@@ -83,9 +83,6 @@
                             @next="next"
         ></spotify-web-player>
     </div>
-
-
-
 </template>
 
 <script>
@@ -127,7 +124,6 @@
             Echo.channel(`song-queue`)
                 .listen('SongQueueStarted', (e) => {
                     this.currentSong = e.song;
-                    console.log(this.currentSong);
                 });
 
             Echo.channel(`song-queue`)
