@@ -91,7 +91,8 @@ class Room extends Model
             'external_id' => $songId,
             'title' => $song->getTitle(),
             'artist_title' => $song->getArtistTitle(),
-            'duration' => $song->getDuration()
+            'duration' => $song->getDuration(),
+            'big_image' => $song->getBigImage()
         ]);
 
         $this->songs()->attach($song);

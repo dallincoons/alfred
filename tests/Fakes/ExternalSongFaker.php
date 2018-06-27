@@ -25,15 +25,20 @@ class ExternalSongFaker
             'name' => 'Ties That Bind',
             'tracks' => [
                 0 => [
-                    'duration_ms' => 123456
-                ]
+                    'duration_ms' => 123456,
+                    'album' => [
+                        'images' => [
+                            0 => 'some_image.jpg'
+                        ]
+                    ]
+                ],
             ],
             'album' => [
                 'artists' => [
                     0 => [
                         'name' => 'Bummer Deal'
                     ]
-                ]
+                ],
             ]
         ], $overrides);
     }

@@ -19,6 +19,7 @@ class CreateSongsTable extends Migration
             $table->string('title');
             $table->string('artist_title');
             $table->unsignedInteger('duration');
+            $table->string('big_image');
             $table->timestamps();
         });
     }

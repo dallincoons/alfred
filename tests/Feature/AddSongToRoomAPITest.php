@@ -39,5 +39,6 @@ class AddSongToRoomAPITest extends TestCase
         $song = Song::first();
 
         $this->assertEquals($song->duration, 123456);
+        $this->assertEquals($song->big_image, 'some_image.jpg');
     }
 }

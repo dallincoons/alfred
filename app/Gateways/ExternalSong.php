@@ -45,4 +45,12 @@ class ExternalSong
     {
         return array_get($this->rawSong, 'tracks.0.duration_ms');
     }
+
+    /**
+     * @return int
+     */
+    public function getBigImage()
+    {
+        return array_get($this->rawSong, 'tracks.0.album.images.0');
+    }
 }
