@@ -90,7 +90,8 @@ class Room extends Model
         $song = Song::firstOrCreate([
             'external_id' => $songId,
             'title' => $song->getTitle(),
-            'artist_title' => $song->getArtistTitle()
+            'artist_title' => $song->getArtistTitle(),
+            'duration' => $song->getDuration()
         ]);
 
         $this->songs()->attach($song);

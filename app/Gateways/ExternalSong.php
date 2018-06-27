@@ -37,4 +37,12 @@ class ExternalSong
     {
         return array_get($this->rawSong, 'album.artists.0.name');
     }
+
+    /**
+     * @return int
+     */
+    public function getDuration()
+    {
+        return array_get($this->rawSong, 'tracks.0.duration_ms');
+    }
 }

@@ -23,6 +23,11 @@ class ExternalSongFaker
         return array_merge([
             'id' => '1234',
             'name' => 'Ties That Bind',
+            'tracks' => [
+                0 => [
+                    'duration_ms' => 123456
+                ]
+            ],
             'album' => [
                 'artists' => [
                     0 => [
