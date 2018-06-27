@@ -43,7 +43,7 @@ class ExternalSong
      */
     public function getDuration()
     {
-        return array_get($this->rawSong, 'tracks.0.duration_ms');
+        return array_get($this->rawSong, 'duration_ms');
     }
 
     /**
@@ -51,6 +51,6 @@ class ExternalSong
      */
     public function getBigImage()
     {
-        return array_get($this->rawSong, 'tracks.0.album.images.0');
+        return array_get($this->rawSong, 'album.images.0.url');
     }
 }
