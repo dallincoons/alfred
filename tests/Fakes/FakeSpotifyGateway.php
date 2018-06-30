@@ -59,11 +59,35 @@ class FakeSpotifyGateway implements SpotifyGatewayInterface
             'tracks' => [
                 'items' => [
                     0 => [
+                        'duration_ms' => 1234,
                         'id' => '12345678',
+                        'name' => str_random(10),
                         'album' => [
                             'images' => [
                                 0 => (object) [
                                     'url' => 'someimage'
+                                ]
+                            ],
+                            'artists' => [
+                                0 => [
+                                    'name' => str_random(10)
+                                ]
+                            ]
+                        ]
+                    ],
+                    1 => [
+                        'duration_ms' => 1234,
+                        'id' => '12345679',
+                        'name' => str_random(10),
+                        'album' => [
+                            'images' => [
+                                0 => (object) [
+                                    'url' => 'someimage'
+                                ]
+                            ],
+                            'artists' => [
+                                0 => [
+                                    'name' => str_random(10)
                                 ]
                             ]
                         ]

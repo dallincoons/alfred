@@ -7,9 +7,9 @@ class ExternalSong
     /**
      * @var array $rawSong
      */
-    private $rawSong;
+    protected $rawSong;
 
-    public function __construct(array $rawSong)
+    public function __construct($rawSong)
     {
         $this->rawSong = $rawSong;
     }
@@ -19,7 +19,7 @@ class ExternalSong
      */
     public function getId()
     {
-        return array_get($this->rawSong, 'id');
+        return data_get($this->rawSong, 'id');
     }
 
     /**
@@ -27,7 +27,7 @@ class ExternalSong
      */
     public function getTitle()
     {
-        return array_get($this->rawSong, 'name');
+        return data_get($this->rawSong, 'name');
     }
 
     /**
@@ -35,7 +35,7 @@ class ExternalSong
      */
     public function getArtistTitle()
     {
-        return array_get($this->rawSong, 'album.artists.0.name');
+        return data_get($this->rawSong, 'album.artists.0.name');
     }
 
     /**
@@ -43,7 +43,7 @@ class ExternalSong
      */
     public function getDuration()
     {
-        return array_get($this->rawSong, 'duration_ms');
+        return data_get($this->rawSong, 'duration_ms');
     }
 
     /**
@@ -51,6 +51,6 @@ class ExternalSong
      */
     public function getBigImage()
     {
-        return array_get($this->rawSong, 'album.images.0.url');
+        return data_get($this->rawSong, 'album.images.0.url');
     }
 }

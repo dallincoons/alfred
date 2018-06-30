@@ -52,3 +52,53 @@
             Date: 'Sat, 30 Jun 2018 20:11:09 GMT'
             Via: '1.1 google'
             Alt-Svc: clear
+-
+    request:
+        method: PUT
+        url: 'https://api.spotify.com/v1/me/player'
+        headers:
+            Host: api.spotify.com
+            Authorization: 'Bearer BQAJDzkZuePf3-nZPtByitmJffvQ-owH7TeSCBUXOgQq1Yf4jKRbPnig6lcm96trM7bu7A-67ep8LnqZrUHWvRXcHuy9k4h39MqjIgp9Bs1BKXI3RW_qJ6eFs3ZL-0YrWh1tTENAgo4ZOeTU5G4yCq2YDnZB6JsDrX69BJPVdnNSyl-5c6ixlOLm8f4qyjNrdfA_C36jNB4YOpRFqmQEgx9-vmpSw7lkXC3A-TjAp6p6PAr77zdL6vbAHmNrrM2gDUxPJYDJ3huLoLk3'
+            Content-Type: application/json
+        body: '{"device_ids":["82c86b09fbd6826211f9223a3480f455c65ea17b"]}'
+    response:
+        status:
+            http_version: '1.1'
+            code: '204'
+            message: 'No Content'
+        headers:
+            Cache-Control: 'private, max-age=0'
+            Access-Control-Allow-Origin: '*'
+            Access-Control-Allow-Headers: 'Accept, Authorization, Origin, Content-Type, Retry-After'
+            Access-Control-Allow-Methods: 'GET, POST, OPTIONS, PUT, DELETE, PATCH'
+            Access-Control-Allow-Credentials: 'true'
+            Access-Control-Max-Age: '604800'
+            Content-Length: '0'
+            Date: 'Sat, 30 Jun 2018 21:22:02 GMT'
+            Via: '1.1 google'
+            Alt-Svc: clear
+-
+    request:
+        method: PUT
+        url: 'https://api.spotify.com/v1/me/player'
+        headers:
+            Host: api.spotify.com
+            Authorization: 'Bearer BQCgEa_r_3LpJ8zYOeCUETOXPF3hWLa2VlEaiiaWqLJg_MVFM6q7gpH0hyxKsH5Yj5B42ocnA8sBUzXbyjsMp-MuLOXuEPafvuAnTzPgnMxQD_7uwdg3sz4C88CdD6E369PL9O7cL3RtTggKyJCGX9VZRRGlfR59nF44O7rMQhh1RnPRutW6kZIu2DfMudEM2RIN-UJFfxt1D8qIg_uQ3MR7qy33DSHO51wVdyzUl-OebfYX9DoddUXSmbjPZbsu6vQGjansX386cs_i'
+            Content-Type: application/json
+        body: '{"device_ids":["82c86b09fbd6826211f9223a3480f455c65ea17b"]}'
+    response:
+        status:
+            http_version: '1.1'
+            code: '204'
+            message: 'No Content'
+        headers:
+            Cache-Control: 'private, max-age=0'
+            Access-Control-Allow-Origin: '*'
+            Access-Control-Allow-Headers: 'Accept, Authorization, Origin, Content-Type, Retry-After'
+            Access-Control-Allow-Methods: 'GET, POST, OPTIONS, PUT, DELETE, PATCH'
+            Access-Control-Allow-Credentials: 'true'
+            Access-Control-Max-Age: '604800'
+            Content-Length: '0'
+            Date: 'Sat, 30 Jun 2018 22:36:48 GMT'
+            Via: '1.1 google'
+            Alt-Svc: clear

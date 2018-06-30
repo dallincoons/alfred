@@ -148,7 +148,7 @@
         methods : {
            searchSongs(song) {
                axios.get('/spotify/songs?q=' + song).then((response) => {
-                   this.songs = response.data.tracks.items.map((song) => {
+                   this.songs = response.data.map((song) => {
                         song.checked = false;
                         return song;
                    });

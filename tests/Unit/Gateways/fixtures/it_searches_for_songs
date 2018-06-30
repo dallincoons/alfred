@@ -5,7 +5,7 @@
         url: 'https://api.spotify.com/v1/search/?q=summertime+teenage+bottlerocket&type=track'
         headers:
             Host: api.spotify.com
-            Authorization: 'Bearer BQDxFEmYBiybde8qrV29Ws3luLuhtzke9dHcQ1pz7VbLOrB25nml7ySKcuiFqDSVd30ltYejPcOhLPcrAAP3lsWJcy6L_acRH_prtyZKhwhycFYqJrQ6laLTGkfTSjOD5miiExcWc_bWYKObUrfcVHp99aQN4Fyq8wPmV_FY2TijUZHBSFJzrHte-XPVwC-EJAunwcvivp2Fb20fnIpqxlladHIMAGdnGAdhp3IkZh-O5iL5m3oXEdNS14WDDRuYkJd5nL_Tl4Tg_5Np'
+            Authorization: 'Bearer BQCgEa_r_3LpJ8zYOeCUETOXPF3hWLa2VlEaiiaWqLJg_MVFM6q7gpH0hyxKsH5Yj5B42ocnA8sBUzXbyjsMp-MuLOXuEPafvuAnTzPgnMxQD_7uwdg3sz4C88CdD6E369PL9O7cL3RtTggKyJCGX9VZRRGlfR59nF44O7rMQhh1RnPRutW6kZIu2DfMudEM2RIN-UJFfxt1D8qIg_uQ3MR7qy33DSHO51wVdyzUl-OebfYX9DoddUXSmbjPZbsu6vQGjansX386cs_i'
     response:
         status:
             http_version: '1.1'
@@ -20,7 +20,7 @@
             Access-Control-Allow-Credentials: 'true'
             Access-Control-Max-Age: '604800'
             Content-Encoding: gzip
-            Date: 'Sat, 30 Jun 2018 20:10:31 GMT'
+            Date: 'Sat, 30 Jun 2018 22:06:08 GMT'
             Via: '1.1 google'
             Alt-Svc: clear
             Transfer-Encoding: chunked
