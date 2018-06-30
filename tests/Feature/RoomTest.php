@@ -123,30 +123,6 @@ class RoomTest extends TestCase
     }
 
     /** @test */
-    public function play_next_song()
-    {
-        /** @var Room $room */
-        $room = factory(Room::class)->create();
-
-        $room->addSong(ExternalSongFaker::withId('60SJRvzXJnVeVfS4RiH14u'));
-        $room->addSong(ExternalSongFaker::withId('6SWTXSLOkxrFqJc6WPM0bu'));
-
-        $this->assertCount(2, Session::get($room->queueSessionName()));
-
-        $room->play();
-
-        $this->assertCount(1, Session::get($room->queueSessionName()));
-
-        $room->next();
-
-        $this->assertCount(0, Session::get($room->queueSessionName()));
-
-        $room->next();
-
-        $this->assertCount(1, Session::get($room->queueSessionName()));
-    }
-
-    /** @test */
     public function starting_playback_fires_event()
     {
         Event::fake();
@@ -174,16 +150,5 @@ class RoomTest extends TestCase
         $room->addSong(ExternalSongFaker::withId('60SJRvzXJnVeVfS4RiH14u'));
 
         $this->assertCount(1, Song::where('external_id', '60SJRvzXJnVeVfS4RiH14u')->get());
-    }
-
-    /** @test */
-    public function it_gets_rooms_queue()
-    {
-        $room = factory(Room::class)->create();
-
-        $room->addSong(ExternalSongFaker::any());
-        $room->addSong(ExternalSongFaker::any());
-
-        $this->assertCount(2, $room->getQueue());
     }
 }

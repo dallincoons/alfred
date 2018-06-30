@@ -61,7 +61,7 @@ class SpotifyGatewayTest extends TestCase
     {
         $this->insertCassette('transfer_control_to_device');
 
-        $this->assertTrue($this->spotify->changeDevice('f5384d627798e22e5e592a0ab566048b59c57511'));
+        $this->assertTrue($this->spotify->changeDevice('82c86b09fbd6826211f9223a3480f455c65ea17b'));
     }
 
     /** @test */
@@ -71,60 +71,7 @@ class SpotifyGatewayTest extends TestCase
 
         $playlistId = $this->spotify->createPlaylist('test123', \Auth::user()->spotify_id);
 
-        $this->assertTrue($this->spotify->startPlaylist('f5384d627798e22e5e592a0ab566048b59c57511', $playlistId));
-    }
-
-    /** @test */
-    public function start_song()
-    {
-        $this->insertCassette('start_song');
-
-        $this->spotify->startSong('82c86b09fbd6826211f9223a3480f455c65ea17b', ['spotify:track:2Tr5z4vI1RT1EJT6myECjU']);
-
-        $this->assertEquals('spotify:track:2Tr5z4vI1RT1EJT6myECjU', $this->spotify->currentlyPlayingSong()->uri());
-    }
-
-    /** @test */
-    public function pause_player()
-    {
-        $this->insertCassette('pause_player');
-
-        $success = $this->spotify->pause('82c86b09fbd6826211f9223a3480f455c65ea17b');
-
-        $this->assertTrue($success);
-        $this->assertFalse(data_get($this->spotify->getMyCurrentPlaybackInfo(), 'is_playing'));
-    }
-
-    /** @test */
-    public function resume_player()
-    {
-        $this->insertCassette('resume_player');
-
-        $success = $this->spotify->resumeSong('82c86b09fbd6826211f9223a3480f455c65ea17b');
-
-        $this->assertTrue($success);
-        $this->assertTrue(data_get($this->spotify->getMyCurrentPlaybackInfo(), 'is_playing'));
-    }
-
-    /** @test */
-    public function skip_track()
-    {
-        $this->insertCassette('skip_track');
-
-        $playlistId = $this->spotify->createPlaylist('test123', \Auth::user()->spotify_id);
-
-        $this->spotify->addSong($playlistId, '60SJRvzXJnVeVfS4RiH14u');
-        $this->spotify->addSong($playlistId, '2Tr5z4vI1RT1EJT6myECjU');
-
-        $this->spotify->startPlaylist('82c86b09fbd6826211f9223a3480f455c65ea17b', $playlistId);
-
-        $this->assertEquals('60SJRvzXJnVeVfS4RiH14u', $this->spotify->currentlyPlayingSong()->id());
-
-        $this->insertCassette('skip_track2');
-
-        $this->spotify->next('82c86b09fbd6826211f9223a3480f455c65ea17b');
-
-        $this->assertEquals('2Tr5z4vI1RT1EJT6myECjU', $this->spotify->currentlyPlayingSong()->id());
+        $this->assertTrue($this->spotify->startPlaylist('82c86b09fbd6826211f9223a3480f455c65ea17b', $playlistId));
     }
 
     public function getGateway()

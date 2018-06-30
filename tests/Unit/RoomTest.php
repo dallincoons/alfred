@@ -155,18 +155,6 @@ class RoomTest extends TestCase
     }
 
     /** @test */
-    public function adding_a_song_refreshes_session_data()
-    {
-        /** @var Room $room */
-        $room = factory(Room::class)->create();
-        $room->addSong(ExternalSongFaker::withId('46ty9wS8la1HWGndeqep7k'));
-        $room->addSong(ExternalSongFaker::withId('0fgCZv9soFDMFNOOmZ8kck'));
-
-        $this->assertContains('46ty9wS8la1HWGndeqep7k', Session::get($room->queueSessionName()));
-        $this->assertContains('0fgCZv9soFDMFNOOmZ8kck', Session::get($room->queueSessionName()));
-    }
-
-    /** @test */
     public function room_provides_player_state_machine()
     {
         $room = factory(Room::class)->create();
