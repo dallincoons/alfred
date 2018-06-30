@@ -156,16 +156,21 @@
            },
 
            addSong(room, addedSong) {
-               axios.post('/room/' + room + '/song', {song: addedSong}).then((response) => {
-                   this.songs = this.songs.map(song => {
+               if (!this.songIsNotAdded(addedSong)) {
+                   alert("This song is already on the playlist.");
+                   return;
+               }
+
+                axios.post('/room/' + room + '/song', {song: addedSong}).then((response) => {
+                    this.songs = this.songs.map(song => {
                         if (song.id === addedSong.id) {
                             song.checked = true;
                         }
                         return song;
-                   });
-               });
-               this.added = true;
-           },
+                    });
+                });
+                this.added = true;
+            },
 
             play() {
                 if (this.currentSong.title) {
@@ -198,7 +203,7 @@
             },
 
             songIsNotAdded(item) {
-                return !item.checked && !item.isAdded
+                return !item.checked && !item.isAdded;
             }
         }
     }
