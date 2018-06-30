@@ -41,7 +41,7 @@
 
             <div v-for="item in songs" class="songs-section" v-show="searchInputVisible">
                     <div @click="addSong(rkey, item)" class="song-item">
-                        <span v-if="!item.checked">+</span>
+                        <span v-if="songIsNotAdded(item)">+</span>
                         <div v-else class="search-check-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 611.98 418.93" class="search-check"><title>check</title><path d="M217.63,418.93h-.06a24.65,24.65,0,0,1-17.38-7.25L7.15,217.24A24.57,24.57,0,0,1,42,182.59l175.66,177L570,7.2A24.58,24.58,0,0,1,604.78,42L235,411.74A24.59,24.59,0,0,1,217.63,418.93Z"/></svg></div>
                         <span class="song-title">{{item.name}}</span>
                         <span class="song-artist">- {{ item.album.artists[0].name }}</span>
@@ -147,7 +147,7 @@
 
         methods : {
            searchSongs(song) {
-               axios.get('/spotify/songs?q=' + song).then((response) => {
+               axios.get('/spotify/songs?q=' + song + '&room=' + this.rkey).then((response) => {
                    this.songs = response.data.map((song) => {
                         song.checked = false;
                         return song;
@@ -182,10 +182,6 @@
                 this.playSong = !this.playSong;
             },
 
-            // resume() {
-            //     axios.put(`/room/${this.rkey}/resume`, {'device_id' : this.playerId});
-            // },
-
             next() {
                 axios.put(`/room/${this.rkey}/next`, {'device_id' : this.playerId});
             },
@@ -199,7 +195,10 @@
                 if (confirmDelete === true) {
                     axios.delete(`/room/${this.rkey}/` + songId);
                 } 
+            },
 
+            songIsNotAdded(item) {
+                return !item.checked && !item.isAdded
             }
         }
     }
