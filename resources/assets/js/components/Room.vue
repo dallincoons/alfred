@@ -18,7 +18,7 @@
         <div class="room-content">
             <div class="songs-section" v-show="!searchInputVisible">
                 <div v-for="song in room_songs">
-                    <div class="song-item"><span class="song-title">{{ song.title }}</span><span class="song-artist">- {{song.artist_title}}</span></div>
+                    <div class="song-item"><span class="song-title">{{ song.title }}</span><span class="song-artist">- {{song.artist_title}}</span><span class="ml-2">X</span></div>
                 </div>
             </div>
 
@@ -118,25 +118,12 @@
             'existing_player_id',
             'has_parent',
             'raw_room_songs',
-            'starting_queue'
         ],
 
         created() {
             if(this.existing_player_id) {
                 this.storePlayerId(this.existing_player_id);
             }
-
-            this.queue = JSON.parse(this.starting_queue);
-
-            Echo.channel(`song-queue`)
-                .listen('SongQueueStarted', (e) => {
-                    this.currentSong = e.song;
-                });
-
-            Echo.channel(`song-queue`)
-                .listen('SongQueueUpdated', (e) => {
-                    this.queue = e.queue;
-                });
 
             Echo.channel(`songs`)
                 .listen('SongAdded', (e) => {
