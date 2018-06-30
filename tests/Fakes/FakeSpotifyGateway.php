@@ -140,4 +140,11 @@ class FakeSpotifyGateway implements SpotifyGatewayInterface
     {
         $this->currentlyPlaying = (array_last(array_first($this->playlists)->songs));
     }
+
+    public function delete(string $userId, string $playlistId, string $songId)
+    {
+        $this->playlists[$playlistId]->songs = collect($this->playlists[$playlistId]->songs)->reject(function($song) use ($songId) {
+            return $song->id() == $songId;
+        })->all();
+    }
 }

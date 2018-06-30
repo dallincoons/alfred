@@ -118,4 +118,9 @@ class SpotifyGateway implements SpotifyGatewayInterface
     {
         return $this->api->next($deviceId);
     }
+
+    public function delete(string $userId, string $playlistId, string $songId)
+    {
+        $this->api->deleteUserPlaylistTracks($userId, $playlistId, [(object)['id' => $songId]]);
+    }
 }

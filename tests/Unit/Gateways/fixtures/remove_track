@@ -1,0 +1,113 @@
+
+-
+    request:
+        method: POST
+        url: 'https://api.spotify.com/v1/users/1213003440/playlists'
+        headers:
+            Host: api.spotify.com
+            Authorization: 'Bearer BQDxFEmYBiybde8qrV29Ws3luLuhtzke9dHcQ1pz7VbLOrB25nml7ySKcuiFqDSVd30ltYejPcOhLPcrAAP3lsWJcy6L_acRH_prtyZKhwhycFYqJrQ6laLTGkfTSjOD5miiExcWc_bWYKObUrfcVHp99aQN4Fyq8wPmV_FY2TijUZHBSFJzrHte-XPVwC-EJAunwcvivp2Fb20fnIpqxlladHIMAGdnGAdhp3IkZh-O5iL5m3oXEdNS14WDDRuYkJd5nL_Tl4Tg_5Np'
+            Content-Type: application/json
+        body: '{"name":"test123"}'
+    response:
+        status:
+            http_version: '1.1'
+            code: '201'
+            message: Created
+        headers:
+            Content-Type: 'application/json; charset=utf-8'
+            Cache-Control: 'private, max-age=0'
+            Location: 'https://api.spotify.com/v1/users/1213003440/playlists/6XwBaqUNNhQjy4GelkMzah'
+            Access-Control-Allow-Origin: '*'
+            Access-Control-Allow-Headers: 'Accept, Authorization, Origin, Content-Type, Retry-After'
+            Access-Control-Allow-Methods: 'GET, POST, OPTIONS, PUT, DELETE, PATCH'
+            Access-Control-Allow-Credentials: 'true'
+            Access-Control-Max-Age: '604800'
+            Content-Encoding: gzip
+            Date: 'Sat, 30 Jun 2018 20:26:08 GMT'
+            Via: '1.1 google'
+            Alt-Svc: clear
+            Transfer-Encoding: chunked
+        body: "{\n  \"collaborative\" : false,\n  \"description\" : null,\n  \"external_urls\" : {\n    \"spotify\" : \"https://open.spotify.com/user/1213003440/playlist/6XwBaqUNNhQjy4GelkMzah\"\n  },\n  \"followers\" : {\n    \"href\" : null,\n    \"total\" : 0\n  },\n  \"href\" : \"https://api.spotify.com/v1/users/1213003440/playlists/6XwBaqUNNhQjy4GelkMzah\",\n  \"id\" : \"6XwBaqUNNhQjy4GelkMzah\",\n  \"images\" : [ ],\n  \"name\" : \"test123\",\n  \"owner\" : {\n    \"display_name\" : \"Dallin Coons\",\n    \"external_urls\" : {\n      \"spotify\" : \"https://open.spotify.com/user/1213003440\"\n    },\n    \"href\" : \"https://api.spotify.com/v1/users/1213003440\",\n    \"id\" : \"1213003440\",\n    \"type\" : \"user\",\n    \"uri\" : \"spotify:user:1213003440\"\n  },\n  \"primary_color\" : null,\n  \"public\" : true,\n  \"snapshot_id\" : \"QeFkpWTganNUahJaZhbVKN2slblQrKSJeJXS/78K6pErhZ13FiLGQCqVwoeXrNiA\",\n  \"tracks\" : {\n    \"href\" : \"https://api.spotify.com/v1/users/1213003440/playlists/6XwBaqUNNhQjy4GelkMzah/tracks\",\n    \"items\" : [ ],\n    \"limit\" : 100,\n    \"next\" : null,\n    \"offset\" : 0,\n    \"previous\" : null,\n    \"total\" : 0\n  },\n  \"type\" : \"playlist\",\n  \"uri\" : \"spotify:user:1213003440:playlist:6XwBaqUNNhQjy4GelkMzah\"\n}"
+-
+    request:
+        method: POST
+        url: 'https://api.spotify.com/v1/users/1213003440/playlists/6XwBaqUNNhQjy4GelkMzah/tracks?'
+        headers:
+            Host: api.spotify.com
+            Authorization: 'Bearer BQDxFEmYBiybde8qrV29Ws3luLuhtzke9dHcQ1pz7VbLOrB25nml7ySKcuiFqDSVd30ltYejPcOhLPcrAAP3lsWJcy6L_acRH_prtyZKhwhycFYqJrQ6laLTGkfTSjOD5miiExcWc_bWYKObUrfcVHp99aQN4Fyq8wPmV_FY2TijUZHBSFJzrHte-XPVwC-EJAunwcvivp2Fb20fnIpqxlladHIMAGdnGAdhp3IkZh-O5iL5m3oXEdNS14WDDRuYkJd5nL_Tl4Tg_5Np'
+            Content-Type: application/json
+        body: '["spotify:track:60SJRvzXJnVeVfS4RiH14u"]'
+    response:
+        status:
+            http_version: '1.1'
+            code: '201'
+            message: Created
+        headers:
+            Content-Type: 'application/json; charset=utf-8'
+            Cache-Control: 'private, max-age=0'
+            Access-Control-Allow-Origin: '*'
+            Access-Control-Allow-Headers: 'Accept, Authorization, Origin, Content-Type, Retry-After'
+            Access-Control-Allow-Methods: 'GET, POST, OPTIONS, PUT, DELETE, PATCH'
+            Access-Control-Allow-Credentials: 'true'
+            Access-Control-Max-Age: '604800'
+            Content-Encoding: gzip
+            Date: 'Sat, 30 Jun 2018 20:26:08 GMT'
+            Via: '1.1 google'
+            Alt-Svc: clear
+            Transfer-Encoding: chunked
+        body: "{\n  \"snapshot_id\" : \"92+x93QpFR5XS0bhrBhjdE7NfiWUYEaXRuVEQPL3OS+VEvoQkdIquJ6noK4T2mFy\"\n}"
+-
+    request:
+        method: DELETE
+        url: 'https://api.spotify.com/v1/users/1213003440/playlists/6XwBaqUNNhQjy4GelkMzah/tracks'
+        headers:
+            Host: api.spotify.com
+            Authorization: 'Bearer BQDxFEmYBiybde8qrV29Ws3luLuhtzke9dHcQ1pz7VbLOrB25nml7ySKcuiFqDSVd30ltYejPcOhLPcrAAP3lsWJcy6L_acRH_prtyZKhwhycFYqJrQ6laLTGkfTSjOD5miiExcWc_bWYKObUrfcVHp99aQN4Fyq8wPmV_FY2TijUZHBSFJzrHte-XPVwC-EJAunwcvivp2Fb20fnIpqxlladHIMAGdnGAdhp3IkZh-O5iL5m3oXEdNS14WDDRuYkJd5nL_Tl4Tg_5Np'
+            Content-Type: application/json
+        body: '{"tracks":[{"uri":"spotify:track:60SJRvzXJnVeVfS4RiH14u"}]}'
+    response:
+        status:
+            http_version: '1.1'
+            code: '200'
+            message: OK
+        headers:
+            Content-Type: 'application/json; charset=utf-8'
+            Cache-Control: 'private, max-age=0'
+            Access-Control-Allow-Origin: '*'
+            Access-Control-Allow-Headers: 'Accept, Authorization, Origin, Content-Type, Retry-After'
+            Access-Control-Allow-Methods: 'GET, POST, OPTIONS, PUT, DELETE, PATCH'
+            Access-Control-Allow-Credentials: 'true'
+            Access-Control-Max-Age: '604800'
+            Content-Encoding: gzip
+            Date: 'Sat, 30 Jun 2018 20:26:55 GMT'
+            Via: '1.1 google'
+            Alt-Svc: clear
+            Transfer-Encoding: chunked
+        body: "{\n  \"snapshot_id\" : \"Ua5TmbpHO103XAfkseCiF4hwKQ4XOW3+Y5esTBAc7ujhduRFuO4N9wxIOhiqZaS9\"\n}"
+-
+    request:
+        method: GET
+        url: 'https://api.spotify.com/v1/users/1213003440/playlists/6XwBaqUNNhQjy4GelkMzah/tracks'
+        headers:
+            Host: api.spotify.com
+            Authorization: 'Bearer BQDxFEmYBiybde8qrV29Ws3luLuhtzke9dHcQ1pz7VbLOrB25nml7ySKcuiFqDSVd30ltYejPcOhLPcrAAP3lsWJcy6L_acRH_prtyZKhwhycFYqJrQ6laLTGkfTSjOD5miiExcWc_bWYKObUrfcVHp99aQN4Fyq8wPmV_FY2TijUZHBSFJzrHte-XPVwC-EJAunwcvivp2Fb20fnIpqxlladHIMAGdnGAdhp3IkZh-O5iL5m3oXEdNS14WDDRuYkJd5nL_Tl4Tg_5Np'
+    response:
+        status:
+            http_version: '1.1'
+            code: '200'
+            message: OK
+        headers:
+            Content-Type: 'application/json; charset=utf-8'
+            Cache-Control: 'public, max-age=0'
+            ETag: '"0c8f7b9622193187bfe46be412d71402"'
+            Access-Control-Allow-Origin: '*'
+            Access-Control-Allow-Headers: 'Accept, Authorization, Origin, Content-Type, Retry-After'
+            Access-Control-Allow-Methods: 'GET, POST, OPTIONS, PUT, DELETE, PATCH'
+            Access-Control-Allow-Credentials: 'true'
+            Access-Control-Max-Age: '604800'
+            Content-Encoding: gzip
+            Date: 'Sat, 30 Jun 2018 20:26:56 GMT'
+            Via: '1.1 google'
+            Alt-Svc: clear
+            Transfer-Encoding: chunked
+        body: "{\n  \"href\" : \"https://api.spotify.com/v1/users/1213003440/playlists/6XwBaqUNNhQjy4GelkMzah/tracks?offset=0&limit=100\",\n  \"items\" : [ ],\n  \"limit\" : 100,\n  \"next\" : null,\n  \"offset\" : 0,\n  \"previous\" : null,\n  \"total\" : 0\n}"

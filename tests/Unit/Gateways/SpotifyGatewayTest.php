@@ -74,6 +74,20 @@ class SpotifyGatewayTest extends TestCase
         $this->assertTrue($this->spotify->startPlaylist('82c86b09fbd6826211f9223a3480f455c65ea17b', $playlistId));
     }
 
+    /** @test */
+    public function it_removes_song_from_playlist()
+    {
+        $this->insertCassette('remove_track');
+
+        $playlistId = $this->spotify->createPlaylist('test123', \Auth::user()->spotify_id);
+
+        $this->spotify->addSong($playlistId, '60SJRvzXJnVeVfS4RiH14u');
+
+        $this->spotify->delete(\Auth::user()->spotify_id, $playlistId, '60SJRvzXJnVeVfS4RiH14u');
+
+        $this->assertEmpty(array_get($this->spotify->getPlaylistTracks($playlistId), 'items'));
+    }
+
     public function getGateway()
     {
         return new SpotifyGateway();
