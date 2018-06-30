@@ -52,6 +52,12 @@
     background: linear-gradient(to right bottom, #904e95, #e96443); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
+
+
+.content-wrapper {
+    border: 1px solid black;
+}
+
 /**
  * Here you would add any custom utilities you need that don't come out of the
  * box with Tailwind.
