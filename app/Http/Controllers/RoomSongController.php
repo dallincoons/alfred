@@ -17,4 +17,15 @@ class RoomSongController extends Controller
 
         return response()->json($song);
     }
+
+    public function delete(Request $request, Room $room, int $songId)
+    {
+        try {
+            $room->songs()->find($songId)->delete();
+        } catch (\Exception $e) {
+            return response()->json($e->getMessage(), 400);
+        }
+
+        return response()->json('success', 200);
+    }
 }

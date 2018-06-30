@@ -6,7 +6,7 @@ use App\Song;
 use Tests\Fakes\ExternalSongFaker;
 use Tests\TestCase;
 
-class AddSongToRoomAPITest extends TestCase
+class RoomSongAPITest extends TestCase
 {
     protected function setUp()
     {
@@ -40,5 +40,20 @@ class AddSongToRoomAPITest extends TestCase
 
         $this->assertEquals($song->duration, 123456);
         $this->assertEquals($song->big_image, 'some_image.jpg');
+    }
+
+    /** @test */
+    public function remove_song_from_room()
+    {
+        /** @var Room $room */
+        $room = factory(Room::class)->create();
+
+        $room->addSong(ExternalSongFaker::any());
+
+        $song = $room->songs->first();
+
+        $this->delete('/room/' . $room->getKey() . '/' . $song->getKey());
+
+        $this->assertFalse($room->songs->fresh()->contains($song));
     }
 }

@@ -97,8 +97,6 @@ class Room extends Model
 
         $this->songs()->attach($song);
 
-        $songQueue = SongQueue::addSong($this->queueSessionName(), $songId);
-//        SongQueueUpdated::dispatch( $songQueue );
         SongAdded::dispatch($song);
 
         $this->gateway->addSong($this->playlistId, $songId);
