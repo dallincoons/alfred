@@ -18,7 +18,7 @@
         <div class="room-content">
             <div class="songs-section" v-show="!searchInputVisible">
                 <div v-for="song in room_songs">
-                    <div class="song-item"><span class="song-title">{{ song.title }}</span><span class="song-artist">- {{song.artist_title}}</span><span class="ml-2">X</span></div>
+                    <div class="song-item"><span class="song-title">{{ song.title }}</span><span class="song-artist">- {{song.artist_title}}</span><span class="ml-2" @click="deleteSong(song.id)">x</span></div>
                 </div>
             </div>
 
@@ -178,6 +178,10 @@
 
             storePlayerId(deviceId) {
                this.playerId = deviceId;
+            },
+
+            deleteSong(songId) {
+                axios.delete(`/room/${this.rkey}/` + songId);
             }
         }
     }
