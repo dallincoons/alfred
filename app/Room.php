@@ -3,7 +3,6 @@
 namespace App;
 
 use App\Events\SongAdded;
-use App\Events\SongQueueUpdated;
 use App\Gateways\ExternalSong;
 use App\Gateways\SpotifyGatewayInterface;
 use App\PlayerStateMachine\PlayerMachine;
@@ -37,21 +36,34 @@ class Room extends Model
         $this->gateway = app(SpotifyGatewayInterface::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function songs()
     {
         return $this->belongsToMany(Song::class);
     }
 
+    /**
+     * @return string
+     */
     public function share()
     {
         return $this->codeGenerator->encode($this->getKey());
     }
 
+    /**
+     * @param string $roomId
+     * @return bool
+     */
     public function join(string $roomId)
     {
         if (array_get($this->codeGenerator->decode($roomId), 0) == $this->getKey()) {
@@ -62,6 +74,9 @@ class Room extends Model
         return false;
     }
 
+    /**
+     * @param string $deviceId
+     */
     public function storeDeviceId(string $deviceId)
     {
         $this->update([
@@ -69,6 +84,9 @@ class Room extends Model
         ]);
     }
 
+    /**
+     * @return string
+     */
     public function getExistingDeviceIdAttribute()
     {
         return \Auth::user()->hasParent() ? $this->attributes['deviceId'] : '';
@@ -104,11 +122,17 @@ class Room extends Model
         return $song;
     }
 
+    /**
+     * @return string
+     */
     public function queueSessionName()
     {
         return 'playlist:' . $this->playlistId;
     }
 
+    /**
+     * @return PlayerMachine|mixed
+     */
     public function player()
     {
         if (!$this->state) {
@@ -117,6 +141,9 @@ class Room extends Model
         return $this->state;
     }
 
+    /**
+     * @return bool
+     */
     public function play()
     {
         return $this->player()->play($this->songs()->pluck('external_id')->all());
@@ -124,19 +151,22 @@ class Room extends Model
 
     public function pause()
     {
-        return $this->player()->pause();
+        $this->player()->pause();
     }
 
     public function resume()
     {
-        return $this->player()->resume();
+        $this->player()->resume();
     }
 
     public function next()
     {
-        return $this->player()->next();
+        $this->player()->next();
     }
 
+    /**
+     * @return string
+     */
     public function reset(): string
     {
         $songIds = $this->songs()->pluck('external_id')->all();
