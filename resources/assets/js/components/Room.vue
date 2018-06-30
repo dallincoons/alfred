@@ -195,7 +195,11 @@
             },
 
             deleteSong(songId) {
-                axios.delete(`/room/${this.rkey}/` + songId);
+                let confirmDelete = confirm("Are you sure you want to remove" + this.currentSong.title + "from the playlist?");
+                if (confirmDelete === true) {
+                    axios.delete(`/room/${this.rkey}/` + songId);
+                } 
+
             }
         }
     }
