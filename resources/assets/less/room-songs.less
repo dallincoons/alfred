@@ -4,6 +4,9 @@
 }
 
 .song-item {
+  display: grid;
+  grid-template-columns: 1fr 25px;
+  grid-template-rows: 1fr 1fr;
   padding: .5rem;
   font-size: 1.2rem;
   color: #ffffff;
@@ -12,11 +15,30 @@
 
 .song-title {
   font-weight: bolder;
+  grid-column: 1;
+  grid-row: 1;
+  max-width: 300px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .song-artist {
   font-style: italic;
   font-size: 1rem;
+  grid-column: 1;
+  grid-row: 2;
+  max-width: 300px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.song-delete {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  fill: #ffffff;
+  width: 20px;
 }
 
 .album-cover {
