@@ -144,7 +144,7 @@ class RoomTest extends TestCase
     }
 
     /** @test */
-    public function it_syncs_room()
+    public function it_removes_songs_that_were_removed_in_playlist()
     {
         /** @var Room $room */
         $room = factory(Room::class)->create();
@@ -159,6 +159,23 @@ class RoomTest extends TestCase
         $room->sync();
 
         $this->assertCount(1, $room->songs);
+    }
+
+    /** @test */
+    public function it_adds_songs_that_were_added_in_playlist()
+    {
+        /** @var Room $room */
+        $room = factory(Room::class)->create();
+
+        $room->addSong(ExternalSongFaker::any());
+
+//        $firstSong = collect(app(SpotifyGatewayInterface::class)->getPlaylistTracks($room->playlistId))->first();
+
+        app(SpotifyGatewayInterface::class)->addSong($room->playlistId, '12345');
+
+        $room->sync();
+
+        $this->assertCount(2, $room->songs);
     }
 
     /** @test */

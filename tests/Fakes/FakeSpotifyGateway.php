@@ -42,6 +42,11 @@ class FakeSpotifyGateway implements SpotifyGatewayInterface
         array_push($this->playlists[$playListId]->songs, new Song([
             'item' => [
                 'album' => [
+                    'images' => [
+                        0 => (object) [
+                            'url' => 'someimage'
+                        ]
+                    ],
                     'artists' => [
                         0 => [
                             'name' => 'Desmond Dekker'
@@ -49,7 +54,9 @@ class FakeSpotifyGateway implements SpotifyGatewayInterface
                     ]
                 ],
                 'id' => $songId,
-                'uri' => 'spotify:track:' . $songId
+                'uri' => 'spotify:track:' . $songId,
+                'name' => str_random(10),
+                'duration_ms' => 1233
             ],
         ]));
     }

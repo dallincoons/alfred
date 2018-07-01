@@ -38,10 +38,20 @@ class Room extends Model
 
     public function sync()
     {
-        $playlistTrackIds = collect($this->gateway->getPlaylistTracks($this->playlistId))
+        $playlistTracks = collect($this->gateway->getPlaylistTracks($this->playlistId));
+
+        $playlistTrackIds = $playlistTracks
             ->map(function(ExternalSong $song) {
                 return $song->getId();
             });
+
+        $tracksToAdd = $playlistTrackIds->diff($this->songs->pluck('external_id'))->all();
+
+        $playlistTracks->each(function(ExternalSong $track) use ($tracksToAdd) {
+            if (in_array($track->getId(), $tracksToAdd)) {
+                $this->createSong($track);
+            }
+        });
 
         $this->songs->filter(function ($song) use ($playlistTrackIds) {
             return !$playlistTrackIds->contains($song->external_id);
@@ -121,16 +131,7 @@ class Room extends Model
     {
         $songId = $song->getId();
 
-        $song = Song::firstOrCreate([
-            'external_id' => $songId,
-            'title' => $song->getTitle(),
-            'artist_title' => $song->getArtistTitle(),
-            'duration' => $song->getDuration(),
-            'big_image' => $song->getBigImage(),
-            'added_by' => \Session::get('guest_name', \Auth::user()->name),
-        ]);
-
-        $this->songs()->attach($song);
+        $song = $this->createSong($song);
 
         SongAdded::dispatch($song);
 
@@ -188,5 +189,24 @@ class Room extends Model
     {
         $songIds = $this->songs()->pluck('external_id')->all();
         return SongQueue::play($this->playlistId, $songIds);
+    }
+
+    /**
+     * @param ExternalSong $song
+     * @return Song
+     */
+    protected function createSong(ExternalSong $song)
+    {
+        $song = Song::firstOrCreate([
+            'external_id' => $song->getId(),
+            'title' => $song->getTitle(),
+            'artist_title' => $song->getArtistTitle(),
+            'duration' => $song->getDuration(),
+            'big_image' => $song->getBigImage(),
+            'added_by' => \Session::get('guest_name', \Auth::user()->name),
+        ]);
+        $this->songs()->attach($song);
+
+        return $song;
     }
 }
