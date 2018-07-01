@@ -36,6 +36,22 @@ class Room extends Model
         $this->gateway = app(SpotifyGatewayInterface::class);
     }
 
+    public function sync()
+    {
+        $playlistTrackIds = collect($this->gateway->getPlaylistTracks($this->playlistId))
+            ->map(function(ExternalSong $song) {
+                return $song->getId();
+            });
+
+        $this->songs->filter(function ($song) use ($playlistTrackIds) {
+            return !$playlistTrackIds->contains($song->external_id);
+        })->each(function($song) {
+            $song->delete();
+        });
+
+        $this->refresh();
+    }
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

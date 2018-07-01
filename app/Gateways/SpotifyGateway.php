@@ -74,7 +74,10 @@ class SpotifyGateway implements SpotifyGatewayInterface
 
     public function getPlaylistTracks(string $playlistId)
     {
-        return $this->api->getUserPlaylistTracks(\Auth::user()->spotify_id, $playlistId);
+        return collect($this->api->getUserPlaylistTracks(\Auth::user()->spotify_id, $playlistId)->items)
+            ->map(function($songInfo) {
+                return new ExternalSong($songInfo->track);
+            });
     }
 
     public function getDevices()

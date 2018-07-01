@@ -14,6 +14,11 @@ class Song
         $this->song = $song;
     }
 
+    public function raw()
+    {
+        return $this->song['item'];
+    }
+
     /**
      * @return string
      */

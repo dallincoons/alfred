@@ -144,6 +144,24 @@ class RoomTest extends TestCase
     }
 
     /** @test */
+    public function it_syncs_room()
+    {
+        /** @var Room $room */
+        $room = factory(Room::class)->create();
+
+        $room->addSong(ExternalSongFaker::any());
+        $room->addSong(ExternalSongFaker::any());
+
+        $firstSong = collect(app(SpotifyGatewayInterface::class)->getPlaylistTracks($room->playlistId))->first();
+
+        app(SpotifyGatewayInterface::class)->delete(auth()->user()->spotify_id, $room->playlistId, $firstSong->getId());
+
+        $room->sync();
+
+        $this->assertCount(1, $room->songs);
+    }
+
+    /** @test */
     public function adding_same_song_another_room_doesnt_duplicate_song()
     {
         /** @var Room $room */

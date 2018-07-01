@@ -53,7 +53,9 @@ class SpotifyGatewayTest extends TestCase
 
         $this->spotify->addSong($playlistId, '60SJRvzXJnVeVfS4RiH14u');
 
-        $this->assertEquals('60SJRvzXJnVeVfS4RiH14u', data_get($this->spotify->getPlaylistTracks($playlistId), 'items.0.track.id'));
+        $firstSong = $this->spotify->getPlaylistTracks($playlistId)->first();
+
+        $this->assertEquals('60SJRvzXJnVeVfS4RiH14u', $firstSong->getId());
     }
 
     /** @test */

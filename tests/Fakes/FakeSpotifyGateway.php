@@ -2,6 +2,7 @@
 
 namespace Tests\Fakes;
 
+use App\Gateways\ExternalSong;
 use App\Gateways\Song;
 use App\Gateways\SpotifyGatewayInterface;
 use App\GuestUser;
@@ -99,7 +100,10 @@ class FakeSpotifyGateway implements SpotifyGatewayInterface
 
     public function getPlaylistTracks(string $playlistId)
     {
-        return $this->playlists[$playlistId]->songs;
+        return collect($this->playlists[$playlistId]->songs)
+            ->map(function($song) {
+                return new ExternalSong($song->raw());
+            });
     }
 
     public function changeDevice(string $deviceId): bool

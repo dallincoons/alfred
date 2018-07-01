@@ -26,6 +26,8 @@ class RoomController extends Controller
     {
         $roomCode = $this->codeGenerator->encode($room->getKey());
 
+        $room->sync();
+
         $songs = $room->songs;
 
         return view('room.show', compact('room', 'roomCode', 'songs'));

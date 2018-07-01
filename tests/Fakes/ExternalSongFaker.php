@@ -21,7 +21,7 @@ class ExternalSongFaker
     public static function validParams(array $overrides = []): array
     {
         return array_merge([
-            'id' => '1234',
+            'id' => str_random(10),
             'name' => 'Ties That Bind',
             'duration_ms' => 123456,
             'album' => [
