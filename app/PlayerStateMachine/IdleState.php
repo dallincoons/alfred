@@ -34,6 +34,8 @@ class IdleState implements PlayerMachineState
             Session::put($sessionName, $songs);
         }
 
+        shuffle($songs);
+
         $currentSong = array_shift($songs);
 
         Session::put($sessionName, $songs);
@@ -44,7 +46,8 @@ class IdleState implements PlayerMachineState
         $playerMachine->context()->setState($playingState = app(PlayingState::class));
 
         $this->gateway->changeDevice($playerMachine->deviceId());
-        return app(SpotifyGatewayInterface::class)->startSong($playerMachine->deviceId(), 'spotify:track:' . $currentSong);
+        $this->gateway->shuffle(['state' => true, 'device_id' => $playerMachine->deviceId()]);
+        return $this->gateway->startSong($playerMachine->deviceId(), 'spotify:track:' . $currentSong);
     }
 
     /**
