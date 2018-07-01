@@ -143,6 +143,12 @@
                 .listen('SongAdded', (e) => {
                     this.room_songs.push(e.song);
                 });
+
+            Echo.channel(`song-queue`)
+                .listen('SongQueueStarted', (e) => {
+                    console.log(e);
+                    this.currentSong = e.song;
+                });
         },
 
         methods : {
