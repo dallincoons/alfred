@@ -66,6 +66,13 @@ class RoomTest extends TestCase
 
         $response->assertRedirect('/rooms/' . $room->getKey());
         $this->assertEquals(\Auth::user(), ($room->user));
+        $this->assertEquals('Guest', \Session::get('guest_name'));
+
+        auth()->logout();
+
+        $this->post('/room/join', ['room' => $room->share(), 'name' => 'dallin']);
+
+        $this->assertEquals('dallin', \Session::get('guest_name'));
     }
 
     /** @test */

@@ -28,8 +28,6 @@ class SongTest extends TestCase
     /** @test */
     public function it_searches_and_marks_songs_as_added()
     {
-        $this->app->singleton(SpotifyGatewayInterface::class, \App\Gateways\SpotifyGateway::class);
-
         $room = factory(\App\Room::class)->create([
             'playlistId' => '1zW7jv26GVYGQx2W54QRY8'
         ]);

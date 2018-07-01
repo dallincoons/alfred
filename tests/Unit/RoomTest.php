@@ -87,6 +87,20 @@ class RoomTest extends TestCase
         $this->assertEquals('1234', $room->songs->first()->external_id);
         $this->assertEquals('Bummer Deal', $room->songs->first()->artist_title);
         $this->assertEquals('Ties That Bind', $room->songs->first()->title);
+        $this->assertEquals($this->user->name, $room->songs->first()->added_by);
+    }
+
+    /** @test */
+    public function guest_user_can_add_songs_to_room()
+    {
+        /** @var Room $room */
+        $room = $this->user->createRoom('test1337');
+
+        \Session::put('guest_name', 'dallin');
+
+        $room->addSong(ExternalSongFaker::any());
+
+        $this->assertEquals('dallin', $room->songs->first()->added_by);
     }
 
     /** @test */

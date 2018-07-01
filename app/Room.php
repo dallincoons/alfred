@@ -110,7 +110,8 @@ class Room extends Model
             'title' => $song->getTitle(),
             'artist_title' => $song->getArtistTitle(),
             'duration' => $song->getDuration(),
-            'big_image' => $song->getBigImage()
+            'big_image' => $song->getBigImage(),
+            'added_by' => \Session::get('guest_name', \Auth::user()->name),
         ]);
 
         $this->songs()->attach($song);

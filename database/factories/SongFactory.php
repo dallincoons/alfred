@@ -9,6 +9,7 @@ $factory->define(Song::class, function (Faker $faker) {
         'title' => $faker->word,
         'artist_title' => $faker->firstName,
         'duration' => $faker->randomDigit,
-        'big_image' => $faker->imageUrl
+        'big_image' => $faker->imageUrl,
+        'added_by' => $faker->word,
     ];
 });
