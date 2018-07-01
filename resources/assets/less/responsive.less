@@ -48,9 +48,59 @@
     background: #904e95;
   }
   .player {
-    grid-template-columns: 15% 1fr;
+    grid-template-columns: 25% 1fr;
+    grid-template-rows: none;
+    height: 10%;
   }
+
+  .song-info {
+    grid-column: 1;
+    display: grid;
+    grid-template-columns: 30px 1fr;
+  }
+
+  .song-details {
+    flex-direction: column;
+  }
+
+  .current-song-title {
+    font-size: 1rem;
+  }
+
+  .current-song-artist {
+    font-weight: 300;
+    font-size: .85rem;
+  }
+
+  .album-cover {
+    width: 30px;
+    height: 30px;
+    margin: 0 1rem 0 0;
+  }
+
+  .player-controls {
+    grid-column: 2;
+    grid-row: 1;
+  }
+  
+
   .song-title, .song-artist {
     max-width: 900px;
   }
+
+  .search-section {
+    display: flex;
+    justify-content: flex-end;
+    width: 40%;
+    max-width: 700px;
+  }
+
+  .search-input-wrapper {
+    width: 100%;
+  }
+
+  .search-input {
+    width: 100%;
+  }
+
 }

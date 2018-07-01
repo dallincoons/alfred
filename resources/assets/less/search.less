@@ -20,13 +20,19 @@
   padding: .5rem;
   margin: 0 .5rem 0 0;
   cursor: pointer;
+  transition: all 1s ease-in-out;
+}
+
+.search-button:hover {
+  background: #904e95;
+  color: #ffffff;
 }
 
 .search-icon {
   width: 30px;
   height: 30px;
   fill: #ffffff;
-  margin: 1rem .5rem 0 0;
+  margin: .5rem .5rem 0 0;
   cursor: pointer;
 }
 
@@ -41,8 +47,26 @@
   cursor: pointer;
 }
 
+.search-plus {
+  font-size: 2rem;
+  font-weight: 300;
+}
+
 .search-check {
   width: 20px;
   height: 20px;
   fill: #ffffff;
+}
+
+.search-song {
+  cursor: pointer;
+  transition: padding-left .3s ease-in-out;
+}
+
+.search-song:hover {
+  padding-left: 1rem;
+}
+.search-song-added {
+  grid-column: 2;
+  grid-row: 1 / span 2;
 }

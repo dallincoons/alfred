@@ -3,13 +3,13 @@
         <div class="room-heading">
             <h2 class="room-code">{{code}}</h2>
             <div class="search-section">
-                <div class="search-icon" @click="searchInputVisible = !searchInputVisible">
+                <div class="search-icon" @click="toggleSearchInput()">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 55 56.97" v-show="!searchInputVisible"><title>search</title><path id="search" data-name="search" d="M54.16,51.89,40.6,37.79a23,23,0,1,0-4.42,4.05L49.84,56.05a3,3,0,0,0,4.32-4.16ZM23,6A17,17,0,1,1,6,23,17,17,0,0,1,23,6Z"/></svg>
                 </div>
 
                 <div v-show="searchInputVisible" class="search-input-wrapper">
-                    <input type="text" v-model="songName" class="search-input" placeholder="Add Song" @keyup.enter="searchSongs(songName)"/>
-                    <div @click="searchInputVisible = !searchInputVisible">
+                    <input type="text" v-model="songName" class="search-input" placeholder="Add Song" @keyup.enter="searchSongs(songName)" autofocus/>
+                    <div @click="toggleSearch()">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 59.72 76.62" v-show="searchInputVisible" class="search-close" >
                             <title>close</title><path id="close" class="search-close" d="M59.37,71.9,34,35.66l21.68-31A1.94,1.94,0,0,0,55.17,2L52.81.35a1.94,1.94,0,0,0-2.7.48l-20.26,29L9.57.84A1.94,1.94,0,0,0,6.87.36L4.51,2A1.93,1.93,0,0,0,4,4.72l21.69,31L.35,71.92a1.94,1.94,0,0,0,.48,2.7l2.36,1.65a1.94,1.94,0,0,0,2.7-.48l24-34.24,24,34.23a1.93,1.93,0,0,0,2.7.47l2.35-1.65A1.94,1.94,0,0,0,59.37,71.9Z"/>
                         </svg>
@@ -19,7 +19,7 @@
             </div>
         </div>
         <div class="room-content">
-            <div class="songs-section" v-show="!searchInputVisible">
+            <div class="songs-section" v-show="!songSearched">
                 <div v-for="song in room_songs">
                     <div class="song-item">
                         <span class="song-title">{{ song.title }}</span>
@@ -38,23 +38,28 @@
                     </div>
                 </div>
             </div>
-
-            <div v-for="item in songs" class="songs-section" v-show="searchInputVisible">
-                    <div @click="addSong(rkey, item)" class="song-item">
-                        <span v-if="songIsNotAdded(item)">+</span>
-                        <div v-else class="search-check-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 611.98 418.93" class="search-check"><title>check</title><path d="M217.63,418.93h-.06a24.65,24.65,0,0,1-17.38-7.25L7.15,217.24A24.57,24.57,0,0,1,42,182.59l175.66,177L570,7.2A24.58,24.58,0,0,1,604.78,42L235,411.74A24.59,24.59,0,0,1,217.63,418.93Z"/></svg></div>
+            <div v-for="item in songs"  v-show="songSearched">
+                    <div @click="addSong(rkey, item)" class="song-item search-song">
+                        <div class="search-song-added">
+                            <span v-if="songIsNotAdded(item)" class="search-plus">+</span>
+                            <div v-else class="search-check-wrapper">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 611.98 418.93" class="search-check">
+                                <title>check</title>
+                                <path d="M217.63,418.93h-.06a24.65,24.65,0,0,1-17.38-7.25L7.15,217.24A24.57,24.57,0,0,1,42,182.59l175.66,177L570,7.2A24.58,24.58,0,0,1,604.78,42L235,411.74A24.59,24.59,0,0,1,217.63,418.93Z"/></svg>
+                            </div>
+                        </div>
                         <span class="song-title">{{item.name}}</span>
-                        <span class="song-artist">- {{ item.album.artists[0].name }}</span>
+                        <span class="song-artist">{{ item.album.artists[0].name }}</span>
                     </div>
             </div>
         </div>
 
         <div class="player">
             <div class="song-info">
-                <div class="album-cover">{{currentSong.big_image}}</div>
+                <div class="album-cover"><img :src="currentSong.big_image"></div>
                 <div class="song-details">
-                    <h3>{{ currentSong.title }}</h3>
-                    <h5>{{currentSong.artist_title}}</h5>
+                    <h3 class="current-song-title">{{ currentSong.title }}</h3>
+                    <h5 class="current-song-artist"> | {{currentSong.artist_title}}</h5>
                 </div>
             </div>
             <div class="player-controls">
@@ -120,7 +125,8 @@
                 room_songs: JSON.parse(this.raw_room_songs),
                 playSong: true,
                 searchInputVisible: false,
-                added: false
+                added: false,
+                songSearched: false
             }
         },
 
@@ -152,6 +158,11 @@
         },
 
         methods : {
+          toggleSearch(){
+            this.toggleSearchInput();
+              this.songSearched = !this.songSearched;
+          },
+
            searchSongs(song) {
                axios.get('/spotify/songs?q=' + song + '&room=' + this.rkey).then((response) => {
                    this.songs = response.data.map((song) => {
@@ -159,6 +170,7 @@
                         return song;
                    });
                });
+               this.songSearched = !this.songSearched;
            },
 
            addSong(room, addedSong) {
@@ -210,6 +222,10 @@
 
             songIsNotAdded(item) {
                 return !item.checked && !item.isAdded;
+            },
+
+            toggleSearchInput() {
+                this.searchInputVisible = !this.searchInputVisible;
             }
         }
     }
