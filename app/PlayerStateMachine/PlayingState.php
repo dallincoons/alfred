@@ -26,6 +26,11 @@ class PlayingState implements PlayerMachineState
         return false;
     }
 
+    public function playSong(PlayerMachine $playerMachine, string $song): bool
+    {
+        return $this->gateway->startSong($playerMachine->deviceId(), 'spotify:track:' . $song);
+    }
+
     public function pause(PlayerMachine $playerMachine)
     {
         $this->gateway->pause($playerMachine->deviceId());

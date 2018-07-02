@@ -30,6 +30,11 @@ class PausedState implements PlayerMachineState
         // TODO: Implement play() method.
     }
 
+    public function playSong(PlayerMachine $playerMachine, string $song): bool
+    {
+        return $this->gateway->startSong($playerMachine->deviceId(), 'spotify:track:' . $song);
+    }
+
     /**
      * @param PlayerMachine $playerMachine
      */

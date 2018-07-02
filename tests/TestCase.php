@@ -29,6 +29,8 @@ abstract class TestCase extends BaseTestCase
     {
         parent::setUp();
 
+        $this->withoutExceptionHandling();
+
         Event::fake();
 
         $this->app->singleton(SpotifyGatewayInterface::class, FakeSpotifyGateway::class);

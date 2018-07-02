@@ -196,7 +196,7 @@
                     this.playSong = !this.playSong;
                     return;
                 }
-                axios.put(`/room/${this.rkey}/device/${this.playerId}/play`);
+                axios.put(`/room/${this.rkey}/play`);
                 this.playSong = !this.playSong;
             },
 

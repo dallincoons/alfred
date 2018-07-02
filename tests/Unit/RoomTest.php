@@ -175,4 +175,50 @@ class RoomTest extends TestCase
 
         $this->assertInstanceOf(PlayerMachine::class, $room->player());
     }
+
+    /** @test */
+    public function can_play_one_song_when_player_is_idle()
+    {
+        $room = factory(Room::class)->create();
+        $room->addSong($song = ExternalSongFaker::any());
+
+        $this->patch('/room/' . $room->getKey() . '/song/' . $room->songs->first()->getKey() . '/play');
+
+        $currentSong = app(SpotifyGatewayInterface::class)->currentlyPlayingSong()->id();
+
+        $this->assertEquals($currentSong, 'spotify:track:' . $song->getId());
+    }
+
+    /** @test */
+    public function can_play_one_song_when_player_is_playing()
+    {
+        $room = factory(Room::class)->create();
+        $room->addSong(ExternalSongFaker::any());
+        $room->addSong($song = ExternalSongFaker::any(['id' => 'test32233']));
+
+        $room->play();
+
+        $this->patch('/room/' . $room->getKey() . '/song/' . $room->songs->last()->getKey() . '/play');
+
+        $currentSong = app(SpotifyGatewayInterface::class)->currentlyPlayingSong()->id();
+
+        $this->assertEquals($currentSong, 'spotify:track:' . $song->getId());
+    }
+
+    /** @test */
+    public function can_play_one_song_when_player_is_paused()
+    {
+        $room = factory(Room::class)->create();
+        $room->addSong(ExternalSongFaker::any());
+        $room->addSong($song = ExternalSongFaker::any(['id' => 'test32233']));
+
+        $room->play();
+        $room->pause();
+
+        $this->patch('/room/' . $room->getKey() . '/song/' . $room->songs->last()->getKey() . '/play');
+
+        $currentSong = app(SpotifyGatewayInterface::class)->currentlyPlayingSong()->id();
+
+        $this->assertEquals($currentSong, 'spotify:track:' . $song->getId());
+    }
 }
