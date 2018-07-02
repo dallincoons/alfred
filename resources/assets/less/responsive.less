@@ -45,22 +45,25 @@
     display: flex;
     width: 4rem;
     height: 4rem;
-    background: #904e95;
+    background: rgba(0,0,0,.1);
   }
   .player {
-    grid-template-columns: 25% 1fr;
+    display: flex;
+    grid-template-columns: none;
     grid-template-rows: none;
-    height: 10%;
+    height: 12%;
   }
 
   .song-info {
-    grid-column: 1;
     display: grid;
-    grid-template-columns: 30px 1fr;
+    grid-template-columns: 120px 1fr;
+    justify-self: flex-start;
+    width: 25%;
   }
 
   .song-details {
     flex-direction: column;
+    align-items: end;
   }
 
   .current-song-title {
@@ -73,14 +76,16 @@
   }
 
   .album-cover {
-    width: 30px;
-    height: 30px;
-    margin: 0 1rem 0 0;
+    width: 80px;
+    height: 80px;
+    justify-self: center;
   }
 
   .player-controls {
-    grid-column: 2;
-    grid-row: 1;
+    grid-template-rows: none;
+    justify-self: center;
+    width: 100%;
+    margin-left: -25%;
   }
   
 

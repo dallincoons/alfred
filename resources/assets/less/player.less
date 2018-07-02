@@ -85,3 +85,14 @@
   transform: rotate(180deg);
   fill: white;
 }
+
+.disabled button {
+  opacity: .5;
+  cursor: not-allowed;
+}
+
+.notDisabled button {
+  opacity: 1;
+  cursor: pointer;
+  transition: all .2s ease-in-out;
+}

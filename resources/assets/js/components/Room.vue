@@ -24,7 +24,7 @@
                     <div class="song-item">
                         <span class="song-title">{{ song.title }}</span>
                         <span class="song-artist">{{song.artist_title}}</span>
-                        <span class="song-delete" @click="deleteSong(song.id)">
+                        <span class="song-delete" @click="deleteSong(song.id, song.title)">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 85.93 97.77">
                                 <title>trash-can</title>
                                 <g id="trash-can">
@@ -59,11 +59,11 @@
                 <div class="album-cover"><img :src="currentSong.big_image"></div>
                 <div class="song-details">
                     <h3 class="current-song-title">{{ currentSong.title }}</h3>
-                    <h5 class="current-song-artist"> | {{currentSong.artist_title}}</h5>
+                    <h5 class="current-song-artist">{{currentSong.artist_title}}</h5>
                 </div>
             </div>
             <div class="player-controls">
-                <div class="player-button">
+                <div class="player-button disabled" :class="{ notDisabled : playNotDisabled}">
                     <button class="skip-button previous">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 45 51">
                             <title>skip-previous</title>
@@ -103,7 +103,7 @@
                             :roomKey="rkey"
                             @deviceId="storePlayerId"
                             @next="next"
-        ></spotify-web-player>
+                            v-on:player-ready="enablePlay()"></spotify-web-player>
     </div>
 </template>
 
@@ -126,7 +126,8 @@
                 playSong: true,
                 searchInputVisible: false,
                 added: false,
-                songSearched: false
+                songSearched: false,
+                playNotDisabled: false
             }
         },
 
@@ -158,6 +159,10 @@
         },
 
         methods : {
+        enablePlay() {
+            this.playNotDisabled = true;
+        },
+
           toggleSearch(){
             this.toggleSearchInput();
               this.songSearched = !this.songSearched;
@@ -191,6 +196,11 @@
             },
 
             play() {
+                if(!this.playerId) {
+                    console.log('device not ready yet');
+                    return;
+                }
+
                 if (this.currentSong.title) {
                     axios.put(`/room/${this.rkey}/resume`, {'device_id' : this.playerId});
                     this.playSong = !this.playSong;
@@ -213,8 +223,8 @@
                this.playerId = deviceId;
             },
 
-            deleteSong(songId) {
-                let confirmDelete = confirm("Are you sure you want to remove" + this.currentSong.title + "from the playlist?");
+            deleteSong(songId, songTitle) {
+                let confirmDelete = confirm("Are you sure you want to remove " + songTitle + " from the playlist?");
                 if (confirmDelete === true) {
                     axios.delete(`/room/${this.rkey}/` + songId);
                 } 
@@ -226,7 +236,8 @@
 
             toggleSearchInput() {
                 this.searchInputVisible = !this.searchInputVisible;
-            }
+            },
+
         }
     }
 </script>

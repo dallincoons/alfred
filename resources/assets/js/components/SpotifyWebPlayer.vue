@@ -40,6 +40,7 @@
                 player.addListener('ready', ({ device_id }) => {
                     this.storeDeviceId(device_id).then((response) => {
                         console.log('Ready with Device ID', device_id);
+                        this.$emit('player-ready');
                     });
                 });
 
