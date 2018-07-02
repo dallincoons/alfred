@@ -22,7 +22,7 @@
             <div class="songs-section" v-show="!songSearched">
                 <div v-for="song in room_songs">
                     <div class="song-item">
-                        <span class="song-title">{{ song.title }}</span>
+                        <span class="song-title" @click="playSelectedSong(song.id)">{{ song.title }}</span>
                         <span class="song-artist">{{song.artist_title}}</span>
                         <span class="song-delete" @click="deleteSong(song.id, song.title)">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 85.93 97.77">
@@ -237,6 +237,11 @@
             toggleSearchInput() {
                 this.searchInputVisible = !this.searchInputVisible;
             },
+
+            playSelectedSong(songId) {
+                axios.patch(`/room/${this.rkey}/song/${songId}/play`, {'device_id' : this.playerId});
+                this.playSong = false;
+            }
 
         }
     }
