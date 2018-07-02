@@ -16,7 +16,7 @@ Route::resource('rooms', 'RoomController');
 Route::post('room/{room}/song', 'RoomSongController@store');
 Route::delete('room/{room}/{songId}', 'RoomSongController@delete');
 
-Route::put('room/{room}/device/{device}/play', 'RoomPlaylistController@play');
+Route::put('room/{room}/play', 'RoomPlaylistController@play');
 Route::put('room/{room}/pause', 'RoomPlaylistController@pause');
 Route::put('room/{room}/resume', 'RoomPlaylistController@resume');
 Route::put('room/{room}/next', 'RoomPlaylistController@next');

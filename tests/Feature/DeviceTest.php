@@ -17,7 +17,7 @@ class DeviceTest extends \Tests\TestCase
         $room = factory(\App\Room::class)->create();
         $room->songs()->create(factory(Song::class)->raw());
 
-        $response = $this->put('room/' . $room->getKey() . '/device/123/play');
+        $response = $this->put('room/' . $room->getKey() . '/play');
         $response->assertSuccessful();
         $this->assertTrue($response->decodeResponseJson());
     }

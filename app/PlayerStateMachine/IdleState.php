@@ -46,7 +46,6 @@ class IdleState implements PlayerMachineState
         $playerMachine->context()->setState($playingState = app(PlayingState::class));
 
         $this->gateway->changeDevice($playerMachine->deviceId());
-        $this->gateway->shuffle(['state' => true, 'device_id' => $playerMachine->deviceId()]);
         return $this->gateway->startSong($playerMachine->deviceId(), 'spotify:track:' . $currentSong);
     }
 
