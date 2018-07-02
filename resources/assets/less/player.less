@@ -13,10 +13,11 @@
 
 .song-info {
   display: flex;
-  width: 100%;
+  width: 150%;
   align-items: center;
   grid-row: 1;
   color: #ffffff;
+  animation: slideSongInfo 70s ease-in-out 5s infinite;
 }
 
 .song-details {
@@ -27,14 +28,31 @@
 }
 
 .current-song-title {
-  font-weight: 500;
-  font-size: .85rem;
+  font-weight: 600;
+  font-size: .95rem;
   margin-right: .5rem;
+  flex-wrap: nowrap;
+  max-width: 60%;
+  overflow: hidden;
 }
 
 .current-song-artist {
+  font-weight: 400;
+  font-size: .75rem;
+  margin-right: .5rem;
+  flex-wrap: nowrap;
+}
+
+.current-song-added-by {
   font-weight: 300;
-  font-size: .65rem;
+  font-size: .55rem;
+  flex-wrap: nowrap;
+  opacity: 0;
+}
+
+.show {
+  opacity: 1;
+  transition: all .5s ease-out 3s;
 }
 
 .album-cover {
@@ -95,4 +113,21 @@
   opacity: 1;
   cursor: pointer;
   transition: all .2s ease-in-out;
+}
+@keyframes slideSongInfo {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-20%);
+  }
+  50% {
+    transform: translateX(0);
+  }
+  75% {
+    transform: translateX(20%);
+  }
+  100% {
+    transform: translateX(0);
+  }
 }

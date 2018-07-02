@@ -3,14 +3,9 @@
   .join {
     width: 90%;
   }
-  .join-form {
-    flex-direction: column;
-  }
 
   .join-input {
     font-size: 2rem;
-    width: 100%;
-    margin: 1rem 0;
   }
 }
 
@@ -59,6 +54,7 @@
     grid-template-columns: 120px 1fr;
     justify-self: flex-start;
     width: 25%;
+    animation: none;
   }
 
   .song-details {
@@ -68,11 +64,15 @@
 
   .current-song-title {
     font-size: 1rem;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    margin: 0 0 .5rem 0;
   }
 
   .current-song-artist {
     font-weight: 300;
     font-size: .85rem;
+    margin: 0 0 .5rem 0;
   }
 
   .album-cover {

@@ -4,10 +4,11 @@
         @if(!\Auth::check())
             <div class="flex flex-col h-screen justify-between bg-gradient text-white">
                 <p class="p-3 text-2xl">alfred.fm</p>
-                <div class="join self-center w-3/5 h-24 content-center">
+                <div class="join self-center w-3/5 content-center">
                     <form action="room/join" method="POST" class="join-form flex text-lg content-center w-full">
                         {{ csrf_field() }}
                         <input name="room" placeholder="ROOM CODE" class="join-input bg-transparent border-bottom border-white text-white text-capitalize font-bold text-5xl w-3/4" />
+                        <input name="guest_user" placeholder="Name" class="join-input bg-transparent border-bottom border-white text-white text-capitalize font-bold text-5xl w-3/4" />
                         <input type="submit" value="Join" class="join-input w-1/5 h-12 self-end font-bold text-3xl text-purple-darkest cursor-pointer bg-button"/>
                     </form>
                 </div>
