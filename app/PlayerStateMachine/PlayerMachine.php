@@ -45,6 +45,11 @@ class PlayerMachine
         return $this->context->state()->play($this, $songs);
     }
 
+    public function playSong(string $song)
+    {
+        return $this->context->state()->playSong($this, $song);
+    }
+
     public function pause()
     {
         $this->context->state()->pause($this);

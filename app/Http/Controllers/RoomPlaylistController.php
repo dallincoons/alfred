@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Gateways\SpotifyGatewayInterface;
 use App\Room;
+use App\Song;
 use Illuminate\Http\Request;
 
 class RoomPlaylistController extends Controller
@@ -27,6 +28,11 @@ class RoomPlaylistController extends Controller
         $success = $room->player()->play($room->songs()->pluck('external_id')->all());
 
         return response()->json($success);
+    }
+
+    public function playSong(Room $room, Song $song)
+    {
+        $room->player()->playSong($song->external_id);
     }
 
     public function pause(Request $request, Room $room)

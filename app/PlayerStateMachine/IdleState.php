@@ -49,6 +49,17 @@ class IdleState implements PlayerMachineState
         return $this->gateway->startSong($playerMachine->deviceId(), 'spotify:track:' . $currentSong);
     }
 
+    public function playSong(PlayerMachine $playerMachine, string $song): bool
+    {
+        $success = $this->gateway->startSong($playerMachine->deviceId(), 'spotify:track:' . $song);
+
+        if ($success) {
+            $playerMachine->context()->setState($playingState = app(PlayingState::class));
+        }
+
+        return $success;
+    }
+
     /**
      * @param PlayerMachine $playerMachine
      */
