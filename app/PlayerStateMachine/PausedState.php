@@ -32,6 +32,7 @@ class PausedState implements PlayerMachineState
 
     public function playSong(PlayerMachine $playerMachine, string $song): bool
     {
+        SongQueueStarted::dispatch(Song::where('external_id', $song)->first());
         return $this->gateway->startSong($playerMachine->deviceId(), 'spotify:track:' . $song);
     }
 

@@ -2,7 +2,9 @@
 
 namespace App\PlayerStateMachine;
 
+use App\Events\SongQueueStarted;
 use App\Room;
+use App\Song;
 
 class PlayerMachine
 {
@@ -47,6 +49,7 @@ class PlayerMachine
 
     public function playSong(string $song)
     {
+        SongQueueStarted::dispatch(Song::where('external_id', $song)->first());
         return $this->context->state()->playSong($this, $song);
     }
 

@@ -54,6 +54,7 @@ class IdleState implements PlayerMachineState
         $success = $this->gateway->startSong($playerMachine->deviceId(), 'spotify:track:' . $song);
 
         if ($success) {
+            SongQueueStarted::dispatch(Song::where('external_id', $song)->first());
             $playerMachine->context()->setState($playingState = app(PlayingState::class));
         }
 
