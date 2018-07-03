@@ -9,7 +9,7 @@
 
                 <div v-show="searchInputVisible" class="search-input-wrapper">
                     <input type="search" v-model="songName" class="search-input" placeholder="Add Song" @keyup.enter="searchSongs(songName)" autofocus/>
-                    <div @click="toggleSearch()">
+                    <div @click="closeSearch()">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 59.72 76.62" v-show="searchInputVisible" class="search-close" >
                             <title>close</title><path id="close" class="search-close" d="M59.37,71.9,34,35.66l21.68-31A1.94,1.94,0,0,0,55.17,2L52.81.35a1.94,1.94,0,0,0-2.7.48l-20.26,29L9.57.84A1.94,1.94,0,0,0,6.87.36L4.51,2A1.93,1.93,0,0,0,4,4.72l21.69,31L.35,71.92a1.94,1.94,0,0,0,.48,2.7l2.36,1.65a1.94,1.94,0,0,0,2.7-.48l24-34.24,24,34.23a1.93,1.93,0,0,0,2.7.47l2.35-1.65A1.94,1.94,0,0,0,59.37,71.9Z"/>
                         </svg>
@@ -165,9 +165,9 @@
             this.playNotDisabled = true;
         },
 
-          toggleSearch(){
+          closeSearch(){
             this.toggleSearchInput();
-              this.songSearched = !this.songSearched;
+            this.songSearched = false;
           },
 
            searchSongs(song) {
