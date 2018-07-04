@@ -5,10 +5,8 @@ namespace Tests\Fakes;
 use App\Gateways\ExternalSong;
 use App\Gateways\Song;
 use App\Gateways\SpotifyGatewayInterface;
-use App\GuestUser;
 use App\Spotify;
 use App\SpotifyUser;
-use App\User;
 
 //@todo create song class fixture
 class FakeSpotifyGateway implements SpotifyGatewayInterface
@@ -181,5 +179,10 @@ class FakeSpotifyGateway implements SpotifyGatewayInterface
         $this->playlists[$playlistId]->songs = collect($this->playlists[$playlistId]->songs)->reject(function($song) use ($songId) {
             return $song->id() == $songId;
         })->all();
+    }
+
+    public function previous(string $deviceId)
+    {
+        // TODO: Implement previous() method.
     }
 }

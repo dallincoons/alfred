@@ -182,6 +182,11 @@ class Room extends Model
         $this->player()->next();
     }
 
+    public function previous()
+    {
+        $this->player()->previous();
+    }
+
     /**
      * @return string
      */

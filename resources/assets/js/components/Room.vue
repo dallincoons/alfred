@@ -65,7 +65,7 @@
             </div>
             <div class="player-controls">
                 <div class="player-button disabled" :class="{ notDisabled : playNotDisabled}">
-                    <button class="skip-button previous">
+                    <button class="skip-button previous" @click="previous()">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 45 51">
                             <title>skip-previous</title>
                             <path class="cls-1" d="M39.46,50.5a2,2,0,0,1-2-2V29.25L5.25,47.87a3.11,3.11,0,0,1-1.58.43A3.18,3.18,0,0,1,.5,45.13V5.87A3.17,3.17,0,0,1,5.25,3.12L37.5,21.75V2.46a2,2,0,0,1,2-2h3.08a2,2,0,0,1,2,2V48.54a2,2,0,0,1-2,2Z"/>
@@ -217,7 +217,11 @@
             },
 
             next() {
-                axios.put(`/room/${this.rkey}/next`, {'device_id' : this.playerId});
+                axios.put(`/room/${this.rkey}/next`);
+            },
+
+            previous() {
+                axios.put(`/room/${this.rkey}/previous`);
             },
 
             storePlayerId(deviceId) {

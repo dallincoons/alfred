@@ -56,6 +56,13 @@ class RoomPlaylistController extends Controller
         return response()->json($success);
     }
 
+    public function previous(Request $request, Room $room)
+    {
+        $success = $room->previous();
+
+        return response()->json($success);
+    }
+
     public function device(Request $request, Room $room)
     {
         \Session::forget('player');
