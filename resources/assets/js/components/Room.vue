@@ -60,7 +60,7 @@
                 <div class="song-details">
                     <h3 class="current-song-title">{{ currentSong.title }}</h3>
                     <h5 class="current-song-artist">{{currentSong.artist_title}}</h5>
-                    <h6 class="current-song-added-by" :class="{show : showSongDetails}">Added by {{currentSong.added_by}}</h6>
+                    <h6 v-show="currentSong.added_by" class="current-song-added-by" :class="{show : showSongDetails}">Added by {{currentSong.added_by}}</h6>
                 </div>
             </div>
             <div class="player-controls">
@@ -104,6 +104,7 @@
                             :roomKey="rkey"
                             @deviceId="storePlayerId"
                             @next="next"
+                            @player_state_changed="playerStateChanged"
                             v-on:player-ready="enablePlay()"></spotify-web-player>
     </div>
 </template>
@@ -247,6 +248,12 @@
                 axios.patch(`/room/${this.rkey}/song/${songId}/play`, {'device_id' : this.playerId}).then(response => {
                     this.playSong = false;
                 });
+            },
+
+            playerStateChanged(song) {
+                if (song.id !== this.currentSong.id) {
+                    this.currentSong = song;
+                }
             }
         }
     }

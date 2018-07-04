@@ -30,7 +30,14 @@
 
                 // Playback status updates
                 player.addListener('player_state_changed', state => {
-                    console.log(state);
+                    //@todo make general song entity
+                    let song = state.track_window.current_track;
+                     this.$emit('player_state_changed', {
+                        'title' : song.name,
+                        'artist_title' : song.artists[0].name,
+                        'id' : song.id,
+                        'big_image' : song.album.images[0].url
+                     });
                      if (state.paused === true && state.position === 0) {
                         this.next();
                      }
