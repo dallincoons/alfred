@@ -167,6 +167,7 @@
           closeSearch(){
             this.toggleSearchInput();
             this.songSearched = false;
+            this.songName = '';
           },
 
            searchSongs(song) {
@@ -197,24 +198,22 @@
             },
 
             play() {
-                if(!this.playerId) {
-                    console.log('device not ready yet');
-                    return;
-                }
-
                 if (this.currentSong.title) {
-                    axios.put(`/room/${this.rkey}/resume`, {'device_id' : this.playerId});
-                    this.playSong = !this.playSong;
+                    axios.put(`/room/${this.rkey}/resume`, {'device_id' : this.playerId}).then((response) => {
+                        this.playSong = !this.playSong;
+                    });
                     return;
                 }
-                axios.put(`/room/${this.rkey}/play`);
-                this.playSong = !this.playSong;
-                this.showSongDetails = true;
+                axios.put(`/room/${this.rkey}/play`).then((response) => {
+                    this.playSong = !this.playSong;
+                    this.showSongDetails = true;
+                });
             },
 
             pause() {
-                axios.put(`/room/${this.rkey}/pause`, {'device_id' : this.playerId});
-                this.playSong = !this.playSong;
+                axios.put(`/room/${this.rkey}/pause`, {'device_id' : this.playerId}).then((response) => {
+                    this.playSong = !this.playSong;
+                });
             },
 
             next() {
