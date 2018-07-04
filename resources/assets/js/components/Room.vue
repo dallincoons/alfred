@@ -244,10 +244,10 @@
             },
 
             playSelectedSong(songId) {
-                axios.patch(`/room/${this.rkey}/song/${songId}/play`, {'device_id' : this.playerId});
-                this.playSong = false;
+                axios.patch(`/room/${this.rkey}/song/${songId}/play`, {'device_id' : this.playerId}).then(response => {
+                    this.playSong = false;
+                });
             }
-
         }
     }
 </script>
