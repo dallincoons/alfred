@@ -155,7 +155,6 @@
 
             Echo.channel(`song-queue`)
                 .listen('SongQueueStarted', (e) => {
-                    console.log(e);
                     this.currentSong = e.song;
                 });
         },
@@ -177,7 +176,7 @@
                         return song;
                    });
                });
-               this.songSearched = !this.songSearched;
+               this.songSearched = true;
            },
 
            addSong(room, addedSong) {
