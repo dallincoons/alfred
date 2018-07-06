@@ -4,6 +4,7 @@ namespace Tests;
 
 use App\Gateways\SpotifyGateway;
 use App\Gateways\SpotifyGatewayInterface;
+use App\Room;
 use App\SpotifyUser;
 use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -31,7 +32,7 @@ abstract class TestCase extends BaseTestCase
 
         $this->withoutExceptionHandling();
 
-        Event::fake();
+        $this->withoutEvents();
 
         $this->app->singleton(SpotifyGatewayInterface::class, FakeSpotifyGateway::class);
 

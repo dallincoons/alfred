@@ -5,7 +5,6 @@ use App\Events\SongQueueStarted;
 use App\Gateways\SpotifyGatewayInterface;
 use App\Room;
 use App\Song;
-use App\User;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Session;
 use Tests\Fakes\ExternalSongFaker;
@@ -205,5 +204,18 @@ class RoomTest extends TestCase
         $room->removeSong('60SJRvzXJnVeVfS4RiH14u');
 
         $this->assertEquals(0, Song::where('external_id', '60SJRvzXJnVeVfS4RiH14u')->count());
+    }
+
+    /** @test */
+    public function room_code_is_stored_when_room_is_created()
+    {
+        /** @var Room $room */
+        $room = factory(Room::class)->create([
+            'code' => null
+        ]);
+
+        $room->save();
+
+        $this->assertNotNull($room->code);
     }
 }

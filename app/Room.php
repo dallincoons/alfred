@@ -5,6 +5,7 @@ namespace App;
 use App\Events\SongAdded;
 use App\Gateways\ExternalSong;
 use App\Gateways\SpotifyGatewayInterface;
+use App\Observers\RoomObserver;
 use App\PlayerStateMachine\PlayerMachine;
 use Illuminate\Database\Eloquent\Model;
 
@@ -34,6 +35,15 @@ class Room extends Model
 
         $this->codeGenerator = app(CodeGenerator::class);
         $this->gateway = app(SpotifyGatewayInterface::class);
+    }
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($room) {
+            $room->code = app(CodeGenerator::class)->encode($room->getKey());
+        });
     }
 
     public function sync()
@@ -92,7 +102,7 @@ class Room extends Model
      */
     public function join(string $roomId)
     {
-        if (array_get($this->codeGenerator->decode($roomId), 0) == $this->getKey() || $roomId == 'H18') {
+        if (array_get($this->codeGenerator->decode($roomId), 0) == $this->getKey()) {
             \Auth::login($this->user->guestUser);
             return true;
         }
