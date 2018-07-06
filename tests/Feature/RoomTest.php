@@ -61,7 +61,7 @@ class RoomTest extends TestCase
 
         auth()->logout();
 
-        $response = $this->post('/room/join', ['room' => $room->share()]);
+        $response = $this->post('/room/join', ['room' => $room->code]);
 
         $response->assertRedirect('/rooms/' . $room->getKey());
         $this->assertEquals(\Auth::user(), ($room->user));
@@ -69,9 +69,24 @@ class RoomTest extends TestCase
 
         auth()->logout();
 
-        $this->post('/room/join', ['room' => $room->share(), 'name' => 'dallin']);
+        $this->post('/room/join', ['room' => $room->code, 'name' => 'dallin']);
 
         $this->assertEquals('dallin', \Session::get('guest_name'));
+    }
+
+    /** @test */
+    public function room_can_use_arbitrary_string_as_code()
+    {
+        $room = factory(Room::class)->create([
+            'code' => 'h18'
+        ]);
+
+        auth()->logout();
+
+        $response = $this->post('/room/join', ['room' => 'h18']);
+
+        $response->assertRedirect('/rooms/' . $room->getKey());
+        $this->assertEquals(\Auth::user(), ($room->user));
     }
 
     /** @test */
@@ -81,7 +96,7 @@ class RoomTest extends TestCase
 
         auth()->logout();
 
-        $response = $this->post('/room/join', ['room' => strtolower($room->share())]);
+        $response = $this->post('/room/join', ['room' => $room->code]);
 
         $response->assertRedirect('/rooms/' . $room->getKey());
         $this->assertEquals(\Auth::user(), ($room->user));
@@ -103,7 +118,7 @@ class RoomTest extends TestCase
     {
         /** @var Room $room */
         $room = $this->user->createRoom('test1337');
-        $roomId = $room->share();
+        $roomId = $room->code;
 
         $room->join($roomId);
 

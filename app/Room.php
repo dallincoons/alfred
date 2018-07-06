@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 class Room extends Model
 {
     protected $fillable = [
-        'name', 'playlistId', 'deviceId', 'user_id'
+        'name', 'playlistId', 'deviceId', 'user_id', 'code'
     ];
 
     protected $appends = [
@@ -42,7 +42,9 @@ class Room extends Model
         parent::boot();
 
         static::creating(function ($room) {
-            $room->code = app(CodeGenerator::class)->encode($room->getKey());
+            if (!$room->code) {
+                $room->code = app(CodeGenerator::class)->encode(Room::count() + 1);
+            }
         });
     }
 
@@ -93,7 +95,7 @@ class Room extends Model
      */
     public function share()
     {
-        return $this->codeGenerator->encode($this->getKey());
+        return $this->codeGenerator->encode(Room::count() + 1);
     }
 
     /**

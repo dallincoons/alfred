@@ -21,7 +21,7 @@ class GuestLoginController extends Controller
 
     public function show(Request $request)
     {
-        $room = Room::find(array_first($this->codeGenerator->decode(strtoupper($request->room))));
+        $room = Room::where('code', $request->room)->first();
 
         if(!$room) {
             throw new \Exception('Invalid room code');

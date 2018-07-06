@@ -31,7 +31,7 @@ class RoomTest extends TestCase
     {
         $room = $this->user->createRoom('test1337');
 
-        $roomCode = $room->share();
+        $roomCode = $room->code;
 
         $this->assertFalse($room->join('INVALID'));
         $this->assertTrue($room->join($roomCode));
@@ -53,7 +53,7 @@ class RoomTest extends TestCase
     {
         /** @var Room $room */
         $room = $this->user->createRoom('test1337');
-        $roomId = $room->share();
+        $roomId = $room->code;
 
         $this->assertTrue($room->join($roomId));
         $this->assertFalse($room->join('INVALID'));
@@ -64,7 +64,7 @@ class RoomTest extends TestCase
     {
         /** @var Room $room */
         $room = $this->user->createRoom('test1337');
-        $roomId = $room->share();
+        $roomId = $room->code;
 
         $guestUser = GuestUser::where('parent_id', $this->user->getKey())->first();
 
@@ -78,7 +78,7 @@ class RoomTest extends TestCase
     {
         /** @var Room $room */
         $room = $this->user->createRoom('test1337');
-        $roomId = $room->share();
+        $roomId = $room->code;
 
         $room->join($roomId);
 
