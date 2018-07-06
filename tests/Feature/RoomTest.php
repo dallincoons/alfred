@@ -193,4 +193,17 @@ class RoomTest extends TestCase
 
         $this->assertCount(1, Song::where('external_id', '60SJRvzXJnVeVfS4RiH14u')->get());
     }
+
+    /** @test */
+    public function removes_song_from_room()
+    {
+        /** @var Room $room */
+        $room = factory(Room::class)->create();
+
+        $room->addSong(ExternalSongFaker::withId('60SJRvzXJnVeVfS4RiH14u'));
+
+        $room->removeSong('60SJRvzXJnVeVfS4RiH14u');
+
+        $this->assertEquals(0, Song::where('external_id', '60SJRvzXJnVeVfS4RiH14u')->count());
+    }
 }

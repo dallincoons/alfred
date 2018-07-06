@@ -141,6 +141,17 @@ class Room extends Model
     }
 
     /**
+     * @param string $songId
+     * @return bool
+     */
+    public function removeSong(string $songId)
+    {
+        $this->songs()->where('external_id', $songId)->delete();
+
+        return $this->gateway->delete($this->user->spotify_id, $this->playlistId, $songId);
+    }
+
+    /**
      * @return string
      */
     public function queueSessionName()

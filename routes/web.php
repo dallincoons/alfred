@@ -14,7 +14,7 @@ Route::get('spotify/songs', 'SpotifyController@search');
 
 Route::resource('rooms', 'RoomController');
 Route::post('room/{room}/song', 'RoomSongController@store');
-Route::delete('room/{room}/{songId}', 'RoomSongController@delete');
+Route::delete('room/{room}/{song}', 'RoomSongController@delete');
 
 Route::put('room/{room}/play', 'RoomPlaylistController@play');
 Route::put('room/{room}/pause', 'RoomPlaylistController@pause');

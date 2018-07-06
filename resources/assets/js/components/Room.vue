@@ -24,7 +24,7 @@
                     <div class="song-item">
                         <span class="song-title" @click="playSelectedSong(song.id)">{{ song.title }}</span>
                         <span class="song-artist">{{song.artist_title}}</span>
-                        <span class="song-delete" @click="deleteSong(song.id, song.title)">
+                        <span class="song-delete" @click="deleteSong(song)">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 85.93 97.77">
                                 <title>trash-can</title>
                                 <g id="trash-can">
@@ -229,11 +229,13 @@
                this.playerId = deviceId;
             },
 
-            deleteSong(songId, songTitle) {
-                let confirmDelete = confirm("Are you sure you want to remove " + songTitle + " from the playlist?");
+            deleteSong(song) {
+                let confirmDelete = confirm("Are you sure you want to remove " + song.title + " from the playlist?");
                 if (confirmDelete === true) {
-                    axios.delete(`/room/${this.rkey}/` + songId);
-                } 
+                    axios.delete(`/room/${this.rkey}/` + song.id).then(response => {
+                        this.room_songs = response.data;
+                    })
+                }
             },
 
             songIsNotAdded(item) {

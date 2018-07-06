@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Events\SongAdded;
 use App\Gateways\ExternalSong;
 use App\Room;
+use App\Song;
 use Illuminate\Http\Request;
 
 class RoomSongController extends Controller
@@ -18,14 +19,14 @@ class RoomSongController extends Controller
         return response()->json($song);
     }
 
-    public function delete(Request $request, Room $room, int $songId)
+    public function delete(Request $request, Room $room, Song $song)
     {
         try {
-            $room->songs()->find($songId)->delete();
+            $room->removeSong($song->external_id);
         } catch (\Exception $e) {
             return response()->json($e->getMessage(), 400);
         }
 
-        return response()->json('success', 200);
+        return response()->json($room->songs, 200);
     }
 }
