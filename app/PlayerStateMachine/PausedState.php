@@ -58,7 +58,7 @@ class PausedState implements PlayerMachineState
         }
 
         SongQueueStarted::dispatch(Song::where('external_id', $currentSong)->first());
-        SongQueueUpdated::dispatch( \Session::get($playerMachine->room()->queueSessionName()) );
+//        SongQueueUpdated::dispatch( \Session::get($playerMachine->room()->queueSessionName()) );
 
         $playerMachine->context()->setState(app(PlayingState::class));
 

@@ -41,7 +41,7 @@ class IdleState implements PlayerMachineState
         Session::put($sessionName, $songs);
 
         SongQueueStarted::dispatch(Song::where('external_id', $currentSong)->first());
-        SongQueueUpdated::dispatch( $songs );
+//        SongQueueUpdated::dispatch( $songs );
 
         $playerMachine->context()->setState($playingState = app(PlayingState::class));
 
@@ -89,7 +89,7 @@ class IdleState implements PlayerMachineState
         }
 
         SongQueueStarted::dispatch(Song::where('external_id', $currentSong)->first());
-        SongQueueUpdated::dispatch( \Session::get($playerMachine->room()->queueSessionName()) );
+//        SongQueueUpdated::dispatch( \Session::get($playerMachine->room()->queueSessionName()) );
 
         $playerMachine->context()->setState($playingState = app(PlayingState::class));
 

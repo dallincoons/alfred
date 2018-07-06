@@ -50,7 +50,7 @@ class PlayingState implements PlayerMachineState
         }
 
         SongQueueStarted::dispatch(Song::where('external_id', $currentSong)->first());
-        SongQueueUpdated::dispatch( \Session::get($playerMachine->room()->queueSessionName()) );
+//        SongQueueUpdated::dispatch( \Session::get($playerMachine->room()->queueSessionName()) );
 
         return $this->gateway->startSong($playerMachine->deviceId(), 'spotify:track:' . $currentSong);
     }
