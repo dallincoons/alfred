@@ -183,7 +183,17 @@
 
            addSong(room, addedSong) {
                if (!this.songIsNotAdded(addedSong)) {
-                   alert("This song is already on the playlist.");
+                    let foundSong = this.room_songs.find(song => {
+                        return song.external_id === addedSong.id;
+                    });
+                   axios.delete(`/room/${this.rkey}/` + foundSong.id).then(response => {
+                       this.songs = this.songs.map(song => {
+                           if (song.id === addedSong.id) {
+                               song.checked = false;
+                           }
+                           return song;
+                       });
+                   });
                    return;
                }
 
@@ -230,12 +240,12 @@
             },
 
             deleteSong(song) {
-                let confirmDelete = confirm("Are you sure you want to remove " + song.title + " from the playlist?");
-                if (confirmDelete === true) {
+                // let confirmDelete = confirm("Are you sure you want to remove " + song.title + " from the playlist?");
+                // if (confirmDelete === true) {
                     axios.delete(`/room/${this.rkey}/` + song.id).then(response => {
                         this.room_songs = response.data;
                     })
-                }
+                // }
             },
 
             songIsNotAdded(item) {
@@ -256,7 +266,7 @@
                 if (song.id !== this.currentSong.id) {
                     this.currentSong = song;
                 }
-            }
+            },
         }
     }
 </script>
