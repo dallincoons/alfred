@@ -3,7 +3,6 @@
 namespace App\PlayerStateMachine;
 
 use App\Events\SongQueueStarted;
-use App\Events\SongQueueUpdated;
 use App\Gateways\SpotifyGatewayInterface;
 use App\Song;
 use App\SongQueue;
@@ -58,7 +57,6 @@ class PausedState implements PlayerMachineState
         }
 
         SongQueueStarted::dispatch(Song::where('external_id', $currentSong)->first());
-//        SongQueueUpdated::dispatch( \Session::get($playerMachine->room()->queueSessionName()) );
 
         $playerMachine->context()->setState(app(PlayingState::class));
 

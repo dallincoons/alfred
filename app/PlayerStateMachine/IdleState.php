@@ -89,7 +89,6 @@ class IdleState implements PlayerMachineState
         }
 
         SongQueueStarted::dispatch(Song::where('external_id', $currentSong)->first());
-//        SongQueueUpdated::dispatch( \Session::get($playerMachine->room()->queueSessionName()) );
 
         $playerMachine->context()->setState($playingState = app(PlayingState::class));
 
