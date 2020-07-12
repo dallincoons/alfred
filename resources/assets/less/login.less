@@ -52,13 +52,16 @@
   opacity: .5;
 }
 .cls-wave {
-  stroke-dasharray: 2000;
-  stroke-dashoffset: 2000;
-  animation: dash 6s linear forwards;
+  stroke-dasharray: 1300;
+  stroke-dashoffset: 1300;
+  animation: dash 6s ease-in-out infinite;
 }
 
 @keyframes dash {
-  to {
+  50% {
     stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dashoffset: 1300;
   }
 }
