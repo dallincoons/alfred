@@ -23,7 +23,7 @@
                 <div v-for="song in room_songs">
                     <div class="song-item">
                         <span class="song-title" @click="playSelectedSong(song.id)">{{ song.title }}</span>
-                        <span class="song-artist">{{song.artist_title}}</span>
+                        <span class="song-artist">{{song.artist_title}}</span> <span>added by {{song.added_by}}</span>
                         <span class="song-delete" @click="deleteSong(song)">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 85.93 97.77">
                                 <title>trash-can</title>
