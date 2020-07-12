@@ -1,18 +1,11 @@
 .main-background {
-  justify-content: center;
-  align-items: center;
+  display: grid;
+  grid-template-rows: repeat(3, 1fr);
+  justify-items: center;
 }
-//.logo {
-//  margin-bottom: 3rem;
-//  font-size: 2.5rem;
-//}
-//.logo span {
-//  color: #F1F1F2;
-//  border: 3px solid #0D0D0D;
-//}
 .logo-wrapper {
-  width: 30%;
-  margin-bottom: 6rem;
+  width: 40%;
+  margin: 3rem;
 }
 .cls-party {
   fill:#0d0d0d;
@@ -45,4 +38,27 @@
   text-transform: uppercase;
   border-radius: 6px;
   padding: 1rem;
+}
+.owner-login {
+  color: #BCBDC2;
+  text-align: right;
+}
+
+.cls-wave{fill:none;stroke:#bcbdc2;stroke-miterlimit:10;stroke-width:15px;}
+
+.waves-wrapper {
+  width: 100%;
+  overflow: hidden;
+  opacity: .5;
+}
+.cls-wave {
+  stroke-dasharray: 2000;
+  stroke-dashoffset: 2000;
+  animation: dash 6s linear forwards;
+}
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: 0;
+  }
 }
