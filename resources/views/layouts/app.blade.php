@@ -37,5 +37,8 @@
         'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
     };
 </script>
+@if(config('app.env') == 'local')
+    <script src="http://localhost:35729/livereload.js"></script>
+@endif
 </body>
 </html>
