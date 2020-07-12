@@ -27,7 +27,7 @@ class GuestLoginController extends Controller
             throw new \Exception('Invalid room code');
         }
 
-        \Auth::login($room->user);
+        \Auth::login($room->user, true);
 
         \Session::put('guest_name', $request->name ?? 'Guest');
 
