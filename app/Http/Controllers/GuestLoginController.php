@@ -29,7 +29,7 @@ class GuestLoginController extends Controller
 
         \Auth::login($room->user, true);
 
-        \Session::put('guest_name', $request->name ?? 'Guest');
+        \Session::put('guest_name', $request->guest_user_name ?? 'Guest');
 
         return redirect('/rooms/' . $room->getKey());
     }
