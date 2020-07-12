@@ -56,7 +56,11 @@
             };
         },
 
-        props : {'accessToken' : {default: ''}, 'roomName': {default: ''}, 'roomKey' : {default: ''}},
+        props : {
+            'accessToken' : {default: ''},
+            'roomName': {default: ''},
+            'roomKey' : {default: ''}
+        },
 
         methods : {
             storeDeviceId(deviceId) {

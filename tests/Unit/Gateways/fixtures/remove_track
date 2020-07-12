@@ -111,3 +111,34 @@
             Alt-Svc: clear
             Transfer-Encoding: chunked
         body: "{\n  \"href\" : \"https://api.spotify.com/v1/users/1213003440/playlists/4tkxsOk1bWixTBjHrq1pAx/tracks?offset=0&limit=100\",\n  \"items\" : [ ],\n  \"limit\" : 100,\n  \"next\" : null,\n  \"offset\" : 0,\n  \"previous\" : null,\n  \"total\" : 0\n}"
+-
+    request:
+        method: POST
+        url: 'https://api.spotify.com/v1/users/1213003440/playlists'
+        headers:
+            Host: api.spotify.com
+            Authorization: 'Bearer BQAkGPkKbG3QPjRXfbz7WB_Ez8D6_zw-fkr46oOmROSEtU8drS_ffUv2VFRHL8VR69bJIvHLWTn3VxgOm1HD24zpWha4OiiIen27HhrlWY7UgJF9qsz8xbb4X04D8Uy6WZTI1TyJG-d77bSeshJ5JmNuUFtMh05thyevLHemtef534Wfwu-wwsTbEWzPU1lKZ0J7zQDzBzdfMc7ieUvTFcDJDM9_EmJ78tJXf82EF5GP86R5It8DPEhhkSQjl7Pr'
+            Content-Type: application/json
+        body: '{"name":"test123"}'
+    response:
+        status:
+            http_version: '2'
+            code: '401'
+            message: ''
+        headers:
+            www-authenticate: 'Bearer realm="spotify", error="invalid_token", error_description="The access token expired"'
+            access-control-allow-origin: '*'
+            access-control-allow-headers: 'Accept, App-Platform, Authorization, Content-Type, Origin, Retry-After, Spotify-App-Version, X-Cloud-Trace-Context'
+            access-control-allow-methods: 'GET, POST, OPTIONS, PUT, DELETE, PATCH'
+            access-control-allow-credentials: 'true'
+            access-control-max-age: '604800'
+            content-type: application/json
+            content-encoding: gzip
+            content-length: '96'
+            strict-transport-security: max-age=31536000
+            x-content-type-options: nosniff
+            date: 'Sun, 12 Jul 2020 02:26:42 GMT'
+            server: envoy
+            via: 'HTTP/2 edgeproxy, 1.1 google'
+            alt-svc: clear
+        body: "{\n  \"error\": {\n    \"status\": 401,\n    \"message\": \"The access token expired\"\n  }\n}"
