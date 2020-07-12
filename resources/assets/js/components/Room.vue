@@ -98,14 +98,15 @@
             </div>
 
         </div>
-        <spotify-web-player v-if="!has_parent || !existing_player_id"
+        <spotify-web-player
                             :accessToken="access_token"
                             :roomName="name"
                             :roomKey="rkey"
                             @deviceId="storePlayerId"
                             @next="next"
                             @player_state_changed="playerStateChanged"
-                            v-on:player-ready="enablePlay()"></spotify-web-player>
+                            v-on:player-ready="enablePlay()">
+        </spotify-web-player>
     </div>
 </template>
 
@@ -135,6 +136,7 @@
         },
 
         props : [
+            'username',
             'name',
             'rkey',
             'code',
@@ -197,7 +199,7 @@
                    return;
                }
 
-                axios.post('/room/' + room + '/song', {song: addedSong}).then((response) => {
+                axios.post('/room/' + room + '/song', {song: addedSong, username: this.username}).then((response) => {
                     this.songs = this.songs.map(song => {
                         if (song.id === addedSong.id) {
                             song.checked = true;

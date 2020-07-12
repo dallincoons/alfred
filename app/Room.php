@@ -15,10 +15,6 @@ class Room extends Model
         'name', 'playlistId', 'deviceId', 'user_id', 'code'
     ];
 
-    protected $appends = [
-        'existingDeviceId'
-    ];
-
     /**
      * @var CodeGenerator
      */
@@ -125,10 +121,10 @@ class Room extends Model
     /**
      * @return string
      */
-    public function getExistingDeviceIdAttribute()
-    {
-        return \Auth::user()->hasParent() ? $this->attributes['deviceId'] : '';
-    }
+//    public function getExistingDeviceIdAttribute()
+//    {
+//        return \Auth::user()->hasParent() ? $this->attributes['deviceId'] : '';
+//    }
 
     public function getQueue()
     {

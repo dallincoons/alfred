@@ -2,14 +2,14 @@
 
 @section('content')
         @if(!\Auth::check())
-            <div class="flex flex-col h-screen justify-between bg-gradient text-white">
-                <p class="p-3 text-2xl">alfred.fm</p>
-                <div class="join self-center w-3/5 content-center">
-                    <form action="room/join" method="POST" class="join-form flex text-lg content-center w-full">
+            <div class="bg-grey-lighter h-screen main-background flex flex-col">
+                <h1 class="logo bold"><span>POOL</span> PARTY</h1>
+                <div class="form-wrapper">
+                    <form action="room/join" method="POST" class="login-form flex flex-col">
                         {{ csrf_field() }}
-                        <input name="room" placeholder="ROOM CODE" class="join-input bg-transparent border-bottom border-white text-white text-capitalize font-bold text-5xl w-3/4" />
-                        <input name="guest_user" placeholder="Name" class="join-input bg-transparent border-bottom border-white text-white text-capitalize font-bold text-5xl w-3/4" />
-                        <input type="submit" value="Join" class="join-input w-1/5 h-12 self-end font-bold text-3xl text-purple-darkest cursor-pointer bg-button"/>
+                        <input name="room" placeholder="ROOM CODE" />
+                        <input name="guest_user" placeholder="Name" />
+                        <input type="submit" value="Jump on in" />
                     </form>
                 </div>
                 <div class="self-end p-3 text-lg">

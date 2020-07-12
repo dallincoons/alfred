@@ -8,13 +8,15 @@
     export default {
         data() {
             return {
-                playerId: ''
+                playerId: '',
+                song: {},
             }
         },
 
         mounted() {
             window.onSpotifyWebPlaybackSDKReady = () => {
                 const token = this.accessToken;
+                console.log(token);
                 const player = new Spotify.Player({
                     name: this.roomName,
                     getOAuthToken: cb => { cb(token); }
@@ -32,15 +34,16 @@
                 player.addListener('player_state_changed', state => {
                     //@todo make general song entity
                     let song = state.track_window.current_track;
-                     this.$emit('player_state_changed', {
-                        'title' : song.name,
-                        'artist_title' : song.artists[0].name,
-                        'id' : song.id,
-                        'big_image' : song.album.images[0].url
-                     });
-                     if (state.paused === true && state.position === 0) {
-                        this.next();
-                     }
+                    if (this.song.name !== song.name) {
+                        this.song = song;
+
+                        this.$emit('player_state_changed', {
+                            'title' : song.name,
+                            'artist_title' : song.artists[0].name,
+                            'id' : song.id,
+                            'big_image' : song.album.images[0].url
+                        });
+                    }
                 });
 
                 // Ready
@@ -56,7 +59,11 @@
             };
         },
 
-        props : {'accessToken' : {default: ''}, 'roomName': {default: ''}, 'roomKey' : {default: ''}},
+        props : {
+            'accessToken' : {default: ''},
+            'roomName': {default: ''},
+            'roomKey' : {default: ''}
+        },
 
         methods : {
             storeDeviceId(deviceId) {
