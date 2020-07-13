@@ -37,6 +37,11 @@
                 </div>
             </div>
         </div>
+        <div class="song-details">
+            <h3 class="current-song-title">{{ currentSong.title }}</h3>
+            <h5 class="current-song-artist">{{currentSong.artist_title}}</h5>
+            <h6 v-show="currentSong.added_by" class="current-song-added-by" :class="{show : showSongDetails}">Added by {{currentSong.added_by}}</h6>
+        </div>
         <div class="waves-wrapper">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1197.27 1593.76">
                 <path class="cls-wave" d="M1134.43,382.39c-17.71-3.56-21.72-30.74-32.82-42.87-13.89-15.18-34.26-17.86-53.34-11.9-45.08,14.1-81.8,99.34-134.71,57.62-17.25-13.59-28.1-30.21-50-37.22a92,92,0,0,0-55.52.43c-17,5.49-32.35,15.95-42.77,30.54-15.35,21.49-26.41,63.74-62.33,44.81-20.78-11-18.25-39.74-31.52-57.05S635.59,342.94,614.56,344c-22.06,1.11-43.56,9.48-61.16,22.68a111.58,111.58,0,0,0-21.16,20.71c-8.86,11.35-14.7,25.29-27.54,32.94-23.15,13.79-54.72,10.57-77.86-1.27a89.77,89.77,0,0,1-28.67-22.78c-8.28-10.14-12.1-24-23.13-31.71-13.45-9.42-33.35-5.08-48.35-1.77-20.34,4.48-38.21,14-46.58,33.95-6.52,15.55-10.21,32.48-30.77,33.35-18.26.78-27.19-15.33-36-28.53C202.28,385,190.16,371.77,171,364.79c-38.21-13.88-84.26.92-104.31,36.75"/>
@@ -55,11 +60,15 @@
         </div>
         <div class="search-wrapper">
             <div class="search-bar">
-                <div class="search-icon"></div>
+                <input type="search" v-model="songName" class="search-input" placeholder="Add Song" @keyup.enter="searchSongs(songName)" autofocus/>
+                <div class="search-icon" @click="searchSongs(songName)">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 111.32 124.77">
+                        <path class="cls-search" d="M88.42,80.32a4.31,4.31,0,0,1-.31-4.81s4.56-7,6.35-12.71A48.33,48.33,0,1,0,33.88,94.46C44.45,97.77,62,94.3,62,94.3A5.63,5.63,0,0,1,66.87,96l23.46,27.7a3,3,0,0,0,4.22.35l15.71-13.3a3,3,0,0,0,.35-4.23ZM47.55,75.41A28.46,28.46,0,1,1,76,47,28.45,28.45,0,0,1,47.55,75.41Z"/>
+                    </svg>
+                </div>
             </div>
         </div>
         <div class="room-heading">
-            <h2 class="room-code" :class="{roomCodeSearch : searchInputVisible}">{{code}}</h2>
             <div class="search-section">
                 <div class="search-icon" @click="toggleSearchInput()">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 55 56.97" v-show="!searchInputVisible"><title>search</title><path id="search" data-name="search" d="M54.16,51.89,40.6,37.79a23,23,0,1,0-4.42,4.05L49.84,56.05a3,3,0,0,0,4.32-4.16ZM23,6A17,17,0,1,1,6,23,17,17,0,0,1,23,6Z"/></svg>
@@ -112,50 +121,6 @@
             </div>
         </div>
 
-        <div class="player">
-            <div class="song-info">
-                <div class="album-cover"><img :src="currentSong.big_image"></div>
-                <div class="song-details">
-                    <h3 class="current-song-title">{{ currentSong.title }}</h3>
-                    <h5 class="current-song-artist">{{currentSong.artist_title}}</h5>
-                    <h6 v-show="currentSong.added_by" class="current-song-added-by" :class="{show : showSongDetails}">Added by {{currentSong.added_by}}</h6>
-                </div>
-            </div>
-            <div class="player-controls">
-                <div class="player-button disabled" :class="{ notDisabled : playNotDisabled}">
-                    <button class="skip-button previous" @click="previous()">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 45 51">
-                            <title>skip-previous</title>
-                            <path class="cls-1" d="M39.46,50.5a2,2,0,0,1-2-2V29.25L5.25,47.87a3.11,3.11,0,0,1-1.58.43A3.18,3.18,0,0,1,.5,45.13V5.87A3.17,3.17,0,0,1,5.25,3.12L37.5,21.75V2.46a2,2,0,0,1,2-2h3.08a2,2,0,0,1,2,2V48.54a2,2,0,0,1-2,2Z"/>
-                        </svg>
-                    </button>
-                    <button class="play-pause-button">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-                            <title>play-pause-button</title>
-                            <g id="play-pause-button">
-                                <g class="play-pause-circle">
-                                    <circle class="cls-1" cx="50" cy="50" r="49.5"/>
-                                </g>
-                                <g id="play" v-show="playSong" class="play-pause-action" @click="play">
-                                    <path class="cls-1" d="M39.67,73a3.18,3.18,0,0,1-3.17-3.17V30.52a3.18,3.18,0,0,1,3.17-3.17,3.11,3.11,0,0,1,1.58.43l34,19.64a3.15,3.15,0,0,1,0,5.47l-34,19.64a3.21,3.21,0,0,1-1.58.43Z"/>
-                                </g>
-                                <g id="pause" v-show="!playSong" class="play-pause-action" @click="pause">
-                                        <rect class="cls-1" x="33.5" y="27" width="11" height="46" rx="1.27" ry="1.27"/>
-                                        <rect class="cls-1" x="56.5" y="27" width="11" height="46" rx="1.27" ry="1.27"/>
-                                </g>
-                            </g>
-                        </svg>
-                    </button>
-                    <button class="skip-button" @click="next">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 45 51">
-                            <title>skip-next</title>
-                            <path class="cls-1" d="M39.46,50.5a2,2,0,0,1-2-2V29.25L5.25,47.87a3.11,3.11,0,0,1-1.58.43A3.18,3.18,0,0,1,.5,45.13V5.87A3.17,3.17,0,0,1,5.25,3.12L37.5,21.75V2.46a2,2,0,0,1,2-2h3.08a2,2,0,0,1,2,2V48.54a2,2,0,0,1-2,2Z"/>
-                        </svg>
-                    </button>
-                </div>
-            </div>
-
-        </div>
         <spotify-web-player
                             :accessToken="access_token"
                             :roomName="name"
