@@ -17,5 +17,6 @@ interface SpotifyGatewayInterface
     public function getMyCurrentPlaybackInfo();
     public function next(string $deviceId);
     public function previous(string $deviceId);
+    public function queueSong(string $songUri);
     public function delete(string $userId, string $playlistId, string $songId);
 }

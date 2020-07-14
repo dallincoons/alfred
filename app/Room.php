@@ -57,7 +57,7 @@ class Room extends Model
 
         $playlistTracks->each(function(ExternalSong $track) use ($tracksToAdd) {
             if (in_array($track->getId(), $tracksToAdd)) {
-                $this->createSong($track);
+                $this->createSong($track, 'Spotify');
             }
         });
 
@@ -133,13 +133,14 @@ class Room extends Model
 
     /**
      * @param ExternalSong $song
+     * @param string $addedByName
      * @return Song
      */
-    public function addSong(ExternalSong $song): Song
+    public function addSong(ExternalSong $song, string $addedByName): Song
     {
         $songId = $song->getId();
 
-        $song = $this->createSong($song);
+        $song = $this->createSong($song, $addedByName);
 
         SongAdded::dispatch($song);
 
@@ -217,17 +218,18 @@ class Room extends Model
 
     /**
      * @param ExternalSong $song
+     * @param string $addedByName
      * @return Song
      */
-    protected function createSong(ExternalSong $song)
+    protected function createSong(ExternalSong $song, string $addedByName)
     {
-        $song = Song::firstOrCreate([
+        $song = Song::create([
             'external_id' => $song->getId(),
             'title' => $song->getTitle(),
             'artist_title' => $song->getArtistTitle(),
             'duration' => $song->getDuration(),
             'big_image' => $song->getBigImage(),
-            'added_by' => \Session::get('guest_name', \Auth::user()->name),
+            'added_by' => $addedByName,
         ]);
         $this->songs()->attach($song);
 

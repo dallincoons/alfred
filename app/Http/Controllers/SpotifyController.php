@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Gateways\ExternalSong;
 use App\Gateways\PlaylistExternalSong;
 use App\Gateways\SpotifyGatewayInterface;
+use App\Http\Requests\QueueSongRequest;
 use App\Room;
 use App\Spotify;
 use App\SpotifyUser;
@@ -83,5 +84,27 @@ class SpotifyController extends Controller
             });
 
         return response()->json($songs->toArray());
+    }
+
+    public function currentlyPlayingSong()
+    {
+        $result = $this->spotify->currentlyPlayingSong();
+
+        return response()->json($result->toArray());
+    }
+
+    public function addSongToQueue(QueueSongRequest $request)
+    {
+        try {
+            $success = $this->spotify->queueSong($request->song_uri);
+        } catch (\Exception $e) {
+            return response($e->getMessage(), 500);
+        }
+
+        if (!$success) {
+            return response('song could not be added', 500);
+        }
+
+        return response('song added to queue', 200);
     }
 }

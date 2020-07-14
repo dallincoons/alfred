@@ -32,6 +32,11 @@ class RoomSongAPITest extends TestCase
             'playlistId' => $id
         ]);
 
+        $this->post('room/join', [
+            'room' => $room->code,
+            'guest_user_name' => 'Dallin',
+        ]);
+
         $response = $this->post('room/' . $room->getKey() . '/song', ['song' => ExternalSongFaker::validParams()]);
 
         $response->assertSuccessful();
@@ -40,6 +45,7 @@ class RoomSongAPITest extends TestCase
 
         $this->assertEquals($song->duration, 123456);
         $this->assertEquals($song->big_image, 'some_image.jpg');
+        $this->assertEquals('Dallin', $song->added_by);
     }
 
     /** @test */

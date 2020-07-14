@@ -20,7 +20,7 @@
                     <form action="room/join" method="POST" class="login-form flex flex-col">
                         {{ csrf_field() }}
                         <input name="room" placeholder="ROOM CODE" class="login-input border-grey-dark" />
-                        <input name="guest_user" placeholder="NAME" class="login-input border-grey-dark" />
+                        <input name="guest_user_name" placeholder="NAME" class="login-input border-grey-dark" />
                         <input type="submit" value="Jump on in" class="login-button bg-grey-dark"/>
                         <a href="/connect" class="owner-login">Login & Create Room</a>
                     </form>

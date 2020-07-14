@@ -11,6 +11,8 @@ Route::get('/not-premium', function() {
 Route::get('/connect', 'SpotifyController@connect');
 Route::get('/spotify-callback', 'SpotifyController@callback');
 Route::get('spotify/songs', 'SpotifyController@search');
+Route::get('spotify/currently-playing', 'SpotifyController@currentlyPlayingSong');
+Route::get('spotify/queue-song', 'SpotifyController@addSongToQueue');
 
 Route::resource('rooms', 'RoomController');
 Route::post('room/{room}/song', 'RoomSongController@store');

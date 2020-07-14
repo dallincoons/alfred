@@ -16,7 +16,12 @@ class Song
 
     public function raw()
     {
-        return $this->song['item'];
+        return data_get($this->song, 'item');
+    }
+
+    public function name()
+    {
+        return data_get($this->song, 'item.name');
     }
 
     /**
@@ -33,5 +38,18 @@ class Song
     public function id()
     {
         return data_get($this->song, 'item.id');
+    }
+
+    public function albumImages()
+    {
+        return data_get($this->song, 'item.album.images');
+    }
+
+    public function toArray()
+    {
+        return [
+            'name' => $this->name(),
+            'album_images' => $this->albumImages(),
+        ];
     }
 }

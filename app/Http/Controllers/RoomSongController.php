@@ -14,7 +14,7 @@ class RoomSongController extends Controller
     {
         $externalSong = new ExternalSong($request->input('song'));
 
-        $song = $room->addSong($externalSong);
+        $song = $room->addSong($externalSong, \Session::get('guest_name', 'Guest'));
 
         return response()->json($song);
     }
