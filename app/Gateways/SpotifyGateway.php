@@ -48,7 +48,7 @@ class SpotifyGateway implements SpotifyGatewayInterface
 
     public function createPlaylist(string $name, string $userId = null)
     {
-        $result = $this->api->createUserPlaylist($userId ?? \Auth::user()->spotify_id, [
+        $result = $this->api->createPlaylist([
             'name' => $name
         ]);
 
@@ -57,9 +57,7 @@ class SpotifyGateway implements SpotifyGatewayInterface
 
     public function addSong( string $playListId, string $songId, string $userId = null)
     {
-        $result = $this->api->addUserPlaylistTracks($userId ?? \Auth::user()->spotify_id, $playListId, $songId);
-
-        return $result;
+        return $this->api->addPlaylistTracks($playListId, $songId);
     }
 
     public function search(string $searchText)
@@ -74,7 +72,7 @@ class SpotifyGateway implements SpotifyGatewayInterface
 
     public function getPlaylistTracks(string $playlistId)
     {
-        return collect($this->api->getUserPlaylistTracks(\Auth::user()->spotify_id, $playlistId)->items)
+        return collect($this->api->getPlaylistTracks($playlistId)->items)
             ->map(function($songInfo) {
                 return new ExternalSong($songInfo->track);
             });
@@ -139,6 +137,6 @@ class SpotifyGateway implements SpotifyGatewayInterface
 
     public function delete(string $userId, string $playlistId, string $songId)
     {
-        $this->api->deleteUserPlaylistTracks($userId, $playlistId, [(object)['id' => $songId]]);
+        $this->api->deletePlaylistTracks($playlistId, [(object)['id' => $songId]]);
     }
 }

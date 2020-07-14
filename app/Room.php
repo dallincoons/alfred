@@ -61,7 +61,7 @@ class Room extends Model
 
         $playlistTracks->each(function(ExternalSong $track) use ($tracksToAdd) {
             if (in_array($track->getId(), $tracksToAdd)) {
-                $this->createSong($track);
+                $this->createSong($track, 'Spotify');
             }
         });
 
@@ -222,6 +222,7 @@ class Room extends Model
 
     /**
      * @param ExternalSong $song
+     * @param string $addedByName
      * @return Song
      */
     protected function createSong(ExternalSong $song, string $addedByName)
