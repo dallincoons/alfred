@@ -98,11 +98,17 @@
                 <div v-for="item in songs"  v-show="songSearched">
                     <div @click="addSong(rkey, item)" class="song-item search-song">
                         <div class="search-song-added">
-                            <span v-if="songIsNotAdded(item)" class="search-plus">+</span>
+                            <span v-if="songIsNotAdded(item)" class="search-plus">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 135.06 135.06">
+	                                <path class="cls-add" d="M105.41,57.53a3,3,0,0,0-3-3H83.53a3,3,0,0,1-3-3V32.91a3,3,0,0,0-3-3h-20a3,3,0,0,0-3,3V51.53a3,3,0,0,1-3,3H32.66a3,3,0,0,0-3,3v20a3,3,0,0,0,3,3H51.53a3,3,0,0,1,3,3v18.63a3,3,0,0,0,3,3h20a3,3,0,0,0,3-3V83.53a3,3,0,0,1,3-3h18.88a3,3,0,0,0,3-3Z"/>
+	                                <circle class="cls-add-circle" cx="67.53" cy="67.53" r="64.53"/>
+                                </svg>
+                            </span>
                             <div v-else class="search-check-wrapper">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 611.98 418.93" class="search-check">
-                                    <title>check</title>
-                                    <path d="M217.63,418.93h-.06a24.65,24.65,0,0,1-17.38-7.25L7.15,217.24A24.57,24.57,0,0,1,42,182.59l175.66,177L570,7.2A24.58,24.58,0,0,1,604.78,42L235,411.74A24.59,24.59,0,0,1,217.63,418.93Z"/></svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 135.06 135.06">
+                                    <rect class="cls-remove" x="30.03" y="54.53" width="75" height="26" rx="3"/>
+                                    <circle class="cls-remove-circle" cx="67.53" cy="67.53" r="64.53"/>
+                                </svg>
                             </div>
                         </div>
                         <span class="song-title">{{item.name}}</span>
