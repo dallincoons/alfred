@@ -84,4 +84,11 @@ class SpotifyController extends Controller
 
         return response()->json($songs->toArray());
     }
+
+    public function currentlyPlayingSong()
+    {
+        $result = $this->spotify->currentlyPlayingSong();
+
+        return response()->json($result->toArray());
+    }
 }
