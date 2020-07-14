@@ -1,4 +1,21 @@
 //Search
+.cls-search{fill:#3e3e42;}
+.search-wrapper {
+  padding: 1rem;
+}
+.search-bar {
+  background: @grey-lighter;
+  border-radius: 6px;
+  display: flex;
+  justify-content: flex-end;
+  opacity: .8;
+}
+.search-icon {
+  width: 10%;
+  padding: 6px 6px 0 0;
+}
+
+
 .search-section {
   display: flex;
   max-width: 90%;
@@ -11,9 +28,54 @@
 
 .search-input {
   background: none;
-  border-bottom: 2px solid #ffffff;
-  color: #ffffff;
-  width: 75%;
+  width: 100%;
+  padding: .5rem;
+}
+input[type="search"]
+{
+  font-size:2rem;
+}
+
+.close-search-wrapper {
+  display: none;
+}
+.searchingWrapper {
+  background: @grey-darker;
+  border-radius: 6px;
+  max-height: 70%;
+}
+.searching {
+  background: @grey-darker;
+  opacity: 1;
+}
+.searchingWrapper .search-bar {
+  background: @grey-darkest;
+  margin: 1rem;
+  border-radius: 6px;
+}
+.searching .search-input {
+  color: @grey-lightest;
+  background: @grey-darkest;
+  border-radius: 6px;
+}
+.searching .cls-search {
+  display: none;
+}
+.searching .close-search-wrapper {
+  display: flex;
+  width: 10%;
+}
+.close-search-wrapper svg {
+  width: 40%;
+}
+.cls-exit{fill:#f1f1f2;}
+
+.searched-songs-wrapper {
+  width: 100%;
+  background: @grey-darker;
+  max-height: 85%;
+  overflow: scroll;
+  padding: 0 1rem;
 }
 
 .search-button {
