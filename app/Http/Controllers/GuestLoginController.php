@@ -24,12 +24,13 @@ class GuestLoginController extends Controller
         $room = Room::where('code', $request->room)->first();
 
         if(!$room) {
-            throw new \Exception('Invalid room code');
+            return redirect()->back()->with('error', 'Invalid room code')->withInput();
         }
 
         \Auth::login($room->user, true);
 
         \Session::put('guest_name', $request->guest_user_name ?? 'Guest');
+        \Cookie::queue('guest_name', $request->guest_user_name);
 
         return redirect('/rooms/' . $room->getKey());
     }
