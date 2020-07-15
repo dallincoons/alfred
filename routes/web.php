@@ -1,8 +1,6 @@
 <?php
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'WelcomeController@show');
 
 Route::get('/not-premium', function() {
     return view('not-premium');
