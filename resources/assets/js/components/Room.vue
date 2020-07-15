@@ -80,8 +80,8 @@
                 </div>
             </div>
         </div>
-        <div class="search-wrapper" v-bind:class="{searchingWrapper : songSearched}">
-            <div class="search-bar" v-bind:class="{searching : songSearched}">
+        <div class="search-wrapper" :class="{searchingWrapper : songSearched}">
+            <div class="search-bar">
                 <input type="search" v-model="songName" class="search-input"  @keyup.enter="searchSongs(songName)" autofocus/>
                 <div class="search-icon" @click="searchSongs(songName)">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 111.32 124.77">
@@ -95,16 +95,16 @@
                 </div>
             </div>
             <div class="searched-songs-wrapper">
-                <div v-for="item in songs"  v-show="songSearched">
+                <div v-for="item in songs"  >
                     <div @click="addSong(rkey, item)" class="song-item search-song">
-                        <div class="search-song-added">
-                            <span v-if="songIsNotAdded(item)" class="search-plus">
+                        <div class="add-remove-songs-wrapper">
+                            <div v-if="songIsNotAdded(item)" class="add-song-wrapper">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 135.06 135.06">
 	                                <path class="cls-add" d="M105.41,57.53a3,3,0,0,0-3-3H83.53a3,3,0,0,1-3-3V32.91a3,3,0,0,0-3-3h-20a3,3,0,0,0-3,3V51.53a3,3,0,0,1-3,3H32.66a3,3,0,0,0-3,3v20a3,3,0,0,0,3,3H51.53a3,3,0,0,1,3,3v18.63a3,3,0,0,0,3,3h20a3,3,0,0,0,3-3V83.53a3,3,0,0,1,3-3h18.88a3,3,0,0,0,3-3Z"/>
 	                                <circle class="cls-add-circle" cx="67.53" cy="67.53" r="64.53"/>
                                 </svg>
-                            </span>
-                            <div v-else class="search-check-wrapper">
+                            </div>
+                            <div v-else class="remove-song-wrapper">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 135.06 135.06">
                                     <rect class="cls-remove" x="30.03" y="54.53" width="75" height="26" rx="3"/>
                                     <circle class="cls-remove-circle" cx="67.53" cy="67.53" r="64.53"/>

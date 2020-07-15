@@ -2,6 +2,11 @@
 .cls-search{fill:#3e3e42;}
 .search-wrapper {
   padding: 1rem;
+  border: 1px solid red;
+  background: @grey-lightest;
+  border-radius: 6px;
+  position: relative;
+  bottom: 0;
 }
 .search-bar {
   background: @grey-lighter;
@@ -9,6 +14,7 @@
   display: flex;
   justify-content: flex-end;
   opacity: .8;
+  margin: 1rem;
 }
 .search-icon {
   width: 10%;
@@ -16,10 +22,10 @@
 }
 
 
-.search-section {
-  display: flex;
-  max-width: 90%;
-}
+//.search-section {
+//  display: flex;
+//  max-width: 90%;
+//}
 
 .search-input-wrapper {
   display: flex;
@@ -37,92 +43,74 @@ input[type="search"]
 }
 
 .close-search-wrapper {
-  display: none;
+  display: flex;
+  width: 0;
+  opacity: 0;
 }
 .searchingWrapper {
   background: @grey-darker;
-  border-radius: 6px;
   max-height: 70%;
-}
-.searching {
-  background: @grey-darker;
-  opacity: 1;
+  bottom: 10%;
+  overflow: scroll;
+  transition: all 2s ease-in-out 1s;
 }
 .searchingWrapper .search-bar {
   background: @grey-darkest;
-  margin: 1rem;
+  opacity: 1;
   border-radius: 6px;
+  transition: all 2s ease-in-out 1s;
 }
-.searching .search-input {
+.searchingWrapper .search-input {
   color: @grey-lightest;
   background: @grey-darkest;
   border-radius: 6px;
+  transition: all 2s ease-in-out 1s;
 }
-.searching .cls-search {
-  display: none;
+.searchingWrapper .cls-search {
+  opacity: 0;
+  width: 0;
+  transition: all 2s ease-in-out 1s;
 }
-.searching .close-search-wrapper {
-  display: flex;
+.searchingWrapper .close-search-wrapper {
   width: 10%;
+  opacity: 1;
+  transition: all 2s ease-in-out 1s;
 }
 .close-search-wrapper svg {
   width: 40%;
 }
 .cls-exit{fill:#f1f1f2;}
-
 .searched-songs-wrapper {
-  width: 100%;
-  background: @grey-darker;
-  max-height: 85%;
-  overflow: scroll;
-  padding: 0 1rem;
+  height: 5%;
+  opacity: 0;
+  transition: all 2s ease-in-out 2s;
 }
-
-.search-button {
-  background: #ffffff;
-  color: #904e95;
-  padding: .5rem;
-  margin: 0 .5rem 0 0;
-  cursor: pointer;
-  transition: all 1s ease-in-out;
-  width: 25%;
-
+.searchingWrapper .searched-songs-wrapper {
+  height: 30%;
+  opacity: 1;
+  transition: all 2s ease-in-out 2s;
 }
+//.searched-songs-wrapper {
+//  width: 100%;
+//  background: @grey-darker;
+//  opacity: 0;
+//  height: 0;
+//  overflow: scroll;
+//  padding: 0 1rem;
+//  transition: all .2s ease-in-out;
+//}
+//
+//.searchingWrapper .searched-songs-wrapper {
+//  height: 85%;
+//  max-height: 85%;
+//  opacity: 1;
+//  transition: all 2s ease-in-out 3s;
+//}
 
-.search-button:hover {
-  background: #904e95;
-  color: #ffffff;
-}
 
-.search-icon {
-  //width: 30px;
-  //height: 30px;
-  //fill: #ffffff;
-  //margin: .5rem .5rem 0 0;
-  //cursor: pointer;
-}
 
-.search-close {
-  width: 15px;
-  height: 15px;
-  margin: 1rem .2rem 0 -1rem;
-  fill: #ffffff;
-  stroke: #ffffff;
-  stroke-width: 3px;
-  z-index: 50;
-  cursor: pointer;
-}
 
-.search-plus {
-  font-size: 2rem;
-  font-weight: 300;
-}
 
-.search-check {
-  width: 20px;
-  height: 20px;
-  fill: #ffffff;
-}
 
 .search-song {
   cursor: pointer;
