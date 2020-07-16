@@ -3,10 +3,10 @@
 .search-wrapper {
   padding: 1rem;
   border: 1px solid red;
-  background: @grey-lightest;
   border-radius: 6px;
   position: relative;
-  bottom: 0;
+  transform: 0;
+  height: 15%;
 }
 .search-bar {
   background: @grey-lighter;
@@ -47,13 +47,17 @@ input[type="search"]
   width: 0;
   opacity: 0;
 }
-.searchingWrapper {
-  background: @grey-darker;
-  max-height: 70%;
-  bottom: 10%;
-  overflow: scroll;
+.searchActive .room-content {
+  height: 5%;
   transition: all 2s ease-in-out 1s;
 }
+.searchingWrapper {
+  background: @grey-darker;
+  overflow: scroll;
+  height: 75%;
+  transition: all 2s ease-in-out 1s;
+}
+
 .searchingWrapper .search-bar {
   background: @grey-darkest;
   opacity: 1;
@@ -90,6 +94,7 @@ input[type="search"]
   opacity: 1;
   transition: all 2s ease-in-out 2s;
 }
+
 //.searched-songs-wrapper {
 //  width: 100%;
 //  background: @grey-darker;

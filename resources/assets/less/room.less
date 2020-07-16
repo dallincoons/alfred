@@ -1,12 +1,23 @@
 //Room
+.room-wrapper {
+  background: #f1f1f2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 50%;
+  margin: 0 auto;
+  transition: all 2s ease-in-out 1s;
+
+}
 .main-wrapper {
-  background: @grey-lightest;
+  height: 100vh;
 }
 
 .room-header {
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: 25%;
 }
 .room-header .logo-wrapper {
   margin: .2rem 0 .5rem 0;
@@ -25,14 +36,19 @@
   margin: 0 5% 20% 0;
   opacity: .5;
 }
+.room-content {
+  overflow: hidden;
+  height: 60%;
+}
 .song-icon, .playlist-icon {
   width: 35%;
 }
 .cls-song{fill:#3e3e42;}
 .cls-playlist{fill:#3e3e42;}
 .waves-wrapper {
-  height: 36%;
+  //height: 36%;
   overflow: hidden;
+  padding: 2rem 0 0 0;
 }
 
 
