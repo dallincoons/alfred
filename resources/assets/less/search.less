@@ -78,7 +78,7 @@ input[type="search"]
 .searchingWrapper .close-search-wrapper {
   width: 10%;
   opacity: 1;
-  transition: all 2s ease-in-out 1s;
+  //transition: all 2s ease-in-out 1s;
 }
 .close-search-wrapper svg {
   width: 40%;
@@ -87,14 +87,23 @@ input[type="search"]
 .searched-songs-wrapper {
   height: 5%;
   opacity: 0;
+  padding: 0 1.2rem;
   transition: all 2s ease-in-out 2s;
 }
 .searchingWrapper .searched-songs-wrapper {
   height: 30%;
   opacity: 1;
   transition: all 2s ease-in-out 2s;
+  display: flex;
+  flex-direction: column;
 }
-
+.searchingWrapper .song-info {
+  display: flex;
+  flex-direction: column;
+}
+.searchingWrapper .song-added-by {
+  opacity: 1;
+}
 //.searched-songs-wrapper {
 //  width: 100%;
 //  background: @grey-darker;

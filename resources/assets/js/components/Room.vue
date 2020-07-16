@@ -108,7 +108,11 @@
                 </div>
             </div>
             <div class="searched-songs-wrapper" v-show="songSearched">
-                <div v-for="item in songs"  >
+                <div v-for="item in songs"  class="song-wrapper">
+                    <div class="song-info">
+                        <span class="song-title">{{item.name}}</span>
+                        <div class="song-artist">{{ item.album.artists[0].name }} <span class="song-added-by"> | {{item.added_by}}</span></div>
+                    </div>
                     <div @click="addSong(rkey, item)" class="song-item search-song">
                         <div class="add-remove-songs-wrapper">
                             <div v-if="songIsNotAdded(item)" class="add-song-wrapper">
@@ -124,9 +128,6 @@
                                 </svg>
                             </div>
                         </div>
-                        <span class="song-title">{{item.name}}</span>
-                        <span class="song-artist">{{ item.album.artists[0].name }}</span>
-                        <h6 class="current-song-added-by">Added by {{item.added_by}}</h6>
                     </div>
                 </div>
             </div>
