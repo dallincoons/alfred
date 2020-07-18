@@ -1,9 +1,10 @@
 /node_modules
-!/public/serviceworker.js
 /public
 /public/hot
 /public/storage
 /public/css/app.css
+!/public/serviceworker.js
+!/public/images/icons/*
 /storage/*.key
 /vendor
 /.idea
