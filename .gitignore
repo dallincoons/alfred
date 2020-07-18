@@ -1,4 +1,5 @@
 /node_modules
+!/public/serviceworker.js
 /public
 /public/hot
 /public/storage
