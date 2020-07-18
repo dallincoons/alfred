@@ -27,17 +27,15 @@
                         <rect class="cls-song" x="68.06" y="10.59" width="7.94" height="49.28" rx="3"/>
                     </svg>
                 </div>
-                <div class="playlist-icon" @click="showPlaylist()">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 66.01 50.55">
-                        <rect class="cls-playlist" y="14.18" width="66.01" height="8" rx="3"/>
-                        <rect class="cls-playlist" y="27.82" width="66.01" height="8.55" rx="3"/>
-                        <rect class="cls-playlist" y="42" width="66.01" height="8.55" rx="3"/>
-                        <rect class="cls-playlist" width="66.01" height="8.55" rx="3"/>
-                    </svg>
+                <div class="playlist-icon" @click="showPlaylist()" :class="{playlistClose : playlistVisible}">
+                    <span class="hamburger-line line-1"></span>
+                    <span class="hamburger-line line-2"></span>
+                    <span class="hamburger-line line-3"></span>
+                    <span class="hamburger-line line-4"></span>
                 </div>
             </div>
         </div>
-        <div class="room-content">
+        <div class="room-content" :class="{expandHeight : playlistVisible}">
             <div class="song-details">
                 <h3 class="current-song-title">{{ currentSong.title }}</h3>
                 <h5 class="current-song-artist">{{currentSong.artist_title}}</h5>
@@ -59,9 +57,9 @@
                     <path class="cls-wave" d="M1154.37,1401.79c-9.78,43.09-59.84,73.1-102.31,56.36-43.34-17.08-67.55-69.53-120-65.68-18.65,1.37-32.13,11.8-42.87,26.49-13.76,18.82-38.08,49.58-65.87,35-18.53-9.76-21.09-37.55-34.67-52.62-11.54-12.82-27.38-21.64-44.08-25.67-38.83-9.37-69.54,7.11-94,36.36-16.77,20-33.52,39.64-62.2,37.6-31.25-2.21-44.11-28.77-63.51-48.64-27-27.65-70.4-35-104.23-15-17.46,10.34-27.7,27.6-41.21,42.12-22.68,24.36-51.33,22.41-74.4,0-29.14-28.34-54.31-62.14-99-39.75-22.83,11.45-40.21,33.32-65.12,40.75-28,8.36-57.55-2.6-75.83-24.67"/>
                 </svg>
             </div>
+            <div class="buffer" v-show="playlistVisible"></div>
             <div class="playlist-wrapper" v-show="playlistVisible">
-                
-                <div class="songs-section" v-show="!songSearched">
+                <div class="playlist-songs-section" v-show="!songSearched">
                     <div v-for="song in room_songs" class="playlist-song-wrapper">
                         <div class="playlist-song-info">
                             <span class="song-title" @click="playSelectedSong(song.id)">{{ song.title }}</span>
