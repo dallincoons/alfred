@@ -30,9 +30,23 @@
     height: 7%;
     margin: 1rem 0;
   }
+  .song-wrapper {
+    display: grid;
+    grid-template-columns: 80% 20%;
+    margin: 0 0 1.5rem 0;
+  }
+
   .song-item {
-    width: 10%;
+    width: 50%;
     margin-right: .5rem;
+    justify-self: end;
+  }
+
+  .search-song {
+    transition: none;
+  }
+  .search-song:hover {
+    padding-left: 0;
   }
 }
 
@@ -65,16 +79,6 @@
     align-items: center;
   }
 
-
-  .main-wrapper {
-    //display: flex;
-    //flex-direction: column;
-    //justify-items: center;
-    //align-items: center;
-  }
-  .room-header {
-    //width: 40%;
-  }
   .room-actions {
     margin: 0 0 2rem 0;
   }
@@ -83,15 +87,6 @@
   }
   .main-wrapper .logo-wrapper {
     width: 100%;
-  }
-  .main-wrapper .waves-wrapper {
-    //width: 40%;
-  }
-  .search-wrapper {
-    //width: 40%;
-  }
-  .main-background .logo-wrapper {
-    //width: 35%;
   }
   .main-background .waves-wrapper {
     height: 80%;
