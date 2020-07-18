@@ -95,7 +95,7 @@
         </div>
         <div class="search-wrapper" :class="{searchingWrapper : songSearched}">
             <div class="search-bar">
-                <input type="search" v-model="songName" class="search-input"  @keyup.enter="searchSongs(songName)" autofocus/>
+                <input type="search" v-model="songName" class="search-input"  @keydown.enter="searchSongs(songName)" @keyup.enter="$event.target.blur()" />
                 <div class="search-icon" @click="searchSongs(songName)">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 111.32 124.77">
                         <path class="cls-search" d="M88.42,80.32a4.31,4.31,0,0,1-.31-4.81s4.56-7,6.35-12.71A48.33,48.33,0,1,0,33.88,94.46C44.45,97.77,62,94.3,62,94.3A5.63,5.63,0,0,1,66.87,96l23.46,27.7a3,3,0,0,0,4.22.35l15.71-13.3a3,3,0,0,0,.35-4.23ZM47.55,75.41A28.46,28.46,0,1,1,76,47,28.45,28.45,0,0,1,47.55,75.41Z"/>
@@ -106,6 +106,10 @@
                         <path class="cls-exit" d="M64.25,48.46A3,3,0,0,0,64,44.23l-12.52-11A3,3,0,0,1,51.19,29L62,16.65a3,3,0,0,0-.27-4.23L48.48.74A3,3,0,0,0,44.25,1L33.4,13.36a3,3,0,0,1-4.23.27l-12.52-11a3,3,0,0,0-4.23.28L.74,16.19A3,3,0,0,0,1,20.43l12.51,11a3,3,0,0,1,.27,4.24L3,48a3,3,0,0,0,.27,4.23L16.51,63.91a3,3,0,0,0,4.24-.27L31.59,51.29A3,3,0,0,1,35.83,51L48.34,62a3,3,0,0,0,4.24-.27Z"/>
                     </svg>
                 </div>
+            </div>
+            <div class="add-or-queue-wrapper" v-show="songSearched">
+                <div class="add-song selected">Add</div>
+                <div class="que-song">Queue</div>
             </div>
             <div class="searched-songs-wrapper" v-show="songSearched">
                 <div v-for="item in songs"  class="song-wrapper">
@@ -217,6 +221,7 @@
           },
 
            searchSongs(song) {
+                this.scrollSearch();
                axios.get('/spotify/songs?q=' + song + '&room=' + this.rkey).then((response) => {
                    this.songs = response.data.map((song) => {
                         song.checked = false;
@@ -312,6 +317,14 @@
                     this.currentSong = song;
                 }
             },
+
+            scrollSearch(){
+                let search = document.getElementsByClassName('search-wrapper');
+                search[0].scrollTo(0,search[0].scrollHeight);
+            },
+
+
+
         }
     }
 </script>
