@@ -10,6 +10,8 @@
 
     <title>{{ config('app.name', 'Pool Party') }}</title>
 
+    @laravelPWA
+
     <!-- Fonts -->
     <link rel="stylesheet" href="https://use.typekit.net/tns4icu.css">
 
