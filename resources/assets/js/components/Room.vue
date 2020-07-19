@@ -17,8 +17,8 @@
             </div>
             <div class="song-actions-wrapper" :class="{justifyItems : currentSongVisible}">
                 <div class="song-details" v-show="currentSongVisible" :class="{songVisible : currentSongVisible}">
-                    <h3 class="current-song-title">Placeholder{{ currentSong.title }}</h3>
-                    <h5 class="current-song-artist">Placeholder{{currentSong.artist_title}} <span class="current-song-added-by"> | {{currentSong.added_by}}</span></h5>
+                    <h3 class="current-song-title">{{ currentSong.name }}</h3>
+                    <h5 class="current-song-artist">{{currentSong.artist}} <span class="current-song-added-by"> | {{currentSong.added_by}}</span></h5>
                 </div>
                 <div class="room-actions">
                     <div class="song-icon"  @click="showCurrentSong()" :class="{animateSongIcon : currentSongVisible}">
@@ -71,7 +71,7 @@
                         <div class="playlist-song-info">
                             <span class="song-title" @click="playSelectedSong(song.id)">{{ song.title }}</span>
                             <span class="song-artist">{{song.artist_title}}</span>
-                            <h6 v-show="currentSong.added_by" class="current-song-added-by" :class="{show : showSongDetails}">Added by {{currentSong.added_by}}</h6>
+                            <h6>Added by {{song.added_by}}</h6>
                         </div>
                         <span class="playlist-song-delete" @click="deleteSong(song)">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 135.06 135.06">
@@ -137,23 +137,6 @@
                 </div>
             </div>
         </div>
-        <!--<div class="room-heading">-->
-            <!--<div class="search-section">-->
-                <!--<div class="search-icon" @click="toggleSearchInput()">-->
-                    <!--<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 55 56.97" v-show="!searchInputVisible"><title>search</title><path id="search" data-name="search" d="M54.16,51.89,40.6,37.79a23,23,0,1,0-4.42,4.05L49.84,56.05a3,3,0,0,0,4.32-4.16ZM23,6A17,17,0,1,1,6,23,17,17,0,0,1,23,6Z"/></svg>-->
-                <!--</div>-->
-
-                <!--<div v-show="searchInputVisible" class="search-input-wrapper">-->
-                    <!--<input type="search" v-model="songName" class="search-input" @keyup.enter="searchSongs(songName)" autofocus/>-->
-                    <!--<div @click="closeSearch()">-->
-                        <!--<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 59.72 76.62" v-show="searchInputVisible" class="search-close" >-->
-                            <!--<title>close</title><path id="close" class="search-close" d="M59.37,71.9,34,35.66l21.68-31A1.94,1.94,0,0,0,55.17,2L52.81.35a1.94,1.94,0,0,0-2.7.48l-20.26,29L9.57.84A1.94,1.94,0,0,0,6.87.36L4.51,2A1.93,1.93,0,0,0,4,4.72l21.69,31L.35,71.92a1.94,1.94,0,0,0,.48,2.7l2.36,1.65a1.94,1.94,0,0,0,2.7-.48l24-34.24,24,34.23a1.93,1.93,0,0,0,2.7.47l2.35-1.65A1.94,1.94,0,0,0,59.37,71.9Z"/>-->
-                        <!--</svg>-->
-                    <!--</div>-->
-                    <!--<button @click="searchSongs(songName)" class="search-button">Search</button>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</div>-->
 
     </div>
 </template>
@@ -327,13 +310,14 @@
             },
 
             showPlaylist() {
-                console.log(this.playlistVisible);
                 this.playlistVisible = !this.playlistVisible;
             },
             showCurrentSong() {
-                this.currentSongVisible = !this.currentSongVisible;
+                axios.get('/spotify/currently-playing').then(response => {
+                    this.currentSong = response.data;
+                    this.currentSongVisible = !this.currentSongVisible;
+                });
             }
-
         }
     }
 </script>

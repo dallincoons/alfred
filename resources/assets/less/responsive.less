@@ -7,7 +7,47 @@
     height: 50%;
     transition: all .2s ease-in-out;
   }
-  .expandHeight {
+  .expandHeight {//Songs
+    .cls-add{fill:#f1f1f2;}.cls-add-circle{fill:none;stroke:#f1f1f2;stroke-miterlimit:10;stroke-width:6px;}
+    .cls-remove{fill:#f1f1f2;}.cls-remove-circle{fill:none;stroke:#f1f1f2;stroke-miterlimit:10;stroke-width:6px;}
+
+    .songs-section {
+      margin: 1rem 1rem 5rem 1rem;
+    }
+    .song-wrapper {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 2rem;
+    }
+    .song-info {
+      color: @grey-lightest;
+    }
+    .song-item {
+      width: 5%;
+      color: @grey-lightest;
+      margin-right: 1.5rem;
+    }
+
+    .song-title {
+      font-weight: 500;
+      font-size: 1.5rem;
+      max-width: 300px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      cursor: pointer;
+    }
+
+    .song-artist {
+      font-style: italic;
+      font-size: 1rem;
+      font-weight: 300;
+      opacity: .7;
+      max-width: 300px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
     height: 65%;
     transition: all .2s ease-in-out;
   }

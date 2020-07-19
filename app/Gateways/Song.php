@@ -9,9 +9,16 @@ class Song
      */
     private $song;
 
+    private $name;
+
     public function __construct($song)
     {
         $this->song = $song;
+    }
+
+    public function setContributorName(string $name)
+    {
+        $this->name = $name;
     }
 
     public function raw()
@@ -45,11 +52,19 @@ class Song
         return data_get($this->song, 'item.album.images');
     }
 
+    public function artist()
+    {
+        return data_get($this->song, 'item.artists.0.name');
+    }
+
     public function toArray()
     {
         return [
             'name' => $this->name(),
+            'artist' => $this->artist(),
+            'added_by' => $this->name,
             'album_images' => $this->albumImages(),
+            'id' => $this->id(),
         ];
     }
 }

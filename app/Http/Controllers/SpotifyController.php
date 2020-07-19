@@ -7,6 +7,7 @@ use App\Gateways\PlaylistExternalSong;
 use App\Gateways\SpotifyGatewayInterface;
 use App\Http\Requests\QueueSongRequest;
 use App\Room;
+use App\Song;
 use App\Spotify;
 use App\SpotifyUser;
 use App\User;
@@ -89,6 +90,10 @@ class SpotifyController extends Controller
     public function currentlyPlayingSong()
     {
         $result = $this->spotify->currentlyPlayingSong();
+
+        $songInfo = Song::where('external_id', $result->id())->first();
+
+        $result->setContributorName(optional($songInfo)->added_by ?? 'Guest');
 
         return response()->json($result->toArray());
     }
