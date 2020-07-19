@@ -15,32 +15,35 @@
                     <path class="cls-pool" d="M309.34,97.62v-93h18.91V82.9h41.69V97.62Z"/>
                 </svg>
             </div>
-            <div class="room-actions">
-                <div class="song-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 76 70.9">
-                        <rect class="cls-song" y="16.87" width="7.94" height="36.83" rx="3"/>
-                        <rect class="cls-song" x="10.91" y="10.59" width="7.94" height="49.28" rx="3"/>
-                        <rect class="cls-song" x="22.51" width="7.94" height="70.9" rx="3"/>
-                        <rect class="cls-song" x="33.85" y="15.44" width="7.94" height="40.02" rx="3"/>
-                        <rect class="cls-song" x="45.59" y="20.73" width="7.94" height="29.44" rx="3"/>
-                        <rect class="cls-song" x="57.03" y="4.41" width="7.94" height="62.07" rx="3"/>
-                        <rect class="cls-song" x="68.06" y="10.59" width="7.94" height="49.28" rx="3"/>
-                    </svg>
+            <div class="song-actions-wrapper" :class="{justifyItems : currentSongVisible}">
+                <div class="song-details" v-show="currentSongVisible" :class="{songVisible : currentSongVisible}">
+                    <h3 class="current-song-title">Placeholder{{ currentSong.title }}</h3>
+                    <h5 class="current-song-artist">Placeholder{{currentSong.artist_title}} <span class="current-song-added-by"> | {{currentSong.added_by}}</span></h5>
                 </div>
-                <div class="playlist-icon" @click="showPlaylist()" :class="{playlistClose : playlistVisible}">
-                    <span class="hamburger-line line-1"></span>
-                    <span class="hamburger-line line-2"></span>
-                    <span class="hamburger-line line-3"></span>
-                    <span class="hamburger-line line-4"></span>
+                <div class="room-actions">
+                    <div class="song-icon"  @click="showCurrentSong()" :class="{animateSongIcon : currentSongVisible}">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 76 70.9">
+                            <rect class="cls-song song-line-1" y="16.87" width="7.94" height="36.83" rx="3"/>
+                            <rect class="cls-song song-line-2" x="10.91" y="10.59" width="7.94" height="49.28" rx="3"/>
+                            <rect class="cls-song song-line-3" x="22.51" width="7.94" height="70.9" rx="3"/>
+                            <rect class="cls-song song-line-4" x="33.85" y="15.44" width="7.94" height="40.02" rx="3"/>
+                            <rect class="cls-song song-line-5" x="45.59" y="20.73" width="7.94" height="29.44" rx="3"/>
+                            <rect class="cls-song song-line-6" x="57.03" y="4.41" width="7.94" height="62.07" rx="3"/>
+                            <rect class="cls-song song-line-7" x="68.06" y="10.59" width="7.94" height="49.28" rx="3"/>
+                        </svg>
+                    </div>
+                    <div class="playlist-icon" @click="showPlaylist()" :class="{playlistClose : playlistVisible}">
+                        <span class="hamburger-line line-1"></span>
+                        <span class="hamburger-line line-2"></span>
+                        <span class="hamburger-line line-3"></span>
+                        <span class="hamburger-line line-4"></span>
+                    </div>
                 </div>
             </div>
+
         </div>
         <div class="room-content" :class="{expandHeight : playlistVisible}">
-            <div class="song-details">
-                <h3 class="current-song-title">{{ currentSong.title }}</h3>
-                <h5 class="current-song-artist">{{currentSong.artist_title}}</h5>
-                <h6 v-show="currentSong.added_by" class="current-song-added-by" :class="{show : showSongDetails}">Added by {{currentSong.added_by}}</h6>
-            </div>
+
             <div class="waves-wrapper" v-show="!playlistVisible">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1197.27 1593.76">
                     <path class="cls-wave" d="M1134.43,382.39c-17.71-3.56-21.72-30.74-32.82-42.87-13.89-15.18-34.26-17.86-53.34-11.9-45.08,14.1-81.8,99.34-134.71,57.62-17.25-13.59-28.1-30.21-50-37.22a92,92,0,0,0-55.52.43c-17,5.49-32.35,15.95-42.77,30.54-15.35,21.49-26.41,63.74-62.33,44.81-20.78-11-18.25-39.74-31.52-57.05S635.59,342.94,614.56,344c-22.06,1.11-43.56,9.48-61.16,22.68a111.58,111.58,0,0,0-21.16,20.71c-8.86,11.35-14.7,25.29-27.54,32.94-23.15,13.79-54.72,10.57-77.86-1.27a89.77,89.77,0,0,1-28.67-22.78c-8.28-10.14-12.1-24-23.13-31.71-13.45-9.42-33.35-5.08-48.35-1.77-20.34,4.48-38.21,14-46.58,33.95-6.52,15.55-10.21,32.48-30.77,33.35-18.26.78-27.19-15.33-36-28.53C202.28,385,190.16,371.77,171,364.79c-38.21-13.88-84.26.92-104.31,36.75"/>
@@ -59,6 +62,10 @@
             </div>
             <div class="buffer" v-show="playlistVisible"></div>
             <div class="playlist-wrapper" v-show="playlistVisible">
+                <div class="add-or-queue-wrapper" v-show="playlistVisible">
+                    <div class="add-song selected">Added</div>
+                    <div class="que-song">Queue Up</div>
+                </div>
                 <div class="playlist-songs-section" v-show="!songSearched">
                     <div v-for="song in room_songs" class="playlist-song-wrapper">
                         <div class="playlist-song-info">
@@ -103,7 +110,7 @@
             </div>
             <div class="add-or-queue-wrapper" v-show="songSearched">
                 <div class="add-song selected">Add</div>
-                <div class="que-song">Queue</div>
+                <div class="que-song">Queue Up</div>
             </div>
             <div class="searched-songs-wrapper" v-show="songSearched">
                 <div v-for="item in songs"  class="song-wrapper">
@@ -174,6 +181,7 @@
                 playNotDisabled: false,
                 showSongDetails: false,
                 playlistVisible: false,
+                currentSongVisible: false
             }
         },
 
@@ -319,10 +327,12 @@
             },
 
             showPlaylist() {
-                console.log('hey');
+                console.log(this.playlistVisible);
                 this.playlistVisible = !this.playlistVisible;
+            },
+            showCurrentSong() {
+                this.currentSongVisible = !this.currentSongVisible;
             }
-
 
         }
     }
