@@ -22,11 +22,8 @@
                         @if ($errors)
                             <p>Incorrect room code, silly goose</p>
                         @endif
-                        <input name="room" placeholder="ROOM CODE" class="join-input bg-transparent border-bottom border-white text-white text-capitalize font-bold text-5xl w-3/4" />
-                        <input name="guest_user_name" placeholder="Name" class="join-input bg-transparent border-bottom border-white text-white text-capitalize font-bold text-5xl w-3/4" value="{{ old('guest_user_name') }}" />
-                        <input type="submit" value="Join" class="join-input w-1/5 h-12 self-end font-bold text-3xl text-purple-darkest cursor-pointer bg-button"/>
-                        <input name="room" placeholder="ROOM CODE" class="login-input border-grey-dark" />
-                        <input name="guest_user_name" placeholder="NAME" class="login-input border-grey-dark" />
+                        <input name="room" placeholder="ROOM CODE" class="login-input border-grey-dark text-capitalize" />
+                        <input name="guest_user_name" placeholder="NAME" class="login-input border-grey-dark text-capitalize" value="{{ old('guest_user_name') }}" />
                         <input type="submit" value="Jump on in" class="login-button bg-grey-dark"/>
                         <a href="/connect" class="owner-login">Login & Create Room</a>
                     </form>

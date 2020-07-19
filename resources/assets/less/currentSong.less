@@ -1,9 +1,40 @@
+.song-details {
+  display: block;
+  color: @grey-darker;
+}
+
+.songVisible .current-song-title{
+  opacity: 1;
+  margin-left: 1rem;
+  transition: all 1s ease-in-out;
+}
+.songVisible .current-song-artist {
+  opacity: 1;
+  margin-left: 1rem;
+  transition: all 1s ease-in-out;
+}
+.current-song-title {
+  font-size: 1.5rem;
+  opacity: 0;
+  margin: 0;
+  transition: all 1s ease-in-out;
+}
+
+.current-song-artist {
+  font-size: 1rem;
+  font-weight: 300;
+  font-style: italic;
+  opacity: 0;
+  margin: 0;
+  transition: all 1s ease-in-out;
+}
+.current-song-added-by {
+  display: inline-block;
+  opacity: 1;
+}
 //Songs
 .cls-add{fill:#f1f1f2;}.cls-add-circle{fill:none;stroke:#f1f1f2;stroke-miterlimit:10;stroke-width:6px;}
 .cls-remove{fill:#f1f1f2;}.cls-remove-circle{fill:none;stroke:#f1f1f2;stroke-miterlimit:10;stroke-width:6px;}
-.search-song-added {
-  margin-right: 1.2rem;
-}
 
 .songs-section {
   margin: 1rem 1rem 5rem 1rem;
@@ -25,8 +56,6 @@
 .song-title {
   font-weight: 500;
   font-size: 1.5rem;
-  grid-column: 1;
-  grid-row: 1;
   max-width: 300px;
   overflow: hidden;
   white-space: nowrap;
@@ -39,22 +68,8 @@
   font-size: 1rem;
   font-weight: 300;
   opacity: .7;
-  grid-column: 1;
-  grid-row: 2;
   max-width: 300px;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-}
-
-.song-delete {
-  grid-column: 2;
-  grid-row: 1 / span 2;
-  fill: #ffffff;
-  width: 15px;
-  cursor: pointer;
-}
-
-.album-cover {
-  display: none;
 }
