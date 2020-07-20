@@ -79,6 +79,7 @@
                                 <circle class="cls-remove-circle" cx="67.53" cy="67.53" r="64.53"/>
                             </svg>
                         </span>
+                        <span @click="queueSong(song.external_id)"></span>
                     </div>
                 </div>
                 <spotify-web-player
@@ -242,6 +243,15 @@
                     });
                 });
                 this.added = true;
+            },
+
+            queueSong(song_uri) {
+                //use 'id' for search  to pass to backend to queue
+                axios.post('/spotify/queue-song', {
+                    song_uri: song_uri,
+                }).then(response => {
+
+                })
             },
 
             play() {

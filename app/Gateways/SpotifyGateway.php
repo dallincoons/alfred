@@ -112,7 +112,7 @@ class SpotifyGateway implements SpotifyGatewayInterface
 
     public function queueSong(string $songUri)
     {
-        return $this->api->queue($songUri);
+        return $this->api->queue('spotify:track:' . $songUri);
     }
 
     public function currentlyPlayingSong(): Song
