@@ -1,5 +1,5 @@
 <template>
-    <div @click="queueSong(songId)" v-show="queueUpVisible" class="search-song-queue song-item">
+    <div @click="queueSong(songId)" v-show="queueUpVisible" class="search-song-queue">
         <span v-show="!queued">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 135.06 135.06">
                 <path class="cls-que" d="M66.29,42c-1.43-.83-2.6-.15-2.6,1.5V50.3a5.77,5.77,0,0,0,2.6,4.5l20.7,12c1.43.82,1.43,2.17,0,3l-20.7,12a5.76,5.76,0,0,0-2.6,4.5v4.14c0,1.65,1.17,2.32,2.6,1.5l40.55-23.41c1.43-.83,1.43-2.18,0-3Z"/>

@@ -78,7 +78,7 @@
                                 <circle class="cls-remove-circle" cx="67.53" cy="67.53" r="64.53"/>
                             </svg>
                         </span>
-                        <que-icon song-id="song.external_id" v-show="queueUpVisible"></que-icon>
+                        <que-icon song-id="song.external_id" v-show="queueUpVisible" class="playlist-queue-wrapper"></que-icon>
                     </div>
                 </div>
                 <spotify-web-player
@@ -134,7 +134,7 @@
                             </div>
                         </div>
                     </div>
-                    <que-icon song-id="item.id" v-show="queueUpVisible"></que-icon>
+                    <que-icon song-id="item.id" v-show="queueUpVisible" class="song-item"></que-icon>
                 </div>
             </div>
         </div>
