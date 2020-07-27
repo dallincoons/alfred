@@ -20,7 +20,19 @@
                     <form action="room/join" method="POST" class="login-form flex flex-col">
                         {{ csrf_field() }}
                         @if (count($errors))
-                            <p>Incorrect room code, silly goose</p>
+                            <div class="wrong-room-wrapper">
+                                <span class="wrong-room-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 113.1 127.78">
+                                        <polygon class="cls-feet-eye" points="37.55 103.58 36.31 116.54 16 124.27 39.28 122.52 38.54 103.58 37.55 103.58"/>
+                                        <polygon class="cls-feet-eye" points="56.18 102.94 57.72 115.86 39.52 127.78 61.89 121.07 57.14 102.72 56.18 102.94"/>
+                                        <path class="cls-body" d="M9.56,6.13s6.93-10,10.4-4.48S13,33.05,32.1,54.23s64.4,16.2,75.55,6.24l-1.74,4,7.19-3s-15.61,66.3-76.54,44.61c0,0-29.36,1.62-22.67-67.91,0,0,2-15-1-21.44S8.94,11.24,9.56,6.13Z"/>
+                                        <path class="cls-body" d="M16,7.5c0,.76-.33,1.37-.75,1.37s-.74-.61-.74-1.37.33-1.37.74-1.37S16,6.75,16,7.5Z"/>
+                                        <polygon class="cls-feet-eye" points="11.79 3.39 0 11.06 11.31 12.95 11.79 3.39"/>
+                                    </svg>
+                                </span>
+                                <p class="wrong-room-text">Ooops, incorrect room code, silly goose</p>
+                            </div>
+
                         @endif
                         <input name="room" placeholder="ROOM CODE" class="login-input border-grey-dark text-capitalize" />
                         <input name="guest_user_name" placeholder="NAME" class="login-input border-grey-dark text-capitalize" value="{{ old('guest_user_name') }}" />
