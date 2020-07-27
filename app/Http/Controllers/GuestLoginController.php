@@ -24,7 +24,7 @@ class GuestLoginController extends Controller
         $room = Room::where('code', $request->room)->first();
 
         if(!$room) {
-            return redirect()->back()->with('error', 'Invalid room code')->withInput();
+            return redirect()->back()->with('errors', ['Invalid room code'])->withInput();
         }
 
         \Auth::login($room->user, true);

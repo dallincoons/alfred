@@ -19,7 +19,7 @@
                 <div class="form-wrapper">
                     <form action="room/join" method="POST" class="login-form flex flex-col">
                         {{ csrf_field() }}
-                        @if ($errors)
+                        @if (count($errors))
                             <p>Incorrect room code, silly goose</p>
                         @endif
                         <input name="room" placeholder="ROOM CODE" class="login-input border-grey-dark text-capitalize" />
