@@ -1,21 +1,17 @@
 //Account
-.account-img {
-  border: 4px solid #ffffff;
-  border-radius: 50%;
-  margin: 3rem 0 0 0;
-  width: 200px;
-  height: 200px;
-}
-
-.account-img img {
-  border-radius: 50%;
-  width: 100%;
-  min-height: 100%;
-}
-
 .account-username {
-  color: #ffffff;
+  color: @grey-darkest;
+  text-transform: uppercase;
+  font-size: 2.5rem;
+  text-align: center;
   margin: 1rem 0;
+}
+
+.account-title {
+  display: block;
+  font-weight: 300;
+  text-transform: lowercase;
+  font-size: 1.5rem;
 }
 
 .logout-link {
@@ -27,23 +23,36 @@
 
 .account-options {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
-  margin: 0 1rem;
+  margin: 0 auto;
   width: 95%;
-  border: 2px solid #ffffff;
+  height: 40%;
 }
 
 .account-option {
-  color: #ffffff;
-  font-size: 1.2rem;
-  padding: .5rem;
-  width: 33%;
+  color: @grey-lightest;
+  font-size: 2rem;
   cursor: pointer;
+  background: @grey-darkest;
+  border-radius: 9px;
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
 }
 
-.active {
-  background: #ffffff;
-  color: #904e95;
+.option-icon-wrapper {
+  width: 2rem;
+}
+
+.rooms-icon {
+  transform: rotate(0);
+  transition: all .15s ease-in-out;
+}
+
+.active .rooms-icon {
+  transform: rotate(180deg);
+  transition: all .15s ease-in-out;
 }
 
 .account-content-wrapper {
@@ -55,18 +64,29 @@
 
 .rooms-list {
   list-style: none;
+  padding: 0 0 0 1rem;
 }
 
 .room-link {
   text-decoration: none;
-  color: white;
   font-size: 1.5rem;
   cursor: pointer;
   transition: padding-left .3s ease-in-out;
+  color: @grey-lightest;
 }
 
 .room-link:hover {
   padding-left: 1rem;
+}
+
+.active {
+  border-radius: 9px 9px 0 0;
+}
+
+.rooms-wrapper {
+  background: @grey-darker;
+  margin-top: -2rem;
+  border-radius: 0 0 9px 9px;
 }
 
 .rooms-list li {
@@ -75,33 +95,44 @@
 
 .room-action-wrapper {
   display: flex;
-  flex-direction: column;
-  align-items: center;
   width: 100%;
+  background: @grey-darker;
+  margin-top: -1rem;
+  border-radius: 0 0 9px 9px;
 }
 .room-action-wrapper form {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  padding: 1rem;
+  width: 100%;
+  justify-content: space-between;
+  align-items: baseline;
 }
 
 .room-input {
   background: none;
-  border-bottom: 2px solid #ffffff;
+  border-bottom: 3px solid #ffffff;
   color: #ffffff;
-  font-size: 2rem;
+  font-size: 1.5rem;
+  width: 60%;
+  height: 45%;
 }
 
 .room-button {
-  padding: 1rem;
-  background: #904e95;
-  color: #ffffff;
+  background: @grey-darker;
+  color: @grey-lightest;
+  border-radius: 6px;
+  border: @grey-lightest solid 3px;
   font-size: 1.5rem;
   margin: 1rem 0;
   cursor: pointer;
   transition: all .3s ease-in-out;
+  width: 30%;
+  text-align: center;
 }
 
 .room-button:hover {
-  background: #522D55;
+  background: @grey-darkest;
 }
+.cls-join{fill:#f1f1f2;}
+.cls-new{fill:#f1f1f2;}
+.cls-toggle{fill:#f1f1f2;}
