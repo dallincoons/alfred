@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Gateways\ExternalSong;
 use App\Gateways\PlaylistExternalSong;
+use App\Gateways\SongSearchGateway;
 use App\Gateways\SpotifyGatewayInterface;
 use App\Http\Requests\QueueSongRequest;
 use App\Room;
@@ -71,34 +72,9 @@ class SpotifyController extends Controller
 
     public function search(Request $request)
     {
-        $result = $this->spotify->search($request->q);
+        $searchGateway = app(SongSearchGateway::class);
 
-        $room = Room::findOrFail($request->room);
-
-        $songIds = $room->songs->pluck('external_id')->all();
-
-        $rawSongs = data_get($result, 'tracks.items');
-
-        $previouslyAddedSongs = Song::query()
-            ->select(['external_id', 'added_by', 'room_song.song_id', 'room_song.room_id'])
-            ->join('room_song', 'songs.id', '=', 'room_song.song_id')
-            ->where('room_song.room_id', '=', $room->getKey())
-            ->whereIn('external_id', $songIds)
-            ->get()
-            ->keyBy('external_id');
-
-        $songs = collect($rawSongs)
-            ->map(function($song) use ($songIds, $previouslyAddedSongs) {
-                $externalSong = new PlaylistExternalSong($song, $songIds);
-
-                if (isset($previouslyAddedSongs[$externalSong->getId()])) {
-                    $externalSong->setAddedBy($previouslyAddedSongs[$externalSong->getId()]->added_by);
-                }
-
-                return $externalSong;
-            });
-
-        \Log::info($songs->toArray());
+        $songs = $searchGateway->searchSongs($request->q, $request->room);
 
         return response()->json($songs->toArray());
     }
