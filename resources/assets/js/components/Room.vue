@@ -129,7 +129,7 @@
                             </div>
                         </div>
                     </div>
-                    <que-icon song-id="item.id" v-show="queueUpVisible" class="song-item"></que-icon>
+                    <que-icon :song-id="item.id" v-show="queueUpVisible" class="song-item"></que-icon>
                 </div>
             </div>
         </div>
