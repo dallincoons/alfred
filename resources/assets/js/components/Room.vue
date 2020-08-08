@@ -16,10 +16,14 @@
                 </svg>
             </div>
             <div class="song-actions-wrapper" :class="{justifyItems : currentSongVisible}">
-                <div class="song-details" v-show="currentSongVisible" :class="{songVisible : currentSongVisible}">
+                <div class="song-details" v-show="currentSongVisible" :class="{songVisible : currentSongVisible}" v-if="currentSong.name != ''">
                     <h3 class="current-song-title">{{ currentSong.name }}</h3>
                     <h5 class="current-song-artist">{{currentSong.artist}} <span class="current-song-added-by"> | {{currentSong.added_by}}</span></h5>
                 </div>
+                <div class="song-details" v-show="currentSongVisible" :class="{songVisible : currentSongVisible}" v-else>
+                    <h3>Nothing currently playing</h3>
+                </div>
+
                 <div class="room-actions">
                     <div class="song-icon"  @click="showCurrentSong()" :class="{animateSongIcon : currentSongVisible}">
                         <span class="song-line song-line-1"></span>
@@ -317,6 +321,7 @@
             showCurrentSong() {
                 axios.get('/spotify/currently-playing').then(response => {
                     this.currentSong = response.data;
+                    console.log(this.currentSong);
                     this.currentSongVisible = !this.currentSongVisible;
                 });
                 setTimeout(() => this.currentSongVisible = false, 10000)

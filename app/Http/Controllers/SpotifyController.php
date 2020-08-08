@@ -79,10 +79,26 @@ class SpotifyController extends Controller
 
         $rawSongs = data_get($result, 'tracks.items');
 
+        $previouslyAddedSongs = Song::query()
+            ->select(['external_id', 'added_by', 'room_song.song_id', 'room_song.room_id'])
+            ->join('room_song', 'songs.id', '=', 'room_song.song_id')
+            ->where('room_song.room_id', '=', $room->getKey())
+            ->whereIn('external_id', $songIds)
+            ->get()
+            ->keyBy('external_id');
+
         $songs = collect($rawSongs)
-            ->map(function($song) use ($songIds) {
-                return new PlaylistExternalSong($song, $songIds);
+            ->map(function($song) use ($songIds, $previouslyAddedSongs) {
+                $externalSong = new PlaylistExternalSong($song, $songIds);
+
+                if (isset($previouslyAddedSongs[$externalSong->getId()])) {
+                    $externalSong->setAddedBy($previouslyAddedSongs[$externalSong->getId()]->added_by);
+                }
+
+                return $externalSong;
             });
+
+        \Log::info($songs->toArray());
 
         return response()->json($songs->toArray());
     }
