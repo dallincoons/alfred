@@ -47,33 +47,45 @@
 .song-icon, .playlist-icon {
   opacity: .5;
 }
-.animateSongIcon svg .song-line-1 {
+.song-icon {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.song-line {
+  display: inline-block;
+  background: @grey-darker;
+  width: .25rem;
+  margin-right: .2rem;
+  border-radius: 3px;
+}
+.song-line-1 {
+  height: 1.2rem;
+}
+.song-line-2 {
+  height: 2rem;
+}
+.song-line-3 {
+  height: 2.4rem;
+}
+.song-line-4 {
+  height: 1.6rem;
+}
+.animateSongIcon .song-line-1 {
   animation: move-one 1s infinite ease-in-out;
   animation-delay: 0.2s;
 }
-.animateSongIcon svg .song-line-2 {
+.animateSongIcon .song-line-2 {
   animation: move-one 1s infinite ease-in-out;
   animation-delay: 0.4s;
 }
-.animateSongIcon svg .song-line-3 {
-  animation: move-two 1s infinite ease-in-out;
+.animateSongIcon .song-line-3 {
+  animation: move-one 1s infinite ease-in-out;
   animation-delay: 0.6s;
 }
-.animateSongIcon svg .song-line-4 {
-  animation:move-one 1s infinite ease-in-out;
-  animation-delay: 0.8s;
-}
-.animateSongIcon svg .song-line-5 {
-  animation:move-one 1s infinite ease-in-out;
-  animation-delay: 1s;
-}
-.animateSongIcon svg .song-line-6 {
-  animation: move-two 1s infinite ease-in-out;
-  animation-delay: 1.2s;
-}
-.animateSongIcon svg .song-line-7 {
+.animateSongIcon .song-line-4 {
   animation: move-one 1s infinite ease-in-out;
-  animation-delay: 1.4s;
+  animation-delay: 0.8s;
 }
 @keyframes move-one{
   0% {
@@ -90,27 +102,13 @@
     }
 
 }
-@keyframes move-two{
-  0% {
-    transform:translateY(0px);
-  }
-  25% {
-    transform:translateY(3px);
-  }
-  50% {
-    transform:translateY(0px);
-  }
-  100% {
-    transform:translateY(0px);
-  }
-}
 
 .hamburger-line{
   background: @grey-darker;
-  height: .35rem;
+  height: .25rem;
   width: 100%;
   display: block;
-  margin-bottom: .4rem;
+  margin-bottom: .3rem;
   border-radius: 3px;
   transition: all .3s ease-in-out;
 }
@@ -119,7 +117,7 @@
   opacity: 1;
 }
 .playlistClose .line-1 {
-  transform: rotate(135deg) translate(1.75rem, -1.5rem);
+  transform: rotate(135deg) translate(1rem, -1rem);
   background: @grey-darker;
 }
 .playlistClose .line-2 {

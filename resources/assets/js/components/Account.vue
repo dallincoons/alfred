@@ -61,11 +61,6 @@
                 </form>
             </div>
         </div>
-        <div class="account-content-wrapper">
-
-
-
-        </div>
         <a href="/logout" class="logout-link">Logout</a>
     </div>
 

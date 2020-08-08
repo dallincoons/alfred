@@ -22,15 +22,10 @@
                 </div>
                 <div class="room-actions">
                     <div class="song-icon"  @click="showCurrentSong()" :class="{animateSongIcon : currentSongVisible}">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 76 70.9">
-                            <rect class="cls-song song-line-1" y="16.87" width="7.94" height="36.83" rx="3"/>
-                            <rect class="cls-song song-line-2" x="10.91" y="10.59" width="7.94" height="49.28" rx="3"/>
-                            <rect class="cls-song song-line-3" x="22.51" width="7.94" height="70.9" rx="3"/>
-                            <rect class="cls-song song-line-4" x="33.85" y="15.44" width="7.94" height="40.02" rx="3"/>
-                            <rect class="cls-song song-line-5" x="45.59" y="20.73" width="7.94" height="29.44" rx="3"/>
-                            <rect class="cls-song song-line-6" x="57.03" y="4.41" width="7.94" height="62.07" rx="3"/>
-                            <rect class="cls-song song-line-7" x="68.06" y="10.59" width="7.94" height="49.28" rx="3"/>
-                        </svg>
+                        <span class="song-line song-line-1"></span>
+                        <span class="song-line song-line-2"></span>
+                        <span class="song-line song-line-3"></span>
+                        <span class="song-line song-line-4"></span>
                     </div>
                     <div class="playlist-icon" @click="showPlaylist()" :class="{playlistClose : playlistVisible}">
                         <span class="hamburger-line line-1"></span>
