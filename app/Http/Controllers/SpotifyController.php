@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Gateways\ExternalSong;
 use App\Gateways\PlaylistExternalSong;
+use App\Gateways\SongSearchGateway;
 use App\Gateways\SpotifyGatewayInterface;
 use App\Http\Requests\QueueSongRequest;
 use App\Room;
@@ -71,18 +72,9 @@ class SpotifyController extends Controller
 
     public function search(Request $request)
     {
-        $result = $this->spotify->search($request->q);
+        $searchGateway = app(SongSearchGateway::class);
 
-        $room = Room::findOrFail($request->room);
-
-        $songIds = $room->songs->pluck('external_id')->all();
-
-        $rawSongs = data_get($result, 'tracks.items');
-
-        $songs = collect($rawSongs)
-            ->map(function($song) use ($songIds) {
-                return new PlaylistExternalSong($song, $songIds);
-            });
+        $songs = $searchGateway->searchSongs($request->q, $request->room);
 
         return response()->json($songs->toArray());
     }
