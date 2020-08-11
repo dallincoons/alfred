@@ -29,5 +29,7 @@ Route::post('room/join', 'GuestLoginController@show');
 Route::get('/logout', function() {
     \Auth::logout();
 
+    \Cookie::queue(\Cookie::forget('room_code'));
+
     return redirect('/');
 });

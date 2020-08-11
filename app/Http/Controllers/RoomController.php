@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\CodeGenerator;
+use App\Events\SongAdded;
+use App\Gateways\ExternalSong;
 use App\Http\Requests\RoomStoreRequest;
 use App\Room;
 use App\Song;
-use Illuminate\Http\Request;
 
 class RoomController extends Controller
 {
@@ -29,6 +30,12 @@ class RoomController extends Controller
         $room->sync();
 
         $songs = $room->songs;
+
+        try {
+            SongAdded::dispatch(Song::first());
+        } catch (\Throwable $e) {
+            dd($e->getMessage());
+        }
 
         return view('room.show', compact('room', 'roomCode', 'songs'));
     }
