@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\CodeGenerator;
+use App\Repositories\GuestNameRepository;
 use App\Room;
 use App\User;
 use Illuminate\Http\Request;
@@ -29,8 +30,8 @@ class GuestLoginController extends Controller
 
         \Auth::login($room->user, true);
 
-        \Session::put('guest_name', $request->guest_user_name ?? 'Guest');
-        \Cookie::queue('guest_name', $request->guest_user_name);
+        app(GuestNameRepository::class)->setUserName($request->guest_user_name);
+        \Cookie::queue('room_code', $room->code);
 
         return redirect('/rooms/' . $room->getKey());
     }

@@ -7,6 +7,7 @@ use App\Gateways\PlaylistExternalSong;
 use App\Gateways\SongSearchGateway;
 use App\Gateways\SpotifyGatewayInterface;
 use App\Http\Requests\QueueSongRequest;
+use App\Repositories\GuestNameRepository;
 use App\Room;
 use App\Song;
 use App\Spotify;
@@ -58,11 +59,15 @@ class SpotifyController extends Controller
             (string) array_get($user->user, 'images.0.url')
         ));
 
+        app(GuestNameRepository::class)->setUserName($user->name);
+
         if (\Session::get('create-room')) {
             /** @var User $user */
-            $user = \Auth::user()->hasParent() ? \Auth::user() : \Auth::user();
+            $user = \Auth::user();
             $room = $user->createRoom(\Session::get('create-room')['name']);
             \Session::forget('create-room');
+
+            \Cookie::queue('room_code', $room->code);
 
             return redirect('/rooms/' . $room->getKey());
         }
