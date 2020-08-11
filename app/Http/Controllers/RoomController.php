@@ -31,12 +31,6 @@ class RoomController extends Controller
 
         $songs = $room->songs;
 
-        try {
-            SongAdded::dispatch(Song::first());
-        } catch (\Throwable $e) {
-            dd($e->getMessage());
-        }
-
         return view('room.show', compact('room', 'roomCode', 'songs'));
     }
 
