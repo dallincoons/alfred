@@ -1,6 +1,6 @@
 /node_modules
-/public
 /public/hot
+/public/js
 /public/storage
 /public/css/app.css
 !/public/serviceworker.js
