@@ -67,7 +67,7 @@ class SpotifyController extends Controller
             $room = $user->createRoom(\Session::get('create-room')['name']);
             \Session::forget('create-room');
 
-            \Cookie::queue('room_code', $room->code);
+            \Cookie::queue('room_code', $room->code, 864000);
 
             return redirect('/rooms/' . $room->getKey());
         }
